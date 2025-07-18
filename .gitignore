@@ -1,0 +1,19 @@
+# ENV
+.env
+
+# PROJECT
+*.log
+.yarn
+.vite
+.DS_Store
+
+node
+vendor
+node_modules
+
+public/hot
+public/build
+public/storage
+
+**/caddy
+bin/frankenphp

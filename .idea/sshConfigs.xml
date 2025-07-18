@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="OPEN_SSH" host="43.157.208.200" id="8321a615-c4e6-4fbf-b76c-11c30232045b" port="22" customName="Octopy ID" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="Octopy ID" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

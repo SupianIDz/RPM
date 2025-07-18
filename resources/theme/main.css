@@ -1,0 +1,401 @@
+@import "./base.css";
+
+@layer components {
+    /* GENERAL ELEMENTS */
+    body {
+        @apply !bg-slate-100 dark:!bg-slate-900;
+    }
+
+    input::-webkit-calendar-picker-indicator {
+        opacity: 0;
+    }
+
+    button {
+        @apply rounded;
+    }
+
+    input[type='radio'] {
+        @apply !rounded-full;
+    }
+
+    [role='switch'],
+    [role='switch'] span {
+        @apply !rounded-full;
+    }
+
+    .border {
+        @apply border-gray-950/5  dark:border-white/10;
+    }
+
+    .rounded,
+    .rounded-xl,
+    .rounded-lg,
+        /* .rounded-md, */
+    .rounded-sm,
+    .rounded-xs {
+        @apply !rounded-md;
+    }
+
+    .custom-auth-wrapper .fi-simple-header-subheading {
+        @apply !text-xs;
+    }
+
+    .fi-fo-date-time-picker-panel {
+        @apply uppercase;
+    }
+
+    /* FILAMENT AVATAR */
+    .fi-avatar {
+        @apply !rounded-md;
+    }
+
+    /* FILAMENT BUTTON */
+    .fi-btn-label {
+        @apply !uppercase;
+    }
+
+    /* FILAMENT CHECKBOX */
+    .fi-checkbox-input {
+        @apply !rounded;
+    }
+
+    /* FILAMENT ACTIVITY */
+    .fi-activity .fi-in-entry-wrp {
+        @apply !text-[90%];
+    }
+
+    /* FILAMENT INFOLIST */
+    .fi-fieldset legend {
+        @apply !font-bold;
+    }
+
+    .fi-fieldset .gap-6 {
+        @apply !gap-3;
+    }
+
+    .fi-in-entry-wrp-label span {
+        @apply !font-bold;
+    }
+
+    /* FILAMENT FORM */
+    .fi-fo-field-wrp-label {
+        @apply capitalize;
+    }
+
+    .fi-fo-component-ctn {
+        /* @apply !gap-y-3; */
+    }
+
+    /* FILAMENT HEADER */
+    .fi-header-heading {
+        @apply uppercase sm:text-2xl !important;
+    }
+
+    /* FILAMENT BREADCRUMB */
+    .fi-breadcrumbs-item-label {
+        @apply uppercase;
+    }
+
+    /* FILAMENT INPUT */
+    .fi-input-wrp-prefix,
+    .fi-input-wrp-suffix,
+    .fi-input-wrp-input input {
+        @apply !rounded-none;
+    }
+
+    /* FILAMENT LINK */
+    .fi-link {
+        @apply uppercase;
+    }
+
+    /* FILAMENT LOGO */
+    .fi-logo {
+        /* @apply !h-12; */
+    }
+
+    /* FILAMENT SIMPLE HEADER */
+    .fi-simple-header-heading,
+    .fi-simple-header-subheading {
+        @apply uppercase;
+    }
+
+    /* FILAMENT SIDEBAR */
+    .fi-sidebar {
+        @apply max-w-72;
+    }
+
+    .fi-sidebar-nav {
+        @apply !rounded-none border-r border-r-slate-950/5 bg-white shadow-sm dark:border-r-white/10 dark:bg-slate-900;
+    }
+
+    .fi-sidebar-header {
+        @apply !rounded-none;
+    }
+
+    .fi-sidebar-item-button {
+        @apply pl-3;
+    }
+
+    .fi-sidebar-group-label {
+        @apply !text-xs;
+    }
+
+    .fi-sidebar-group-label,
+    .fi-sidebar-item-label,
+    .fi-topbar-item-label {
+        @apply uppercase;
+    }
+
+    .fi-sidebar-item.fi-active.fi-sidebar-item-active .fi-sidebar-item-button {
+        @apply bg-primary-500;
+    }
+
+    .fi-sidebar-item.fi-active.fi-sidebar-item-active .fi-badge {
+        @apply ring-slate-50 !important;
+    }
+
+    .fi-sidebar-nav-groups {
+        @apply gap-y-1.5 !important;
+    }
+
+    .fi-sidebar-item.fi-active.fi-sidebar-item-active .fi-badge .truncate {
+        @apply dark:text-white;
+    }
+
+    .fi-sidebar-item.fi-active.fi-sidebar-item-active .fi-sidebar-item-button .fi-sidebar-item-label {
+        @apply text-white;
+    }
+
+    .fi-sidebar-item.fi-active.fi-sidebar-item-active .fi-sidebar-item-button .fi-sidebar-item-icon {
+        @apply text-white;
+    }
+
+    /* FILAMENT TABLE */
+    .fi-ta-header-cell,
+    .fi-ta-cell,
+    .fi-ta-content {
+        @apply !rounded-none;
+    }
+
+    .fi-ta-cell:has(.fi-ac-icon-btn-group) {
+        @apply last:!px-0;
+    }
+
+    .fi-ta-col-toggle h4, .fi-ta-col-toggle .fi-fo-field-wrp-label {
+        @apply uppercase;
+    }
+
+    .fi-ta-col-toggle .gap-6 {
+        @apply !gap-3;
+    }
+
+    .fi-ta-filters h4, .fi-ta-filters .fi-fo-field-wrp-label {
+        @apply uppercase;
+    }
+
+    .fi-ta-filters .gap-6 {
+        @apply !gap-3;
+    }
+
+    .fi-ta-summary-row-heading {
+        @apply !font-extrabold !text-slate-500 dark:!text-slate-400;
+    }
+
+    .fi-ta-summary-row {
+        @apply !bg-white dark:!bg-slate-900;
+    }
+
+    .fi-ta-text-item,
+    .fi-ta-text-item-label {
+        /* @apply !text-[13px]; */
+    }
+
+    .fi-ta-text,
+    .fi-ta-image {
+        @apply !py-2.5;
+    }
+
+    .fi-ta-header-heading,
+    .fi-ta-group-header {
+        @apply uppercase;
+    }
+
+    .fi-ta-header-cell-sort-icon {
+        @apply !size-3;
+    }
+
+    .fi-ta-image img {
+        @apply rounded p-0.5 ring-1 ring-slate-950/5 dark:ring-white/10;
+    }
+
+    .fi-ta-empty-state-icon-ctn {
+        @apply !rounded-full;
+    }
+
+    .fi-ta-cell .fi-ta-actions {
+        @apply gap-1.5;
+    }
+
+    .fi-ta-header-cell-label,
+    .fi-ta-filter-indicators span.truncate,
+    .fi-ta-empty-state-heading {
+        @apply uppercase;
+    }
+
+    /*  .fi-ta-ctn .fi-dropdown-panel {
+         @apply !max-w-;
+     } */
+    .fi-ta-text {
+        @apply !gap-0;
+    }
+
+    /* FILAMENT TABS */
+    .fi-tabs-item-active {
+        @apply !bg-slate-100 dark:!bg-white/5;
+    }
+
+    /* FILAMENT TOPBAR */
+    .fi-topbar > nav {
+        @apply !rounded-none;
+    }
+
+    .fi-topbar-item-label {
+        @apply !text-[13px];
+    }
+
+    /* FILAMENT WIDGETS */
+    .fi-wi-stats-overview-stat-chart {
+        @apply !rounded-b;
+    }
+
+    /* FILAMENT MODAL */
+    .fi-modal-heading {
+        @apply uppercase;
+    }
+
+    /* TABLE SPECIFIC */
+    table .fi-ac-action {
+        @apply border border-slate-200 bg-white p-1  shadow active:shadow-none dark:border-slate-700 dark:bg-slate-900;
+    }
+
+    table .fi-ac-link-action {
+        @apply rounded;
+    }
+
+    table .fi-ac-icon-btn-group {
+        @apply !border-none !shadow-none;
+    }
+
+    table .fi-dropdown-list {
+        @apply flex flex-col gap-1 rounded border border-slate-200 dark:border-slate-700;
+    }
+
+    table .fi-dropdown-trigger {
+        @apply !border-none !bg-transparent !shadow-none;
+    }
+
+    table .fi-dropdown-trigger .fi-icon-btn-icon {
+        @apply border-none !shadow-none;
+    }
+
+    table .fi-ac-action.fi-ac-grouped-action {
+        @apply border-none !shadow-none;
+    }
+
+    table .fi-dropdown-trigger {
+        @apply !border !border-slate-300 bg-white shadow active:shadow-none ;
+    }
+
+    /* FOOTER SPECIFIC */
+    .fi-fo-load-time {
+        font-family: 'Roboto Mono', ui-sans-serif;
+    }
+}
+
+/* THIRD-PARTY PACKAGES */
+
+/* livewire/livewire */
+html:root {
+    --livewire-progress-bar-color: rgb(var(--primary-500));
+}
+
+/* filepond */
+.filepond--root,
+.filepond--image-preview-wrapper,
+[data-filepond-item-state="idle"] .filepond--file-wrapper,
+.filepond--list [data-filepond-item-state="idle"],
+.filepond--list-scroller:has([data-filepond-item-state="idle"]),
+[data-filepond-item-state="processing-complete"] .filepond--file-wrapper,
+.filepond--list [data-filepond-item-state="processing-complete"],
+.filepond--list-scroller:has([data-filepond-item-state="processing-complete"]),
+[data-filepond-item-state="processing-error"] .filepond--file-wrapper,
+.filepond--list [data-filepond-item-state="processing-error"],
+.filepond--list-scroller:has([data-filepond-item-state="processing-error"]),
+[data-filepond-item-state="busy processing"] .filepond--file-wrapper,
+.filepond--list [data-filepond-item-state="busy processing"],
+.filepond--list-scroller:has([data-filepond-item-state="busy processing"]) {
+    @apply !rounded;
+}
+
+[data-filepond-item-state="idle"] .filepond--file-wrapper,
+.filepond--list [data-filepond-item-state="idle"],
+.filepond--list-scroller:has([data-filepond-item-state="idle"]) {
+    @apply bg-slate-600;
+}
+
+[data-filepond-item-state="processing-complete"] .filepond--file-wrapper,
+.filepond--list [data-filepond-item-state="processing-complete"],
+.filepond--list-scroller:has([data-filepond-item-state="processing-complete"]) {
+    @apply bg-emerald-600;
+}
+
+[data-filepond-item-state="processing-error"] .filepond--file-wrapper,
+.filepond--list [data-filepond-item-state="processing-error"],
+.filepond--list-scroller:has([data-filepond-item-state="processing-error"]) {
+    @apply bg-red-600;
+}
+
+[data-filepond-item-state="busy processing"] .filepond--file-wrapper,
+.filepond--list [data-filepond-item-state="busy processing"],
+.filepond--list-scroller:has([data-filepond-item-state="busy processing"]) {
+    @apply bg-slate-600;
+}
+
+.filepond--file-wrapper, .filepond--item {
+    @apply !rounded;
+}
+
+button.filepond--file-action-button {
+    @apply !rounded cursor-pointer shadow-none hover:border border-white;
+}
+
+.filepond--root .filepond--drop-label {
+    @apply !h-[46px] !min-h-[46px];
+}
+
+/* diogogpinto/filament-auth-ui-enhancer */
+.custom-auth-empty-panel {
+    @apply bg-white dark:bg-white/5;
+}
+
+/* malzariey/filament-daterangepicker-filter */
+.daterangepicker .end-date.active,
+.start-date {
+    @apply !bg-primary-500 !text-white;
+}
+
+.rangeItem {
+    @apply hover:!bg-primary-500 hover:text-white;
+}
+
+.calendar-table th {
+    @apply uppercase;
+}
+
+.applyBtn {
+    @apply uppercase !text-primary-500;
+}
+
+.cancelBtn {
+    @apply uppercase !text-danger-500;
+}

@@ -1,0 +1,80 @@
+@import '../../vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+/* DEBUGBAR */
+.phpdebugbar-header-right > a,
+.phpdebugbar-fa {
+    @apply text-[24px];
+}
+
+.phpdebugbar [class^='phpdebugbar'], [class^='sf-dump'], [class^='hljs'], code {
+    font-family: 'Iosevka Nerd Font Mono', monospace !important;
+}
+
+.phpdebugbar .phpdebugbar-tab > .phpdebugbar-text {
+    @apply font-bold uppercase;
+}
+
+.phpdebugbar .phpdebugbar-widgets-sql .hljs-keyword {
+    @apply font-bold uppercase;
+}
+
+.phpdebugbar .hljs-built_in {
+    @apply uppercase;
+}
+
+.phpdebugbar .sf-dump-toggle {
+    @apply !mr-1;
+}
+
+.phpdebugbar-tab-settings,
+.phpdebugbar-open-btn,
+.phpdebugbar-widgets-dataset-actions {
+    @apply !hidden;
+}
+
+.phpdebugbar-widgets-measure > .phpdebugbar-widgets-value {
+    @apply !border-b-red-500 !bg-red-400;
+}
+
+/* ANIMATE */
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@layer utilities {
+    .animate-fade {
+        animation: fade 1s ease-in-out forwards;
+    }
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    @apply size-1;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-primary-200;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-primary-500;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-500;
+}
