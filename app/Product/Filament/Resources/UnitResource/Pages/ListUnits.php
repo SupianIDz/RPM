@@ -20,7 +20,7 @@ class ListUnits extends ListRecords
         ];
     }
 
-     public function table(Table $table) : Table
+    public function table(Table $table) : Table
     {
         $table
             ->columns([
@@ -40,7 +40,6 @@ class ListUnits extends ListRecords
     {
         return
             $table->modifyQueryUsing(function (Builder $query) {
-
             });
     }
 }

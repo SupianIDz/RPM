@@ -3,6 +3,7 @@
 use App\Support\Filament\Components\TableComponent;
 use App\User\Models\User;
 use Filament\Tables\Columns\Column;
+use Filament\Tables\Filters\BaseFilter;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Pipeline\Pipeline;
@@ -47,3 +48,20 @@ if (! function_exists('fi_ta_column')) {
         return TableComponent::column($column, $callback);
     }
 }
+
+if (! function_exists('fi_ta_filter')) {
+    /**
+     * @param  Closure     $callback
+     * @param  string|null $name
+     * @return BaseFilter
+     */
+    function fi_ta_filter(Closure $callback, string|null $name = null) : BaseFilter
+    {
+        if (is_null($name)) {
+            $name = 'filter-' . \Illuminate\Support\Str::random(10);
+        }
+
+        return TableComponent::filter($name, $callback);
+    }
+}
+

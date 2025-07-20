@@ -13,7 +13,8 @@ class ConfigurePanelTheme
      * @var array
      */
     protected array $theme = [
-        'gray' => Color::Gray,
+        'primary' => Color::Red,
+        'gray'    => Color::Gray,
     ];
 
     protected array $icons = [

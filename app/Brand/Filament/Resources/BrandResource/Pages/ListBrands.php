@@ -28,18 +28,23 @@ class ListBrands extends ListRecords
                 fi_ta_column('logo_url', static function (ImageColumn $column) {
                     $column->size(40);
                 }),
+
                 fi_ta_column('name', static function (TextColumn $column) {
                     //
                 }),
+
                 fi_ta_column('site', static function (TextColumn $column) {
                     $column->label('Website');
                 }),
+
                 fi_ta_column('creator.name', static function (TextColumn $column) {
                     $column->default('System');
                 }),
+
                 fi_ta_column('created_at', static function (TextColumn $column) {
                     //
                 }),
+
                 fi_ta_column('updated_at', static function (TextColumn $column) {
                     //
                 }),

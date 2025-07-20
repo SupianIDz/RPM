@@ -3,12 +3,15 @@
 namespace App\Brand\Models;
 
 use App\User\Models\User;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use LaravelIdea\Helper\App\Brand\Models\_IH_Brand_QB;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -20,7 +23,7 @@ class Brand extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name', 'slug', 'logo', 'site', 'created_by',
+        'name', 'slug', 'logo', 'site', 'status', 'created_by',
     ];
 
     /**
@@ -43,6 +46,17 @@ class Brand extends Model
             Attribute::get(function () {
                 return Storage::disk('brand:logo')->url($this->logo);
             });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  bool    $status
+     * @return Builder|_IH_Brand_QB
+     */
+    #[Scope]
+    protected function active(Builder $query, bool $status = true) : Builder|_IH_Brand_QB
+    {
+        return $query->where('status', $status);
     }
 
     /**

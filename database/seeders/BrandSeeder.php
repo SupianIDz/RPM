@@ -13,9 +13,13 @@ class BrandSeeder extends Seeder
     public function run() : void
     {
         $this->brands()->each(function (string $site, string $name) {
-            \App\Brand\Models\Brand::create([
+            $brand = \App\Brand\Models\Brand::create([
                 'name' => $name,
                 'site' => $site,
+            ]);
+
+            $brand->update([
+                'logo' => md5($brand->slug) . '.png',
             ]);
         });
     }
