@@ -1,34 +1,34 @@
 <?php
 
-namespace App\Product\Filament\Resources;
+namespace App\Brand\Filament\Resources;
 
-use App\Product\Filament\Resources\CategoryResource\Pages;
-use App\Product\Models\Category;
+use App\Brand\Models\Brand;
+use App\Product\Filament\Resources\BrandResource\Pages;
 use App\Setting\Filament\Clusters\Setting;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 
-class CategoryResource extends Resource
+class BrandResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Brand::class;
 
     protected static ?string $cluster = Setting::class;
 
-    protected static ?string $slug = 'categories';
+    protected static ?string $slug = 'brands';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'lucide-ungroup';
 
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
+            'index' => BrandResource\Pages\ListBrands::route('/'),
         ];
     }
 
     public static function getGloballySearchableAttributes() : array
     {
-        return [];
+        return ['name'];
     }
 }

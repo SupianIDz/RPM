@@ -2,33 +2,39 @@
 
 namespace App\Product\Filament\Resources;
 
-use App\Product\Filament\Resources\CategoryResource\Pages;
-use App\Product\Models\Category;
+use App\Product\Filament\Resources\UnitResource\Pages;
+use App\Product\Models\Unit;
 use App\Setting\Filament\Clusters\Setting;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 
-class CategoryResource extends Resource
+class UnitResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Unit::class;
 
     protected static ?string $cluster = Setting::class;
 
-    protected static ?string $slug = 'categories';
+    protected static ?string $slug = 'units';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'lucide-ungroup';
 
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
+    /**
+     * @return array
+     */
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
+            'index' => Pages\ListUnits::route('/'),
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public static function getGloballySearchableAttributes() : array
     {
-        return [];
+        return ['name'];
     }
 }

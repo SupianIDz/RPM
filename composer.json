@@ -17,7 +17,8 @@
         "octopyid/filament-palette": "^1.0",
         "octopyid/l3d": "dev-main",
         "opcodesio/log-viewer": "^3.18",
-        "spatie/laravel-permission": "^6.20"
+        "spatie/laravel-permission": "^6.20",
+        "spatie/laravel-sluggable": "^3.7"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
