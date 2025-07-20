@@ -3,7 +3,7 @@
 @layer components {
     /* GENERAL ELEMENTS */
     body {
-        @apply !bg-slate-100 dark:!bg-slate-900;
+        @apply !bg-gray-100 dark:!bg-gray-900;
     }
 
     input::-webkit-calendar-picker-indicator {
@@ -125,7 +125,7 @@
     }
 
     .fi-sidebar-nav {
-        @apply !rounded-none border-r border-r-slate-950/5 bg-white shadow-sm dark:border-r-white/10 dark:bg-slate-900;
+        @apply !rounded-none border-r border-r-gray-950/5 bg-white shadow-sm dark:border-r-white/10 dark:bg-gray-900;
     }
 
     .fi-sidebar-header {
@@ -151,7 +151,7 @@
     }
 
     .fi-sidebar-item.fi-active.fi-sidebar-item-active .fi-badge {
-        @apply ring-slate-50 !important;
+        @apply ring-gray-50 !important;
     }
 
     .fi-sidebar-nav-groups {
@@ -198,11 +198,11 @@
     }
 
     .fi-ta-summary-row-heading {
-        @apply !font-extrabold !text-slate-500 dark:!text-slate-400;
+        @apply !font-extrabold !text-gray-500 dark:!text-gray-400;
     }
 
     .fi-ta-summary-row {
-        @apply !bg-white dark:!bg-slate-900;
+        @apply !bg-white dark:!bg-gray-900;
     }
 
     .fi-ta-text-item,
@@ -225,7 +225,7 @@
     }
 
     .fi-ta-image img {
-        @apply rounded p-0.5 ring-1 ring-slate-950/5 dark:ring-white/10;
+        @apply rounded p-0.5 ring-1 ring-gray-950/5 dark:ring-white/10;
     }
 
     .fi-ta-empty-state-icon-ctn {
@@ -251,7 +251,7 @@
 
     /* FILAMENT TABS */
     .fi-tabs-item-active {
-        @apply !bg-slate-100 dark:!bg-white/5;
+        @apply !bg-gray-100 dark:!bg-white/5;
     }
 
     /* FILAMENT TOPBAR */
@@ -275,7 +275,7 @@
 
     /* TABLE SPECIFIC */
     table .fi-ac-action {
-        @apply border border-slate-200 bg-white p-1  shadow active:shadow-none dark:border-slate-700 dark:bg-slate-900;
+        @apply border border-gray-200 bg-white p-1  shadow active:shadow-none dark:border-gray-700 dark:bg-gray-900;
     }
 
     table .fi-ac-link-action {
@@ -287,7 +287,7 @@
     }
 
     table .fi-dropdown-list {
-        @apply flex flex-col gap-1 rounded border border-slate-200 dark:border-slate-700;
+        @apply flex flex-col gap-1 rounded border border-gray-200 dark:border-gray-700;
     }
 
     table .fi-dropdown-trigger {
@@ -303,7 +303,7 @@
     }
 
     table .fi-dropdown-trigger {
-        @apply !border !border-slate-300 bg-white shadow active:shadow-none ;
+        @apply !border !border-gray-300 bg-white shadow active:shadow-none ;
     }
 
     /* FOOTER SPECIFIC */
@@ -340,7 +340,7 @@ html:root {
 [data-filepond-item-state="idle"] .filepond--file-wrapper,
 .filepond--list [data-filepond-item-state="idle"],
 .filepond--list-scroller:has([data-filepond-item-state="idle"]) {
-    @apply bg-slate-600;
+    @apply bg-gray-600;
 }
 
 [data-filepond-item-state="processing-complete"] .filepond--file-wrapper,
@@ -358,7 +358,7 @@ html:root {
 [data-filepond-item-state="busy processing"] .filepond--file-wrapper,
 .filepond--list [data-filepond-item-state="busy processing"],
 .filepond--list-scroller:has([data-filepond-item-state="busy processing"]) {
-    @apply bg-slate-600;
+    @apply bg-gray-600;
 }
 
 .filepond--file-wrapper, .filepond--item {
