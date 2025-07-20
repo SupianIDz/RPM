@@ -3,6 +3,7 @@
   <component name="LaravelIdeaPersonalSettings">
     <option name="generationStringOptionValues">
       <map>
+        <entry key="createDatabaseClassFactory.phpDoc" value="mixin" />
         <entry key="createFilamentResource.addSoftDeleteStuff" value="" />
         <entry key="createServiceProviderRegister" value="" />
       </map>

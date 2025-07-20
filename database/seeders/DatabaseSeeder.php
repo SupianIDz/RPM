@@ -15,9 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run() : void
     {
         $this->call([
-            UnitSeeder::class,
-            BrandSeeder::class,
-            CategorySeeder::class,
+            ProductSeeder::class,
         ]);
 
         collect(Role::cases())->each(function (Role $role) {

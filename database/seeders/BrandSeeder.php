@@ -33,6 +33,7 @@ class BrandSeeder extends Seeder
             'HGP'              => 'https://www.astra-honda.com',
             'SGP'              => 'https://suzuki.co.id',
             'KGP'              => 'https://www.kawasaki-motor.co.id',
+            'VND'              => 'https://www.vnd.co.id',
 
             // Oli & Pelumas
             'Federal Oil'      => 'https://www.federaloil.co.id',

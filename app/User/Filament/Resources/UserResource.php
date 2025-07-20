@@ -14,6 +14,8 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'lucide-users';
 
+    protected static ?int $navigationSort = 5;
+
     /**
      * @return array
      */

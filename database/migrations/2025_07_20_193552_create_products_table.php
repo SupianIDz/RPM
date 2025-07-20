@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('products', static function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('code')->unique();
             $table->string('name');
+            $table->text('description')->nullable();
             $table->string('slug')->unique();
             $table->unsignedInteger('stock')->default(0);
             $table->foreignUuid('unit_id')->constrained('units')->restrictOnDelete()->cascadeOnUpdate();
