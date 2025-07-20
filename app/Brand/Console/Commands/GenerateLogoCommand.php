@@ -7,10 +7,11 @@ use Illuminate\Console\Command;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Console\Input\InputOption;
 
 class GenerateLogoCommand extends Command
 {
-    protected $signature = 'rpm:brand:logo';
+    protected $name = 'rpm:brand:logo';
 
     protected $description = 'Generate brand logo';
 
@@ -27,7 +28,7 @@ class GenerateLogoCommand extends Command
             $task = sprintf('[%s/%s] %s', str_pad($number + 1, strlen($total), '0', STR_PAD_LEFT), $total, strtoupper($brand->name));
 
             $this->components->task($task, function () use ($brand) {
-                if (! $brand->logo) {
+                if (! $brand->logo || $this->option('force')) {
                     $name = md5($brand->slug) . '.png';
                     $store = Storage::disk('brand:logo')->put($name, $this->fetch($brand));
 
@@ -49,5 +50,15 @@ class GenerateLogoCommand extends Command
         $site = parse_url($brand->site, PHP_URL_HOST);
 
         return Http::get('https://img.logo.dev/' . $site . '?token=' . config('logodev.key'))->body();
+    }
+
+    /**
+     * @return array[]
+     */
+    protected function getOptions() : array
+    {
+        return [
+            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
+        ];
     }
 }
