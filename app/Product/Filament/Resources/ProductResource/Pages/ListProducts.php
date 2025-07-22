@@ -11,6 +11,7 @@ use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
@@ -31,7 +32,7 @@ class ListProducts extends ListRecords
         $table
             ->columns([
                 fi_ta_column('logo_url', static function (ImageColumn $column) {
-                    $column->size(40)->defaultImageUrl(asset('images/no-image.svg'));
+                    //
                 }),
 
                 fi_ta_column('name', static function (TextColumn $column) {
