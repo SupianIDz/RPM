@@ -3,6 +3,8 @@
 namespace App\User\Models;
 
 use Database\Factories\UserFactory;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Traits\HasRoles;
 
 #[UseFactory(UserFactory::class)]
-class User extends \Illuminate\Foundation\Auth\User
+class User extends \Illuminate\Foundation\Auth\User implements FilamentUser
 {
     use HasUuids, HasFactory, HasRoles;
 
@@ -30,5 +32,14 @@ class User extends \Illuminate\Foundation\Auth\User
             Attribute::get(function () {
                 return 'https://api.dicebear.com/9.x/bottts-neutral/svg?seed=' . md5($this->email);
             });
+    }
+
+    /**
+     * @param  Panel $panel
+     * @return bool
+     */
+    public function canAccessPanel(Panel $panel) : bool
+    {
+        return true;
     }
 }

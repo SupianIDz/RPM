@@ -75,6 +75,9 @@ class ConfigurePanelTheme
             ->viteTheme([
                 'resources/theme/main.css',
             ])
+            ->favicon(asset('images/rpm.png'))
+            ->brandLogo(fn() => view('components.logo'))
+            ->brandName('RPM Motor')
             ->maxContentWidth(MaxWidth::ScreenTwoExtraLarge);
 
         return $next($panel);
