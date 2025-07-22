@@ -20,7 +20,7 @@ class TableComponent extends Component
         return
             tap(self::make($name, $closure), static function ($column) use ($closure) {
                 if ($column instanceof TextColumn) {
-                    $column->searchable();
+                    $column->searchable()->copyable();
                 }
 
                 $closure($column);

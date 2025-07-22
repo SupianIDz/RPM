@@ -18,7 +18,7 @@ class ProductFactory extends Factory
     public function definition() : array
     {
         return [
-            'code'        => strtoupper(Str::random(8)),
+            'code'        => 'RPM-' . strtoupper(Str::random(5)),
             'name'        => $this->faker->words(2, true) . ' ' . ucfirst($this->faker->word),
             'description' => $this->faker->text(),
             'stock'       => random_int(1, 40),
