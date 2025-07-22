@@ -16,9 +16,12 @@ class CategoryResource extends Resource
 
     protected static ?string $slug = 'categories';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'lucide-tags';
+
+    protected static ?string $navigationLabel = 'CATEGORIES';
 
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
+
 
     public static function getPages() : array
     {

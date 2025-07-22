@@ -20,6 +20,8 @@ class BrandResource extends Resource
 
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
+    protected static ?string $navigationLabel = 'BRANDS';
+
     public static function getPages() : array
     {
         return [

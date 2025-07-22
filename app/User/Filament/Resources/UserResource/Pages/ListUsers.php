@@ -5,6 +5,7 @@ namespace App\User\Filament\Resources\UserResource\Pages;
 use App\User\Filament\Resources\UserResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -28,6 +29,10 @@ class ListUsers extends ListRecords
     {
         $table
             ->columns([
+                fi_ta_column('avatar', static function (ImageColumn $column) {
+                    $column->size(40);
+                }),
+
                 fi_ta_column('name', static function (TextColumn $column) {
                     $column->label('Nama');
                 }),

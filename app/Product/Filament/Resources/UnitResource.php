@@ -18,6 +18,8 @@ class UnitResource extends Resource
 
     protected static ?string $navigationIcon = 'lucide-ungroup';
 
+    protected static ?string $navigationLabel = 'UNITS';
+
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     /**
