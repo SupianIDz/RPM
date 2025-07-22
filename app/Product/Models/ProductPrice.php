@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Product;
+namespace App\Product\Models;
 
-use App\Product\Models\Product;
 use App\Product\Observers\ProductPriceObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;

@@ -2,7 +2,7 @@
 
 namespace App\Product\Observers;
 
-use App\Product\ProductPrice;
+use App\Product\Models\ProductPrice;
 
 class ProductPriceObserver
 {

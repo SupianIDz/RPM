@@ -36,10 +36,10 @@ class DatabaseSeeder extends Seeder
         $user->assignRole(Role::ADMIN);
 
         collect([
-            Role::CASHIER->value    => 3,
-            Role::INVENTORY->value  => 3,
-            Role::OWNER->value      => 1,
-            Role::TECHNICIAN->value => 1,
+            Role::CASHIER->value   => 3,
+            Role::INVENTORY->value => 3,
+            Role::OWNER->value     => 1,
+            Role::MECHANIC->value  => 1,
         ])
             ->each(function ($count, $role) {
                 User::factory($count)->create()->each(function (User $user) use ($role) {
