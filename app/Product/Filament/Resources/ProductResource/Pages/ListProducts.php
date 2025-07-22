@@ -3,6 +3,7 @@
 namespace App\Product\Filament\Resources\ProductResource\Pages;
 
 use App\Brand\Filament\Components\Filters\BrandFilter;
+use App\Category\Filament\Components\CategoryFilter;
 use App\Product\Filament\Resources\ProductResource;
 use App\Product\Models\Product;
 use App\Support\Filament\Tables\Actions\DeleteAction;
@@ -55,6 +56,9 @@ class ListProducts extends ListRecords
 
         $table
             ->filters([
+                fi_ta_filter(function (CategoryFilter $filter) {
+                    //
+                }),
                 fi_ta_filter(function (BrandFilter $filter) {
                     //
                 }),
