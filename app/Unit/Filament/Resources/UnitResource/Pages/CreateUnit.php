@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Product\Filament\Resources\UnitResource\Pages;
+namespace App\Unit\Filament\Resources\UnitResource\Pages;
 
-use App\Product\Filament\Resources\UnitResource;
+use App\Unit\Filament\Resources\UnitResource;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateUnit extends CreateRecord

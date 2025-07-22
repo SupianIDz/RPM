@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Product\Filament\Resources;
+namespace App\Category\Filament\Resources;
 
+use App\Category\Filament\Resources;
+use App\Category\Models\Category;
 use App\Product\Filament\Resources\CategoryResource\Pages;
-use App\Product\Models\Category;
 use App\Setting\Filament\Clusters\Setting;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
@@ -20,18 +21,14 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationLabel = 'CATEGORIES';
 
-    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
+    protected static ?int $navigationSort = 2;
 
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
+            'index' => Resources\CategoryResource\Pages\ListCategories::route('/'),
         ];
-    }
-
-    public static function getGloballySearchableAttributes() : array
-    {
-        return [];
     }
 }

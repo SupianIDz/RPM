@@ -18,9 +18,11 @@ class BrandResource extends Resource
 
     protected static ?string $navigationIcon = 'lucide-ungroup';
 
-    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
-
     protected static ?string $navigationLabel = 'BRANDS';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function getPages() : array
     {

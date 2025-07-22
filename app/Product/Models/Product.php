@@ -3,6 +3,8 @@
 namespace App\Product\Models;
 
 use App\Brand\Models\Brand;
+use App\Category\Models\Category;
+use App\Unit\Models\Unit;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;

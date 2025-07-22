@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Brand\Models\Brand;
-use App\Product\Models\Category;
+use App\Category\Models\Category;
 use App\Product\Models\Product;
-use App\Product\Models\Unit;
+use App\Unit\Models\Unit;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;

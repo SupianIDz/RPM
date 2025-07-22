@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Product\Filament\Resources\CategoryResource\Pages;
+namespace App\Unit\Filament\Resources\UnitResource\Pages;
 
-use App\Product\Filament\Resources\CategoryResource;
+use App\Unit\Filament\Resources\UnitResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
-class ListCategories extends ListRecords
+class ListUnits extends ListRecords
 {
-    protected static string $resource = CategoryResource::class;
+    protected static string $resource = UnitResource::class;
 
     protected function getHeaderActions() : array
     {
@@ -24,7 +24,7 @@ class ListCategories extends ListRecords
     {
         $table
             ->columns([
-                fi_ta_column('name', function (TextColumn $column) {
+                fi_ta_column('name', static function (TextColumn $column) {
                     $column->label('Nama');
                 }),
             ]);
@@ -40,7 +40,6 @@ class ListCategories extends ListRecords
     {
         return
             $table->modifyQueryUsing(function (Builder $query) {
-                $query->with('child');
             });
     }
 }

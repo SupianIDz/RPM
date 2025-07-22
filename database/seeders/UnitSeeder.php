@@ -13,7 +13,7 @@ class UnitSeeder extends Seeder
     public function run() : void
     {
         $this->units()->each(function (string $symbol, string $unit) {
-            \App\Product\Models\Unit::create([
+            \App\Unit\Models\Unit::create([
                 'name'   => $unit,
                 'symbol' => $symbol,
             ]);

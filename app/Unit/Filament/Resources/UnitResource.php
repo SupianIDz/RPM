@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Product\Filament\Resources;
+namespace App\Unit\Filament\Resources;
 
 use App\Product\Filament\Resources\UnitResource\Pages;
-use App\Product\Models\Unit;
 use App\Setting\Filament\Clusters\Setting;
+use App\Unit\Models\Unit;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 
@@ -20,6 +20,8 @@ class UnitResource extends Resource
 
     protected static ?string $navigationLabel = 'UNITS';
 
+    protected static ?int $navigationSort = 3;
+
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     /**
@@ -28,7 +30,7 @@ class UnitResource extends Resource
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListUnits::route('/'),
+            'index' => UnitResource\Pages\ListUnits::route('/'),
         ];
     }
 
