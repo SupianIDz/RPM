@@ -76,6 +76,6 @@ class Product extends Model
      */
     public function price() : HasOne|Product
     {
-        return $this->hasOne(ProductPrice::class);
+        return $this->hasOne(ProductPrice::class, 'code', 'code');
     }
 }

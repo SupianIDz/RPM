@@ -15,8 +15,11 @@ class ProductPrice extends Model
 {
     use HasUuids, SoftDeletes;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
-        'product_id', 'amount', 'created_by',
+        'code', 'amount', 'created_by',
     ];
 
     /**
@@ -24,6 +27,6 @@ class ProductPrice extends Model
      */
     public function product() : \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'code', 'code');
     }
 }

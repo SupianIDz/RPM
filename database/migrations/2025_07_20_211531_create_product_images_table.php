@@ -11,8 +11,9 @@ return new class extends Migration
         Schema::create('product_images', static function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->foreignUuid('product_id')->constrained('products')->cascadeOnDelete();
+            $table->char('code', 9);
             $table->timestamps();
+            $table->foreign('code')->references('code')->on('products')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
