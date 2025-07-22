@@ -4,11 +4,11 @@ namespace App\Product\Filament\Resources\ProductResource\Pages;
 
 use App\Brand\Filament\Components\Filters\BrandFilter;
 use App\Product\Filament\Resources\ProductResource;
+use App\Support\Filament\Tables\Actions\DeleteAction;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
@@ -35,6 +35,10 @@ class ListProducts extends ListRecords
                     //
                 }),
 
+                fi_ta_column('price.amount', static function (TextColumn $column) {
+                    $column->rupiah();
+                }),
+
                 fi_ta_column('brand.name', static function (TextColumn $column) {
                     //
                 }),
@@ -49,6 +53,12 @@ class ListProducts extends ListRecords
             ->filters([
                 fi_ta_filter(function (BrandFilter $filter) {
                     //
+                }),
+            ]);
+
+        $table
+            ->actions([
+                fi_ta_action(function (DeleteAction $action) {
                 }),
             ]);
 

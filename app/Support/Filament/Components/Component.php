@@ -5,7 +5,7 @@ namespace App\Support\Filament\Components;
 use Closure;
 use Laravel\SerializableClosure\Support\ReflectionClosure;
 
-abstract class Factory
+abstract class Component
 {
     /**
      * @param  string  $name

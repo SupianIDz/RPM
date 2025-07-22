@@ -9,11 +9,13 @@ use App\Product\Models\Unit;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
+use Random\RandomException;
 
 class ProductSeeder extends Seeder
 {
     /**
      * @return void
+     * @throws RandomException
      */
     public function run() : void
     {
@@ -33,12 +35,19 @@ class ProductSeeder extends Seeder
         });
 
         foreach ($this->products() as $product) {
-            Product::factory()->state($state)->create([
+            $product = Product::factory()->state($state)->create([
                 'name' => $product,
+            ]);
+
+            $product->price()->create([
+                'amount' => random_int(1, 10) * 100000,
             ]);
         }
     }
 
+    /**
+     * @return Collection
+     */
     private function products() : Collection
     {
         return

@@ -8,7 +8,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\BaseFilter;
 use Filament\Tables\Filters\Filter;
 
-class TableComponent extends Factory
+class TableComponent extends Component
 {
     /**
      * @param  string  $name

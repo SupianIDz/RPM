@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->unsignedInteger('stock')->default(0);
             $table->foreignUuid('unit_id')->constrained('units')->restrictOnDelete()->cascadeOnUpdate();
-            $table->foreignUuid('category_id')->constrained('categories')->restrictOnDelete()->cascadeOnUpdate();
-            $table->foreignUuid('brand_id')->constrained('brands')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('category_id')->nullable()->constrained('categories')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('brand_id')->nullable()->constrained('brands')->restrictOnDelete()->cascadeOnUpdate();
             $table->boolean('active')->default(true);
             $table->foreignUuid('created_by')->nullable()->constrained('users')->restrictOnDelete()->cascadeOnUpdate();
             $table->timestamps();

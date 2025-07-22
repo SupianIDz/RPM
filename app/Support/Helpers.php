@@ -1,7 +1,10 @@
 <?php
 
+use App\Support\Filament\Components\ActionComponent;
 use App\Support\Filament\Components\TableComponent;
 use App\User\Models\User;
+use Filament\Actions\Action;
+use Filament\Tables\Actions\Action as TableAction;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Filters\BaseFilter;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -37,6 +40,17 @@ if (! function_exists('user')) {
     }
 }
 
+if (! function_exists('number')) {
+    /**
+     * @param  int|string $number
+     * @return \App\Support\Number
+     */
+    function number(int|string $number) : \App\Support\Number
+    {
+        return new \App\Support\Number($number);
+    }
+}
+
 if (! function_exists('fi_ta_column')) {
     /**
      * @param  string  $column
@@ -65,3 +79,14 @@ if (! function_exists('fi_ta_filter')) {
     }
 }
 
+if (! function_exists('fi_ta_action')) {
+    /**
+     * @param  Closure     $callback
+     * @param  string|null $name
+     * @return Action|TableAction
+     */
+    function fi_ta_action(Closure $callback, string|null $name = null) : Action|TableAction
+    {
+        return ActionComponent::action($name, $callback);
+    }
+}

@@ -3,6 +3,7 @@
 namespace App\Product\Models;
 
 use App\Brand\Models\Brand;
+use App\Product\ProductPrice;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -67,5 +69,13 @@ class Product extends Model
     public function unit() : BelongsTo
     {
         return $this->belongsTo(Unit::class);
+    }
+
+    /**
+     * @return HasOne|Product
+     */
+    public function price() : HasOne|Product
+    {
+        return $this->hasOne(ProductPrice::class);
     }
 }

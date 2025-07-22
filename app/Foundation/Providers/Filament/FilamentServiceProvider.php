@@ -13,6 +13,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -20,6 +21,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Stringable;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Octopy\L3D\Domain;
 
@@ -37,6 +39,28 @@ class FilamentServiceProvider extends PanelProvider
             $table
                 ->striped()
                 ->defaultSort('created_at', 'DESC');
+        });
+
+        TextColumn::macro('upper', function (bool $uppercase = true) : TextColumn {
+            if ($uppercase) {
+                $this->formatStateUsing(function ($state) {
+                    return strtoupper($state);
+                });
+            }
+
+            return $this;
+        });
+
+        TextColumn::macro('rupiah', function () : TextColumn {
+            $this->formatStateUsing(function ($state) {
+                return str($state)->rupiah();
+            });
+
+            return $this;
+        });
+
+        Stringable::macro('rupiah', function () {
+            return number($this->value)->currency('Rp ');
         });
     }
 

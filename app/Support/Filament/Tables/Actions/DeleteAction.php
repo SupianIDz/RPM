@@ -2,6 +2,7 @@
 
 namespace App\Support\Filament\Tables\Actions;
 
+use Filament\Support\Enums\IconSize;
 use Override;
 
 class DeleteAction extends \Filament\Tables\Actions\DeleteAction
@@ -15,6 +16,9 @@ class DeleteAction extends \Filament\Tables\Actions\DeleteAction
         parent::setUp();
 
         $this
-            ->icon('lucide-trash-2');
+            ->hiddenLabel()
+            ->icon('lucide-trash-2')
+            ->iconSize(IconSize::Medium)
+            ->requiresConfirmation();
     }
 }
