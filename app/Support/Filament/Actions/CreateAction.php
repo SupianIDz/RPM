@@ -2,8 +2,12 @@
 
 namespace App\Support\Filament\Actions;
 
+use Closure;
+
 class CreateAction extends \Filament\Actions\CreateAction
 {
+    protected bool|Closure $canCreateAnother = false;
+
     /**
      * @return void
      */

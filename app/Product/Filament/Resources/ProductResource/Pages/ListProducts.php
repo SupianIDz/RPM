@@ -5,11 +5,11 @@ namespace App\Product\Filament\Resources\ProductResource\Pages;
 use App\Brand\Filament\Components\Filters\BrandFilter;
 use App\Category\Filament\Components\CategoryFilter;
 use App\Product\Filament\Resources\ProductResource;
+use App\Product\Filament\Resources\ProductResource\Actions\CreateAction;
 use App\Product\Models\Product;
 use App\Support\Filament\Tables\Actions\DeleteAction;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
-use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -27,9 +27,9 @@ class ListProducts extends ListRecords
     protected function getHeaderActions() : array
     {
         return [
-            fi_action(function (\App\Support\Filament\Actions\CreateAction $action){
+            fi_action(function (CreateAction $action) {
                 //
-            })
+            }),
         ];
     }
 
@@ -41,8 +41,8 @@ class ListProducts extends ListRecords
     {
         $table
             ->columns([
-                fi_ta_column('logo_url', static function (ImageColumn $column) {
-                    //
+                fi_ta_column('image.name', static function (ImageColumn $column) {
+                    $column->disk('product:image');
                 }),
 
                 fi_ta_column('name', static function (TextColumn $column) {

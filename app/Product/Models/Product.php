@@ -4,8 +4,11 @@ namespace App\Product\Models;
 
 use App\Brand\Models\Brand;
 use App\Category\Models\Category;
+use App\Product\Observers\ProductObserver;
 use App\Unit\Models\Unit;
+use App\User\Models\User;
 use Database\Factories\ProductFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +21,7 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 #[UseFactory(ProductFactory::class)]
+#[ObservedBy([ProductObserver::class])]
 class Product extends Model
 {
     use HasUuids, HasFactory, HasSlug, SoftDeletes;
@@ -26,7 +30,7 @@ class Product extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name', 'slug', 'description', 'price', 'stock', 'status', 'category_id', 'brand_id', 'unit_id',
+        'name', 'slug', 'description', 'price', 'stock', 'status', 'category_id', 'brand_id', 'unit_id', 'created_by',
     ];
 
     /**
@@ -40,12 +44,20 @@ class Product extends Model
                 ->saveSlugsTo('slug');
     }
 
+     /**
+     * @return HasOne|Product
+      */
+    public function image() : Product|HasOne
+    {
+        return $this->hasOne(ProductImage::class, 'code', 'code');
+    }
+
     /**
      * @return HasMany
      */
     public function images() : HasMany
     {
-        return $this->hasMany(ProductImage::class);
+        return $this->hasMany(ProductImage::class, 'code', 'code');
     }
 
     /**
@@ -78,5 +90,13 @@ class Product extends Model
     public function price() : HasOne|Product
     {
         return $this->hasOne(ProductPrice::class, 'code', 'code');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function creator() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }

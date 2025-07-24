@@ -21,9 +21,9 @@ class TableComponent extends Component
         return
             tap(self::make($name, $closure), static function ($column) use ($closure) {
                 if ($column instanceof TextColumn) {
-                    $column->searchable()->copyable();
+                    $column->searchable()->copyable()->sortable();
                 } else if ($column instanceof ImageColumn) {
-                    $column->size(40)->defaultImageUrl(asset('images/wrench.png'));
+                    $column->size(40)->defaultImageUrl(asset('images/wrench.png'))->label('');
                 }
 
                 $closure($column);

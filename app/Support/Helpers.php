@@ -1,9 +1,11 @@
 <?php
 
 use App\Support\Filament\Components\ActionComponent;
+use App\Support\Filament\Components\FormComponent;
 use App\Support\Filament\Components\TableComponent;
 use App\User\Models\User;
 use Filament\Actions\Action;
+use Filament\Forms\Form;
 use Filament\Tables\Actions\Action as TableAction;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Filters\BaseFilter;
@@ -88,5 +90,17 @@ if (! function_exists('fi_action')) {
     function fi_action(Closure $callback, string|null $name = null) : Action|TableAction
     {
         return ActionComponent::action($name, $callback);
+    }
+}
+
+if (! function_exists('fi_form_field')) {
+    /**
+     * @param  string  $name
+     * @param  Closure $callback
+     * @return \Filament\Forms\Components\Field
+     */
+    function fi_form_field(string $name, Closure $callback) : \Filament\Forms\Components\Field
+    {
+        return FormComponent::input($name, $callback);
     }
 }
