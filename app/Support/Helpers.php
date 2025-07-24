@@ -12,6 +12,7 @@ use Filament\Tables\Filters\BaseFilter;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Pipeline\Pipeline;
 
 if (! function_exists('pipeline')) {
@@ -40,6 +41,17 @@ if (! function_exists('user')) {
     function user() : User|Authenticatable|null
     {
         return auth()->user();
+    }
+}
+
+if (! function_exists('storage')) {
+    /**
+     * @param  string|null $disk
+     * @return Filesystem
+     */
+    function storage(string|null $disk = null) : Filesystem
+    {
+        return \Illuminate\Support\Facades\Storage::disk($disk);
     }
 }
 

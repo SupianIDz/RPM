@@ -6,6 +6,7 @@ use App\Brand\Filament\Components\Filters\BrandFilter;
 use App\Category\Filament\Components\CategoryFilter;
 use App\Product\Filament\Resources\ProductResource;
 use App\Product\Filament\Resources\ProductResource\Actions\CreateAction;
+use App\Product\Filament\Resources\ProductResource\Actions\ModifyAction;
 use App\Product\Filament\Resources\ProductResource\Widgets\ProductOverview;
 use App\Product\Models\Product;
 use App\Support\Filament\Tables\Actions\DeleteAction;
@@ -101,7 +102,11 @@ class ListProducts extends ListRecords
 
         $table
             ->actions([
+                fi_action(function (ModifyAction $action) {
+                    //
+                }),
                 fi_action(function (DeleteAction $action) {
+                    //
                 }),
             ]);
 
