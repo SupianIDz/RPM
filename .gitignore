@@ -7,9 +7,9 @@
 .vite
 .DS_Store
 
-node
-vendor
-node_modules
+/node
+/vendor
+/node_modules
 
 public/hot
 public/build

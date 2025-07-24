@@ -155,6 +155,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/opcodesio/mail-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-permission" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-sluggable" />
+      <excludeFolder url="file://$MODULE_DIR$/storage/debugbar" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/archilex/filament-toggle-icon-column" />
     </content>
     <orderEntry type="inheritedJdk" />
