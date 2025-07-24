@@ -8,5 +8,6 @@ export default {
         './vendor/filament/**/*.blade.php',
         './vendor/octopyid/**/*.blade.php',
         './vendor/archilex/filament-toggle-icon-column/**/*.php',
+        './vendor/devonab/filament-easy-footer/resources/views/**/*',
     ],
 };

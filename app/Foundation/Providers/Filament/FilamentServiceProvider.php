@@ -3,6 +3,7 @@
 namespace App\Foundation\Providers\Filament;
 
 use App\Foundation\Config\ConfigurePanelTheme;
+use Devonab\FilamentEasyFooter\EasyFooterPlugin;
 use Exception;
 use Filament\Contracts\Plugin;
 use Filament\FilamentManager;
@@ -23,6 +24,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Stringable;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Octopy\Filament\Palette\PaletteSwitcherPlugin;
 use Octopy\L3D\Domain;
 
 class FilamentServiceProvider extends PanelProvider
@@ -80,7 +82,8 @@ class FilamentServiceProvider extends PanelProvider
                 'primary' => Color::Amber,
             ])
             ->plugins([
-                new \Octopy\Filament\Palette\PaletteSwitcherPlugin,
+                new EasyFooterPlugin,
+                new PaletteSwitcherPlugin,
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -157,6 +157,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-sluggable" />
       <excludeFolder url="file://$MODULE_DIR$/storage/debugbar" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/archilex/filament-toggle-icon-column" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/devonab/filament-easy-footer" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
