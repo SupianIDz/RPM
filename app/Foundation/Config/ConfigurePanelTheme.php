@@ -21,6 +21,7 @@ class ConfigurePanelTheme
         'actions::modal.confirmation'                             => 'lucide-triangle-alert',
         'actions::delete-action.modal'                            => 'lucide-trash-2',
         'actions::delete-action'                                  => 'lucide-trash-2',
+        'actions::restore-action'                                 => 'lucide-archive-restore',
         'breadcrumbs.separator'                                   => 'lucide-minus',
 
         # FORM

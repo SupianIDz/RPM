@@ -100,7 +100,7 @@ if (! function_exists('fi_action')) {
      * @param  string|null $name
      * @return Action|TableAction
      */
-    function fi_action(Closure $callback, string|null $name = null) : Action|TableAction
+    function fi_action(Closure $callback, string|null $name = null) : Action|TableAction|\Filament\Tables\Actions\BulkAction
     {
         return ActionComponent::action($name, $callback);
     }

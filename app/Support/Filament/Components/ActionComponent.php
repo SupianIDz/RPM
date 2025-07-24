@@ -5,6 +5,7 @@ namespace App\Support\Filament\Components;
 use Closure;
 use Filament\Actions\Action;
 use Filament\Tables\Actions\Action as TableAction;
+use Filament\Tables\Actions\BulkAction;
 
 class ActionComponent extends Component
 {
@@ -13,7 +14,7 @@ class ActionComponent extends Component
      * @param  Closure     $closure
      * @return mixed
      */
-    public static function action(string|null $name, Closure $closure) : Action|TableAction
+    public static function action(string|null $name, Closure $closure) : Action|TableAction|BulkAction
     {
         if (is_null($name)) {
             $name = str(static::getTypedParameterClass($closure))->remove('\\')->snake();

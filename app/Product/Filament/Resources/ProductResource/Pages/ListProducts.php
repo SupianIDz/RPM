@@ -9,13 +9,16 @@ use App\Product\Filament\Resources\ProductResource\Actions\CreateAction;
 use App\Product\Filament\Resources\ProductResource\Actions\ModifyAction;
 use App\Product\Filament\Resources\ProductResource\Widgets\ProductOverview;
 use App\Product\Models\Product;
+use App\Support\Filament\Tables\Actions\Bulks;
 use App\Support\Filament\Tables\Actions\DeleteAction;
-use Archilex\ToggleIconColumn\Columns\ToggleIconColumn;
+use App\Support\Filament\Tables\Actions\ForceDeleteAction;
+use App\Support\Filament\Tables\Actions\RestoreAction;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
@@ -76,10 +79,6 @@ class ListProducts extends ListRecords
                     //
                 }),
 
-                fi_ta_column('active', static function (ToggleIconColumn $column) {
-                    //
-                }),
-
                 fi_ta_column('creator.name', static function (TextColumn $column) {
                     $column->default('System');
                 }),
@@ -92,20 +91,42 @@ class ListProducts extends ListRecords
 
         $table
             ->filters([
-                fi_ta_filter(function (CategoryFilter $filter) {
+                fi_ta_filter(static function (CategoryFilter $filter) {
                     //
                 }),
-                fi_ta_filter(function (BrandFilter $filter) {
+
+                fi_ta_filter(static function (BrandFilter $filter) {
                     //
                 }),
+
+                fi_ta_filter(static function (TrashedFilter $filter) {
+                    $filter->searchable();
+                }, 'trashed'),
             ]);
 
         $table
+            ->bulkActions([
+                fi_action(function (Bulks\DeleteAction $action) {
+                    //
+                }),
+                fi_action(function (Bulks\RestoreAction $action) {
+                    //
+                }),
+            ])
             ->actions([
                 fi_action(function (ModifyAction $action) {
                     //
                 }),
+
+                fi_action(function (RestoreAction $action) {
+                    //
+                }),
+
                 fi_action(function (DeleteAction $action) {
+                    //
+                }),
+
+                fi_action(function (ForceDeleteAction $action) {
                     //
                 }),
             ]);

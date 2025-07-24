@@ -79,7 +79,7 @@
 
     /* FILAMENT FORM */
     .fi-fo-field-wrp-label {
-        @apply capitalize;
+        @apply capitalize !text-sm;
     }
 
     .fi-fo-component-ctn {
