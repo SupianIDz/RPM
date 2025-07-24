@@ -17,6 +17,7 @@ class DeleteAction extends \Filament\Tables\Actions\DeleteAction
 
         $this
             ->hiddenLabel()
+            ->tooltip('DELETE')
             ->icon('lucide-trash-2')
             ->iconSize(IconSize::Medium)
             ->requiresConfirmation();
