@@ -22,6 +22,16 @@ class ProductPrice extends Model
     ];
 
     /**
+     * @return string[]
+     */
+    protected function casts() : array
+    {
+        return [
+            'amount' => 'decimal:2',
+        ];
+    }
+
+    /**
      * @return BelongsTo
      */
     public function product() : \Illuminate\Database\Eloquent\Relations\BelongsTo

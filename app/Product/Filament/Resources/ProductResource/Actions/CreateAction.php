@@ -23,12 +23,6 @@ class CreateAction extends \App\Support\Filament\Actions\CreateAction
                 return array_merge($data, [
                     'created_by' => auth()->id(),
                 ]);
-            })
-            ->after(function (Product $record, array $data) {
-                $record->price()->create($data);
-                $record->images()->create(array_merge($data, [
-                    'name' => $data['image'],
-                ]));
             });
     }
 }
