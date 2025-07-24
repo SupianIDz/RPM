@@ -54,7 +54,11 @@ class Product extends Model
     #[Scope]
     protected function active(Builder $builder, bool $status = true) : Builder
     {
-        return $builder->where('active', $status);
+        if ($status) {
+            return $builder->withoutTrashed();
+        }
+
+        return $builder->onlyTrashed();
     }
 
     /**

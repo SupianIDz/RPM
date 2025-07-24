@@ -245,6 +245,11 @@
     /*  .fi-ta-ctn .fi-dropdown-panel {
          @apply !max-w-;
      } */
+
+    .fi-dropdown-list-item-label {
+        @apply capitalize
+    }
+
     .fi-ta-text {
         @apply !gap-0;
     }

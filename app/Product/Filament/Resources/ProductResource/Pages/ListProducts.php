@@ -63,7 +63,7 @@ class ListProducts extends ListRecords
 
                 fi_ta_column('name', static function (TextColumn $column) {
                     $column->description(function (Product $record) {
-                        return new HtmlString('<span class="text-xs text-warning-500">' . $record->code . '</span>');
+                        return new HtmlString('<span class="text-xs text-warning-600">' . $record->code . '</span>');
                     });
                 }),
 

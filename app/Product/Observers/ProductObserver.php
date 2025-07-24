@@ -14,7 +14,7 @@ class ProductObserver
     public function creating(Product $product) : void
     {
         if (! $product->code) {
-            $product->code = 'STR-' . strtoupper(Str::random(5));
+            $product->code = 'RPM-' . strtoupper(Str::random(5));
         }
     }
 }
