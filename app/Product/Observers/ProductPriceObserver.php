@@ -12,7 +12,7 @@ class ProductPriceObserver
      */
     public function creating(ProductPrice $price) : void
     {
-        if ($price->product->price) {
+        if ($price->product?->price) {
             $price->product->price->delete();
         }
     }

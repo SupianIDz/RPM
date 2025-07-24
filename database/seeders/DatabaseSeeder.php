@@ -35,6 +35,17 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole(Role::ADMIN);
 
+        /**
+         * @var User $user
+         */
+        $user = User::factory()->create([
+            'name'     => 'Admin',
+            'email'    => 'rpm@example.com',
+            'password' => bcrypt('secret'),
+        ]);
+
+        $user->assignRole(Role::ADMIN);
+
         collect([
             Role::CASHIER->value   => 3,
             Role::INVENTORY->value => 3,

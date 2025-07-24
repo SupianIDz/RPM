@@ -22,9 +22,9 @@ class ProductFactory extends Factory
             'name'        => $this->faker->words(2, true) . ' ' . ucfirst($this->faker->word),
             'description' => $this->faker->text(),
             'stock'       => random_int(1, 40),
-            'active'      => $this->faker->boolean(),
             'created_at'  => now(),
             'updated_at'  => now(),
+            'deleted_at'  => rand(0, 1) ? null : now(),
         ];
     }
 }
