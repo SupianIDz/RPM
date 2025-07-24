@@ -6,8 +6,10 @@ use App\Brand\Filament\Components\Filters\BrandFilter;
 use App\Category\Filament\Components\CategoryFilter;
 use App\Product\Filament\Resources\ProductResource;
 use App\Product\Filament\Resources\ProductResource\Actions\CreateAction;
+use App\Product\Filament\Resources\ProductResource\Widgets\ProductOverview;
 use App\Product\Models\Product;
 use App\Support\Filament\Tables\Actions\DeleteAction;
+use Archilex\ToggleIconColumn\Columns\ToggleIconColumn;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Resources\Pages\ListRecords;
@@ -20,6 +22,16 @@ use Illuminate\Support\HtmlString;
 class ListProducts extends ListRecords
 {
     protected static string $resource = ProductResource::class;
+
+    /**
+     * @return class-string[]
+     */
+    protected function getHeaderWidgets() : array
+    {
+        return [
+            ProductOverview::class,
+        ];
+    }
 
     /**
      * @return Action[]|ActionGroup[]
@@ -60,6 +72,10 @@ class ListProducts extends ListRecords
                 }),
 
                 fi_ta_column('category.name', static function (TextColumn $column) {
+                    //
+                }),
+
+                fi_ta_column('active', static function (ToggleIconColumn $column) {
                     //
                 }),
 

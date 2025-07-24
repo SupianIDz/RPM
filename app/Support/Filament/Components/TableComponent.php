@@ -2,7 +2,10 @@
 
 namespace App\Support\Filament\Components;
 
+use Archilex\ToggleIconColumn\Columns\ToggleIconColumn;
 use Closure;
+use Filament\Support\Enums\ActionSize;
+use Filament\Support\Enums\IconSize;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -24,6 +27,14 @@ class TableComponent extends Component
                     $column->searchable()->copyable()->sortable();
                 } else if ($column instanceof ImageColumn) {
                     $column->size(40)->defaultImageUrl(asset('images/wrench.png'))->label('');
+                } else if ($column instanceof ToggleIconColumn) {
+                    $column->alignCenter()->verticallyAlignCenter();
+                    $column
+                        ->onIcon('lucide-check-circle-2')
+                        ->onColor('success')
+                        ->offIcon('lucide-x-circle')
+                        ->offColor('danger')
+                        ->size('lg');
                 }
 
                 $closure($column);

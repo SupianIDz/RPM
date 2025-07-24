@@ -6,6 +6,7 @@ export default {
         './app/**/Filament/**/*.php',
         './resources/views/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
-        './vendor/octopyid/**/*.blade.php'
+        './vendor/octopyid/**/*.blade.php',
+        './vendor/archilex/filament-toggle-icon-column/**/*.php',
     ],
 };
