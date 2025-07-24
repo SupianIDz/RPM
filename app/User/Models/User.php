@@ -4,6 +4,7 @@ namespace App\User\Models;
 
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Traits\HasRoles;
 
 #[UseFactory(UserFactory::class)]
-class User extends \Illuminate\Foundation\Auth\User implements FilamentUser
+class User extends \Illuminate\Foundation\Auth\User implements FilamentUser, HasAvatar
 {
     use HasUuids, HasFactory, HasRoles;
 
@@ -41,5 +42,13 @@ class User extends \Illuminate\Foundation\Auth\User implements FilamentUser
     public function canAccessPanel(Panel $panel) : bool
     {
         return true;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFilamentAvatarUrl() : ?string
+    {
+        return $this->avatar;
     }
 }

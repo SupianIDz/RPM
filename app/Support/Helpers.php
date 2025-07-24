@@ -79,13 +79,13 @@ if (! function_exists('fi_ta_filter')) {
     }
 }
 
-if (! function_exists('fi_ta_action')) {
+if (! function_exists('fi_action')) {
     /**
      * @param  Closure     $callback
      * @param  string|null $name
      * @return Action|TableAction
      */
-    function fi_ta_action(Closure $callback, string|null $name = null) : Action|TableAction
+    function fi_action(Closure $callback, string|null $name = null) : Action|TableAction
     {
         return ActionComponent::action($name, $callback);
     }

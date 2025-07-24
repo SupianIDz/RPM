@@ -7,11 +7,12 @@ use App\Category\Filament\Components\CategoryFilter;
 use App\Product\Filament\Resources\ProductResource;
 use App\Product\Models\Product;
 use App\Support\Filament\Tables\Actions\DeleteAction;
+use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
@@ -20,13 +21,22 @@ class ListProducts extends ListRecords
 {
     protected static string $resource = ProductResource::class;
 
+    /**
+     * @return Action[]|ActionGroup[]
+     */
     protected function getHeaderActions() : array
     {
         return [
-            CreateAction::make(),
+            fi_action(function (\App\Support\Filament\Actions\CreateAction $action){
+                //
+            })
         ];
     }
 
+    /**
+     * @param  Table $table
+     * @return Table
+     */
     public function table(Table $table) : Table
     {
         $table
@@ -53,6 +63,14 @@ class ListProducts extends ListRecords
                     //
                 }),
 
+                fi_ta_column('creator.name', static function (TextColumn $column) {
+                    $column->default('System');
+                }),
+
+                fi_ta_column('created_at', static function (TextColumn $column) {
+                    $column->date();
+                }),
+
             ]);
 
         $table
@@ -67,7 +85,7 @@ class ListProducts extends ListRecords
 
         $table
             ->actions([
-                fi_ta_action(function (DeleteAction $action) {
+                fi_action(function (DeleteAction $action) {
                 }),
             ]);
 
