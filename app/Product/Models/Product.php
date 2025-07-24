@@ -8,7 +8,9 @@ use App\Product\Observers\ProductObserver;
 use App\Unit\Models\Unit;
 use App\User\Models\User;
 use Database\Factories\ProductFactory;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -44,9 +46,20 @@ class Product extends Model
                 ->saveSlugsTo('slug');
     }
 
-     /**
+    /**
+     * @param  Builder $builder
+     * @param  bool    $status
+     * @return Builder
+     */
+    #[Scope]
+    protected function active(Builder $builder, bool $status = true) : Builder
+    {
+        return $builder->where('active', $status);
+    }
+
+    /**
      * @return HasOne|Product
-      */
+     */
     public function image() : Product|HasOne
     {
         return $this->hasOne(ProductImage::class, 'code', 'code');

@@ -5,10 +5,11 @@ use App\Support\Filament\Components\FormComponent;
 use App\Support\Filament\Components\TableComponent;
 use App\User\Models\User;
 use Filament\Actions\Action;
-use Filament\Forms\Form;
+use Filament\Forms\Components\Field;
 use Filament\Tables\Actions\Action as TableAction;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Filters\BaseFilter;
+use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Pipeline\Pipeline;
@@ -97,10 +98,29 @@ if (! function_exists('fi_form_field')) {
     /**
      * @param  string  $name
      * @param  Closure $callback
-     * @return \Filament\Forms\Components\Field
+     * @return Field
      */
-    function fi_form_field(string $name, Closure $callback) : \Filament\Forms\Components\Field
+    function fi_form_field(string $name, Closure $callback) : Field
     {
         return FormComponent::input($name, $callback);
+    }
+}
+
+if (! function_exists('fi_wi_stat')) {
+    /**
+     * @param  Closure $closure
+     * @return Stat
+     */
+    function fi_wi_stat(Closure $closure) : Stat
+    {
+        $stat = Stat::make('', '');
+
+        $value = $closure($stat);
+
+        if (filled($value)) {
+            $stat->value($value);
+        }
+
+        return $stat;
     }
 }

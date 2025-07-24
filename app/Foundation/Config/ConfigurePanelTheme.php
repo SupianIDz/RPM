@@ -69,6 +69,7 @@ class ConfigurePanelTheme
     public function handle(Panel $panel, Closure $next) : mixed
     {
         $panel
+            ->spa()
             ->topNavigation(true)
             ->icons($this->icons)
             ->colors($this->theme)
