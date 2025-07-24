@@ -32,7 +32,7 @@ class Product extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name', 'slug', 'description', 'price', 'stock', 'status', 'category_id', 'brand_id', 'unit_id', 'created_by',
+        'name', 'slug', 'description', 'price', 'stock', 'category_id', 'brand_id', 'unit_id', 'created_by',
     ];
 
     /**

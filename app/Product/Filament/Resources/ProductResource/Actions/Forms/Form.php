@@ -27,7 +27,7 @@ class Form
         return [
             Grid::make(2)->schema([
                 fi_form_field('name', static function (TextInput $input) {
-                    $input->required();
+                    $input->required()->placeholder('Product Name');
                 }),
 
                 Group::make()->relationship('price')->schema([
@@ -38,15 +38,7 @@ class Form
                 ]),
 
                 fi_form_field('description', static function (Textarea $input) {
-                    $input->columnSpanFull();
-                }),
-
-                fi_form_field('brand_id', function (BrandSelect $input) {
-                    //
-                }),
-
-                fi_form_field('category_id', function (CategorySelect $input) {
-                    //
+                    $input->columnSpanFull()->placeholder('Product Description');
                 }),
 
                 fi_form_field('stock', static function (TextInput $input) {
@@ -57,9 +49,18 @@ class Form
                     //
                 }),
 
+                fi_form_field('brand_id', function (BrandSelect $input) {
+                    //
+                }),
+
+                fi_form_field('category_id', function (CategorySelect $input) {
+                    //
+                }),
+
                 Group::make()->relationship('image', condition: fn(?array $state) : bool => filled($state['name']))->columnSpanFull()->schema([
                     fi_form_field('name', static function (FileUpload $input) {
                         $input
+                            ->label('Image')
                             ->image()
                             ->imageEditor();
 

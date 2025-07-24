@@ -189,7 +189,7 @@
         @apply !gap-3;
     }
 
-    .fi-ta-filters h4, .fi-ta-filters .fi-fo-field-wrp-label {
+    .fi-ta-filters h4, .fi-ta-filters {
         @apply uppercase;
     }
 
@@ -326,6 +326,12 @@
 /* livewire/livewire */
 html:root {
     --livewire-progress-bar-color: rgb(var(--primary-500));
+}
+
+/* choices */
+
+.choices {
+    @apply capitalize;
 }
 
 /* filepond */
