@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', static function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('invoice')->unique();
+            $table->string('invoice', 17)->unique();
             $table->string('type');
             $table->unsignedBigInteger('total')->default(0);
             $table->string('status');

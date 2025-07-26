@@ -5,11 +5,16 @@ namespace App\Order\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class OrderItem extends Model
 {
     use HasUuids;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
-        'invoice', 'type', 'total', 'status', 'customer_id', 'vehicle_id', 'created_by', 'deleted_at',
+        'invoice', 'name', 'quantity', 'product_id', 'product_price_id',
     ];
 }
+
+
