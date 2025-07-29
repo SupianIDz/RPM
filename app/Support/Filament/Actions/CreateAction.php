@@ -17,6 +17,7 @@ class CreateAction extends \Filament\Actions\CreateAction
 
         $this
             ->icon('lucide-plus')
-            ->label('Create');
+            ->label('Create')
+            ->closeModalByClickingAway(false);
     }
 }

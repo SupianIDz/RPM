@@ -4,7 +4,7 @@ namespace App\Support\Filament\Components;
 
 use Closure;
 use Filament\Forms\Components\Field;
-use Filament\Forms\Form;
+use Filament\Forms\Components\Select;
 
 class FormComponent extends Component
 {
@@ -17,6 +17,10 @@ class FormComponent extends Component
     {
         return
             tap(self::make($name, $closure), static function ($input) use ($closure) {
+                if ($input instanceof Select) {
+                    $input->searchable();
+                }
+
                 $closure($input);
             });
     }

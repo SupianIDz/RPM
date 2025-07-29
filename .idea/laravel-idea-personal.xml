@@ -4,6 +4,7 @@
     <option name="generationStringOptionValues">
       <map>
         <entry key="createDatabaseClassFactory.phpDoc" value="mixin" />
+        <entry key="createEnum.backed" value=": string" />
         <entry key="createFilamentResource.addSoftDeleteStuff" value="" />
         <entry key="createObserver.method_created" value="" />
         <entry key="createObserver.method_creating" value="1" />

@@ -136,3 +136,14 @@ if (! function_exists('fi_wi_stat')) {
         return $stat;
     }
 }
+
+if (! function_exists('str_invoice')) {
+    /**
+     * @param  int $number
+     * @return string
+     */
+    function str_invoice(int $number = 5) : string
+    {
+        return 'INV' . date('Ymd') . '-' . strtoupper(\Illuminate\Support\Str::random($number));
+    }
+}

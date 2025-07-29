@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('order_items', static function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('invoice', 17);
+            $table->string('type');
             $table->string('name')->comment('Snapshot');
             $table->integer('quantity')->default(0);
             $table->foreignUuid('product_id')->constrained();
@@ -24,6 +25,9 @@ return new class extends Migration
         });
     }
 
+    /**
+     * @return void
+     */
     public function down() : void
     {
         Schema::dropIfExists('order_items');

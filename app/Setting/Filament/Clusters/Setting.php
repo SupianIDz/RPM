@@ -17,6 +17,11 @@ class Setting extends Cluster
     protected static ?string $navigationIcon = 'lucide-settings';
 
     /**
+     * @var string|null
+     */
+    protected static ?string $navigationLabel = 'Settings';
+
+    /**
      * @var int|null
      */
     protected static ?int $navigationSort = 6;
