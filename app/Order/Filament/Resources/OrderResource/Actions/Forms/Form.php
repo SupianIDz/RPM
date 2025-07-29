@@ -3,12 +3,14 @@
 namespace App\Order\Filament\Resources\OrderResource\Actions\Forms;
 
 use App\Order\Enums\Payment;
+use App\Order\Enums\Type;
 use App\Vehicle\Enums\Brand;
 use App\Vehicle\Models\Vehicle;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Wizard;
 
 class Form
 {
@@ -19,9 +21,12 @@ class Form
     public function configure(mixed $action) : array
     {
         return [
-            Section::make('Transaction Info')
-                ->collapsible()
-                ->schema([
+            Wizard::make([
+                Wizard\Step::make('Transaction Items')->schema([
+                    Repeater::make('items')->schema($this->trxSchema()),
+                ]),
+
+                Wizard\Step::make('Transaction Info')->schema([
                     Grid::make(2)->schema([
 
                         fi_form_field('invoice', static function (TextInput $input) {
@@ -53,7 +58,7 @@ class Form
                             });
 
                             $input
-                                ->createOptionForm($this->vehicleForm())
+                                ->createOptionForm($this->vehicleSchema())
                                 ->createOptionUsing(function (array $data) {
                                     return Vehicle::updateOrCreate(['plate' => $data['plate']], $data);
                                 });
@@ -65,13 +70,14 @@ class Form
 
                     ]),
                 ]),
+            ]),
         ];
     }
 
     /**
      * @return array
      */
-    private function vehicleForm() : array
+    private function vehicleSchema() : array
     {
         return [
             Grid::make(2)->schema([
@@ -85,6 +91,20 @@ class Form
 
                 fi_form_field('model', static function (TextInput $input) {
                     $input->placeholder('Beat FI');
+                }),
+            ]),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function trxSchema() : array
+    {
+        return [
+            Grid::make(2)->schema([
+                fi_form_field('type', function (Select $input) {
+                    $input->options(Type::class)->default(Type::PRODUCT);
                 }),
             ]),
         ];
