@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('invoice', 17);
             $table->string('type');
             $table->string('name')->comment('Snapshot');
+            $table->decimal('amount', 10, 2)->default(0);
             $table->integer('quantity')->default(0);
-            $table->foreignUuid('product_id')->constrained();
-            $table->foreignUuid('product_price_id')->constrained();
+            $table->foreignUuid('product_id')->nullable()->constrained();
+            $table->foreignUuid('product_price_id')->nullable()->constrained();
             $table->timestamps();
 
             $table->foreign('invoice')->references('invoice')->on('orders')->cascadeOnUpdate()->cascadeOnDelete();

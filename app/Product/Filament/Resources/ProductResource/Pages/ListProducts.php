@@ -79,6 +79,10 @@ class ListProducts extends ListRecords
                     //
                 }),
 
+                 fi_ta_column('type', static function (TextColumn $column) {
+                    $column->badge();
+                }),
+
                 fi_ta_column('creator.name', static function (TextColumn $column) {
                     $column->default('System');
                 }),

@@ -3,7 +3,7 @@
 namespace App\Order\Filament\Resources\OrderResource\Actions\Forms;
 
 use App\Order\Enums\Payment;
-use App\Order\Enums\Type;
+use App\Product\Models\Product;
 use App\Vehicle\Enums\Brand;
 use App\Vehicle\Models\Vehicle;
 use Filament\Forms\Components\Grid;
@@ -11,6 +11,8 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 
 class Form
 {
@@ -22,11 +24,11 @@ class Form
     {
         return [
             Wizard::make([
-                Wizard\Step::make('Transaction Items')->schema([
-                    Repeater::make('items')->schema($this->trxSchema()),
-                ]),
+                Wizard\Step::make('Products & Sparepart')->schema($this->productSchema()),
 
-                Wizard\Step::make('Transaction Info')->schema([
+                Wizard\Step::make('Service Fee & Others')->schema($this->serviceSchema()),
+
+                Wizard\Step::make('Order Information')->schema([
                     Grid::make(2)->schema([
 
                         fi_form_field('invoice', static function (TextInput $input) {
@@ -99,14 +101,127 @@ class Form
     /**
      * @return array
      */
-    private function trxSchema() : array
+    private function productSchema() : array
     {
         return [
-            Grid::make(2)->schema([
-                fi_form_field('type', function (Select $input) {
-                    $input->options(Type::class)->default(Type::PRODUCT);
-                }),
-            ]),
+            Repeater::make('products')
+                ->hiddenLabel()
+                ->collapsible()
+                ->defaultItems(0)
+                ->addActionLabel('Add Product')
+                ->itemLabel(function (array $state) {
+                    if (filled($state['product_id'])) {
+                        $product = Product::find($state['product_id']);
+                        $items = [];
+                        if ($product->brand) {
+                            $items[] = $product->brand->name;
+                        }
+
+                        $items[] = $product->name;
+
+                        return implode(' - ', $items);
+                    }
+
+                    return null;
+                })
+                ->schema([
+                    Grid::make(6)->schema([
+                        // PRODUCT
+                        fi_form_field('product_id', static function (Select $input) {
+                            $input
+                                ->label('Product')
+                                ->options(function (Get $get) {
+                                    return Product::get()->flatMap(function (Product $product) use ($get) {
+                                        return [
+                                            $product->id => $product->brand->name . ' - ' . $product->name,
+                                        ];
+                                    });
+                                })
+                                ->afterStateUpdated(function (Set $set, $state) {
+                                    if ($state) {
+                                        $set('price', (string) number(Product::find($state)->price->amount)->format());
+                                    }
+                                });
+
+                            $input
+                                ->required()
+                                ->reactive()
+                                ->columnSpan(3);
+                        }),
+
+                        fi_form_field('price', static function (TextInput $input) {
+                            $input->prefix('Rp')->disabled()->columnSpan(2);
+                        }),
+
+                        fi_form_field('quantity', static function (TextInput $input) {
+                            $input->required()->numeric()->default(1);
+                        }),
+                    ]),
+                ]),
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private function serviceSchema() : array
+    {
+        return [
+            Repeater::make('services')
+                ->hiddenLabel()
+                ->collapsible()
+                ->addActionLabel('Add Service')
+                ->schema([
+                    Grid::make(6)->schema([
+                        fi_form_field('service_type', static function (Select $input) {
+                            $input
+                                ->label('Type')
+                                ->options([
+                                    'SERVICE' => 'SERVICE',
+                                    'TURNING' => 'TURNING',
+                                    'OTHER'   => 'OTHER',
+                                ])
+                                ->default('SERVICE');
+
+                            $input
+                                ->reactive()
+                                ->required();
+
+                            $input->columnSpan(1);
+                        }),
+
+                        fi_form_field('service_name', static function (TextInput $input) {
+                            $input->required();
+
+                            $input
+                                ->hidden(function (Get $get) {
+                                    return $get('service_type') !== 'OTHER';
+                                })
+                                ->columnSpan(2);
+                        }),
+
+                        fi_form_field('price', static function (TextInput $input) {
+                            $input->label('Price')->prefix('Rp');
+
+                            $input->required()->numeric();
+                            $input->columnSpan(function (Get $get) {
+                                return $get('service_type') === 'OTHER' ? 2 : 4;
+                            });
+
+                            $input
+                                ->reactive();
+                        }),
+
+                        fi_form_field('quantity', static function (TextInput $input) {
+                            $input->numeric()->default(1);
+                            $input
+                                ->reactive()
+                                ->required();
+
+                            $input->columnSpan(1);
+                        }),
+                    ]),
+                ]),
         ];
     }
 }

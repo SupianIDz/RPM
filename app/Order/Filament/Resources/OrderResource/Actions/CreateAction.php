@@ -15,6 +15,7 @@ class CreateAction extends Action
         parent::setUp();
 
         $this
+            ->modalWidth(MaxWidth::SixExtraLarge)
             ->form(new Forms\Form()->configure($this));
     }
 }
