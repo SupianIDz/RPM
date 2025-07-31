@@ -10,6 +10,7 @@ class Order extends Model
     use HasUuids;
 
     protected $fillable = [
-        'invoice', 'type', 'total', 'status', 'customer_id', 'vehicle_id', 'created_by', 'deleted_at',
+        'invoice', 'type', 'total', 'status', 'payment',
+        'customer_id', 'vehicle_id', 'created_by', 'deleted_at',
     ];
 }

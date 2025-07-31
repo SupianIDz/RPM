@@ -139,7 +139,7 @@ class Form
                                 })
                                 ->afterStateUpdated(function (Set $set, $state) {
                                     if ($state) {
-                                        $set('price', (string) number(Product::find($state)->price->amount)->format());
+                                        $set('price', Product::find($state)->price->amount);
                                     }
                                 });
 
@@ -150,7 +150,7 @@ class Form
                         }),
 
                         fi_form_field('price', static function (TextInput $input) {
-                            $input->prefix('Rp')->disabled()->columnSpan(2);
+                            $input->prefix('Rp')->readOnly()->columnSpan(2);
                         }),
 
                         fi_form_field('quantity', static function (TextInput $input) {

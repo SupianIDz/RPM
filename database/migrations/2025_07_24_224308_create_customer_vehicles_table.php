@@ -8,12 +8,11 @@ return new class extends Migration
 {
     public function up() : void
     {
-        Schema::create('customer_vehicle', static function (Blueprint $table) {
+        Schema::create('customer_vehicles', static function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->foreignUuid('customer_id')->constrained();
             $table->foreignUuid('vehicle_id')->constrained();
-            $table->primary([
-                'customer_id', 'vehicle_id',
-            ]);
+            $table->timestamps();
         });
     }
 

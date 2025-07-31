@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('orders', static function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('invoice', 17)->unique();
-            $table->string('type');
             $table->unsignedBigInteger('total')->default(0);
+            $table->string('payment');
             $table->string('status');
             $table->foreignUuid('customer_id')->nullable()->constrained('customers')->restrictOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('vehicle_id')->nullable()->constrained('vehicles')->restrictOnDelete()->cascadeOnUpdate();
