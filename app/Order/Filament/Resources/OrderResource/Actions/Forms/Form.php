@@ -27,7 +27,7 @@ class Form
             Wizard::make([
                 Wizard\Step::make('Products & Sparepart')->schema($this->productSchema()),
 
-                //                Wizard\Step::make('Service Fee & Others')->schema($this->serviceSchema()),
+                Wizard\Step::make('Service Fee & Others')->schema($this->serviceSchema()),
 
                 Wizard\Step::make('Order Information')->schema([
                     Grid::make(2)->schema([
