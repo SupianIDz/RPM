@@ -2,20 +2,29 @@
 
 namespace App\Customer\Services;
 
+use App\Customer\Data\CustomerData;
 use App\Customer\Models\Customer;
 
 class CreateService
 {
     /**
-     * @param  string $name
-     * @param  string $phone
+     * @param  CustomerData $data
      * @return Customer
      */
-    public function handle(string $name, string $phone) : Customer
+    public function handle(CustomerData $data) : Customer
     {
-        $name = ucwords(strtolower($name));
+        $name = ucwords(strtolower($data->name));
 
-        return Customer::updateOrCreate(['phone' => $this->sanitize($phone)], [
+        $phone = null;
+        if ($data->phone) {
+            $phone = $this->sanitize($data->phone);
+        }
+
+        if (! $phone) {
+            return Customer::create(['name' => $name]);
+        }
+
+        return Customer::updateOrCreate(['phone' => $phone], [
             'name' => $name,
         ]);
     }

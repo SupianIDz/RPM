@@ -70,7 +70,7 @@ class CreateAction extends Action
                 DB::transaction(function () use ($data) {
                     $customer = null;
                     if (filled($data['name'])) {
-                        $customer = new Customer\Services\CreateService()->handle($data['name'], $data['phone']);
+                        $customer = new Customer\Services\CreateService()->handle(Customer\Data\CustomerData::from($data));
                     }
 
                     if ($customer && filled($data['vehicle_id'])) {
@@ -79,7 +79,7 @@ class CreateAction extends Action
                         ]);
                     }
 
-                    Order::create(array_merge($data, [
+                    $order = Order::create(array_merge($data, [
                         'customer_id' => $customer?->id,
                     ]));
                 });

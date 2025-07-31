@@ -6,6 +6,7 @@ use App\Order\Enums\Payment;
 use App\Product\Models\Product;
 use App\Vehicle\Enums\Brand;
 use App\Vehicle\Models\Vehicle;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -26,7 +27,7 @@ class Form
             Wizard::make([
                 Wizard\Step::make('Products & Sparepart')->schema($this->productSchema()),
 
-                Wizard\Step::make('Service Fee & Others')->schema($this->serviceSchema()),
+                //                Wizard\Step::make('Service Fee & Others')->schema($this->serviceSchema()),
 
                 Wizard\Step::make('Order Information')->schema([
                     Grid::make(2)->schema([
@@ -34,6 +35,14 @@ class Form
                         fi_form_field('invoice', static function (TextInput $input) {
                             $input->label('Invoice Number')->default(str_invoice(4));
                             $input->required();
+                        }),
+
+                        fi_form_field('date', function (DateTimePicker $input) {
+                            $input->native(false)->default(now())->required();
+                        }),
+
+                        fi_form_field('discount', function (TextInput $input) {
+                            $input->numeric()->default(0);
                         }),
 
                         fi_form_field('payment', static function (Select $input) {
@@ -69,7 +78,6 @@ class Form
                                 ->helperText('Click the + button on the side if the plate is not listed')
                                 ->columnSpanFull();
                         }),
-
                     ]),
                 ]),
             ]),
@@ -170,6 +178,7 @@ class Form
             Repeater::make('services')
                 ->hiddenLabel()
                 ->collapsible()
+                ->defaultItems(0)
                 ->addActionLabel('Add Service')
                 ->schema([
                     Grid::make(6)->schema([

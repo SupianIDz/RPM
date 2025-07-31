@@ -5,6 +5,8 @@ namespace App\Order\Filament\Resources\OrderResource\Pages;
 use App\Order\Filament\Resources\OrderResource;
 use App\Order\Filament\Resources\OrderResource\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
 class ListOrders extends ListRecords
 {
@@ -20,5 +22,58 @@ class ListOrders extends ListRecords
                 //
             }),
         ];
+    }
+
+    public function table(Table $table) : Table
+    {
+        $table
+            ->columns([
+                fi_ta_column('invoice', function (TextColumn $column) {
+                    //
+                }),
+
+                fi_ta_column('customer.name', function (TextColumn $column) {
+                    //
+                }),
+
+                fi_ta_column('vehicle.brand', static function (TextColumn $column) {
+                    $column->formatStateUsing(function (string $state, $record) {
+                        return $record->vehicle->brand . ' ' . $record->vehicle->model;
+                    });
+                }),
+
+                fi_ta_column('vehicle.plate', static function (TextColumn $column) {
+                    $column->label('Plate Number')->badge();
+                }),
+
+                fi_ta_column('total', static function (TextColumn $column) {
+                    $column->rupiah();
+                }),
+
+                fi_ta_column('payment', function (TextColumn $column) {
+                    //
+                }),
+
+                fi_ta_column('creator.name', function (TextColumn $column) {
+                   //
+                }),
+
+                fi_ta_column('created_at', function (TextColumn $column) {
+                    //
+                }),
+            ]);
+
+        return $this->modifyQueryUsing($table);
+    }
+
+    /**
+     * @param  Table $table
+     * @return Table
+     */
+    private function modifyQueryUsing(Table $table) : Table
+    {
+        return $table->modifyQueryUsing(function ($query) {
+            $query->with('customer');
+        });
     }
 }

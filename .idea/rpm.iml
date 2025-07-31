@@ -158,6 +158,27 @@
       <excludeFolder url="file://$MODULE_DIR$/storage/debugbar" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/archilex/filament-toggle-icon-column" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/devonab/filament-easy-footer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/amp" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/byte-stream" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/dns" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/parallel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/pipeline" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/process" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/serialization" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/socket" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/sync" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/daverandom/libdns" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/kelunik/certificate" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpdoc-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/revolt/event-loop" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-data" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/php-structure-discoverer" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
