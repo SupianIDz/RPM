@@ -182,7 +182,7 @@ class Form
                 ->addActionLabel('Add Service')
                 ->schema([
                     Grid::make(6)->schema([
-                        fi_form_field('service_type', static function (Select $input) {
+                        fi_form_field('type', static function (Select $input) {
                             $input
                                 ->label('Type')
                                 ->options([
@@ -199,22 +199,22 @@ class Form
                             $input->columnSpan(1);
                         }),
 
-                        fi_form_field('service_name', static function (TextInput $input) {
+                        fi_form_field('name', static function (TextInput $input) {
                             $input->required();
 
                             $input
                                 ->hidden(function (Get $get) {
-                                    return $get('service_type') !== 'OTHER';
+                                    return $get('type') !== 'OTHER';
                                 })
                                 ->columnSpan(2);
                         }),
 
-                        fi_form_field('price', static function (TextInput $input) {
+                        fi_form_field('amount', static function (TextInput $input) {
                             $input->label('Price')->prefix('Rp');
 
                             $input->required()->numeric();
                             $input->columnSpan(function (Get $get) {
-                                return $get('service_type') === 'OTHER' ? 2 : 4;
+                                return $get('type') === 'OTHER' ? 2 : 4;
                             });
 
                             $input

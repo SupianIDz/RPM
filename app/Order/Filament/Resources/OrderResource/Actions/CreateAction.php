@@ -4,6 +4,8 @@ namespace App\Order\Filament\Resources\OrderResource\Actions;
 
 use App\Customer;
 use App\Order\Models\Order;
+use App\Order\Models\OrderItem;
+use App\Product\Models\Product;
 use App\Support\Filament\Actions\CreateAction as Action;
 use App\Vehicle\Models\Vehicle;
 use Filament\Support\Enums\MaxWidth;
@@ -22,39 +24,6 @@ class CreateAction extends Action
             ->modalWidth(MaxWidth::SixExtraLarge)
             ->form(new Forms\Form()->configure($this));
 
-        /**
-         * array:7 [▼ // app/Order/Filament/Resources/OrderResource/Actions/CreateAction.php:23
-         *  "products" => array:1 [▼
-         *  0 => array:3 [▶]
-         * ]
-         * "services" => array:2 [▼
-         * 0 => array:3 [▼
-         * "service_type" => "TURNING"
-         * "price" => "200"
-         * "quantity" => 1
-         * ]
-         * 1 => array:4 [▼
-         * "service_type" => "OTHER"
-         * "service_name" => "Foo"
-         * "price" => "2000"
-         * "quantity" => 1
-         * ]
-         * ]
-         * "invoice" => "INV20250731-DMBC"
-         * "payment" =>
-         * App\Order\Enums
-         * \
-         * Payment
-         * {#1604 ▶}
-         * "name" => "Foo"
-         * "phone" => null
-         * "vehicle_id" =>
-         * App\Vehicle\Models
-         * \
-         * Vehicle
-         * {#1449 ▶}
-         * ]
-         */
         $this
             ->mutateFormDataUsing(function (array $data) {
                 if ($data['vehicle_id'] instanceof Vehicle) {
@@ -79,9 +48,43 @@ class CreateAction extends Action
                         ]);
                     }
 
+                    /**
+                     * @var Order $order
+                     */
                     $order = Order::create(array_merge($data, [
                         'customer_id' => $customer?->id,
                     ]));
+
+                    foreach ($data['products'] as $item) {
+                        /**
+                         * @var  Product $product
+                         */
+                        $product = Product::findOrFail($item['product_id']);
+
+                        $order->items()->create([
+                            'name'             => $product->name,
+                            'product_id'       => $product->id,
+                            'amount'           => $product->price->amount,
+                            'product_price_id' => $product->price->id,
+                            'quantity'         => $item['quantity'],
+                            'type'             => \App\Order\Enums\Type::PRODUCT,
+                        ]);
+                    }
+
+                    // Services
+                    foreach ($data['services'] as $item) {
+                        $order->items()->create(array_merge($item, [
+                            'name' => $item['name'] ?? $item['type'],
+                        ]));
+                    }
+
+                    $total = $order->items->sum(function (OrderItem $item) {
+                        return $item->quantity * $item->amount;
+                    });
+
+                    $order->update([
+                        'amount' => $total,
+                    ]);
                 });
             });
     }

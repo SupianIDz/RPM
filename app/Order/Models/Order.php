@@ -9,13 +9,14 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
     use HasUuids;
 
     protected $fillable = [
-        'invoice', 'type', 'total', 'status', 'payment', 'date',
+        'invoice', 'type', 'amount', 'status', 'payment', 'date',
         'customer_id', 'vehicle_id', 'created_by', 'deleted_at',
     ];
 
@@ -51,5 +52,13 @@ class Order extends Model
     public function customer() : BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    /**
+     * @return HasMany|Order
+     */
+    public function items() : Order|HasMany
+    {
+        return $this->hasMany(OrderItem::class, 'invoice', 'invoice');
     }
 }

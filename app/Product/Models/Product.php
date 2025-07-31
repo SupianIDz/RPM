@@ -4,6 +4,7 @@ namespace App\Product\Models;
 
 use App\Brand\Models\Brand;
 use App\Category\Models\Category;
+use App\Order\Models\OrderItem;
 use App\Product\Enums\Type;
 use App\Product\Observers\ProductObserver;
 use App\Unit\Models\Unit;
