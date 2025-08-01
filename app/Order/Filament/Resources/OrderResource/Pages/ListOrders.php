@@ -53,7 +53,7 @@ class ListOrders extends ListRecords
                 }),
 
                 fi_ta_column('total', static function (TextColumn $column) {
-                    $column->rupiah();
+                    $column->rupiah()->searchable(false);
                 }),
 
                 fi_ta_column('payment', function (TextColumn $column) {
