@@ -37,6 +37,8 @@ class TableComponent extends Component
                         ->size('lg');
                 }
 
+                $column->toggleable();
+
                 $closure($column);
             });
     }

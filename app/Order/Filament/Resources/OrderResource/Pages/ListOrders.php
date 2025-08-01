@@ -56,12 +56,16 @@ class ListOrders extends ListRecords
                     $column->rupiah()->searchable(false);
                 }),
 
+                fi_ta_column('discount', static function (TextColumn $column) {
+                    $column->rupiah()->searchable(false);
+                }),
+
                 fi_ta_column('payment', function (TextColumn $column) {
                     //
                 }),
 
                 fi_ta_column('creator.name', function (TextColumn $column) {
-                   //
+                   $column->toggledHiddenByDefault(true);
                 }),
 
                 fi_ta_column('created_at', function (TextColumn $column) {
