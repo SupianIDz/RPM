@@ -7,6 +7,7 @@ use App\User\Models\User;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Field;
 use Filament\Tables\Actions\Action as TableAction;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Filters\BaseFilter;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -98,9 +99,9 @@ if (! function_exists('fi_action')) {
     /**
      * @param  Closure     $callback
      * @param  string|null $name
-     * @return Action|TableAction
+     * @return Action|TableAction|BulkAction
      */
-    function fi_action(Closure $callback, string|null $name = null) : Action|TableAction|\Filament\Tables\Actions\BulkAction
+    function fi_action(Closure $callback, string|null $name = null) : Action|TableAction|BulkAction
     {
         return ActionComponent::action($name, $callback);
     }

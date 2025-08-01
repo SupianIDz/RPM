@@ -11,6 +11,7 @@ use App\Vehicle\Filament\Components\Filters\VehiclePlatFilter;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 
 class ListOrders extends ListRecords
 {
@@ -77,8 +78,12 @@ class ListOrders extends ListRecords
 
         $table
             ->filters([
-                fi_ta_filter(function (VehicleFilter $filter){
+                fi_ta_filter(function (DateRangeFilter $filter) {
+                    //
+                }, 'date'),
 
+                fi_ta_filter(function (VehicleFilter $filter) {
+                    //
                 }),
             ]);
 

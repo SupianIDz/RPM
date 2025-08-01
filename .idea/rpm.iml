@@ -179,6 +179,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/revolt/event-loop" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-data" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/php-structure-discoverer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/malzariey/filament-daterangepicker-filter" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
