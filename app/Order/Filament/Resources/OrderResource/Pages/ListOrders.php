@@ -4,6 +4,8 @@ namespace App\Order\Filament\Resources\OrderResource\Pages;
 
 use App\Order\Filament\Resources\OrderResource;
 use App\Order\Filament\Resources\OrderResource\Actions\CreateAction;
+use App\Order\Filament\Resources\OrderResource\Actions\ModifyAction;
+use App\Support\Filament\Tables\Actions\DeleteAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -24,6 +26,10 @@ class ListOrders extends ListRecords
         ];
     }
 
+    /**
+     * @param  Table $table
+     * @return Table
+     */
     public function table(Table $table) : Table
     {
         $table
@@ -62,6 +68,16 @@ class ListOrders extends ListRecords
                     //
                 }),
             ]);
+
+        $table->actions([
+            fi_action(function (ModifyAction $action) {
+                //
+            }),
+
+            fi_action(function (DeleteAction $action){
+
+            }),
+        ]);
 
         return $this->modifyQueryUsing($table);
     }
