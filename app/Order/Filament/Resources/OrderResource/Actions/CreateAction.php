@@ -4,6 +4,7 @@ namespace App\Order\Filament\Resources\OrderResource\Actions;
 
 use App\Customer;
 use App\Order\Models\Order;
+use App\Order\Models\OrderItem;
 use App\Support\Filament\Actions\CreateAction as Action;
 use App\Vehicle\Models\Vehicle;
 use Filament\Support\Enums\MaxWidth;
@@ -44,11 +45,14 @@ class CreateAction extends Action
                     ]);
                 }
 
-                if ($customer) {
-                    $record->update([
-                        'customer_id' => $customer->id,
-                    ]);
-                }
+                $total = $record->items->sum(function (OrderItem $item) {
+                    return $item->quantity * $item->amount;
+                });
+
+                $record->update([
+                    'amount'      => $total,
+                    'customer_id' => $customer?->id,
+                ]);
             });
     }
 }
