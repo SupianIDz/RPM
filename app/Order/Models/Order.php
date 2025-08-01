@@ -3,6 +3,7 @@
 namespace App\Order\Models;
 
 use App\Customer\Models\Customer;
+use App\Product\Enums\Type;
 use App\User\Models\User;
 use App\Vehicle\Models\Vehicle;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use LaravelIdea\Helper\App\Order\Models\_IH_OrderItem_QB;
 
 class Order extends Model
 {
@@ -60,5 +62,21 @@ class Order extends Model
     public function items() : Order|HasMany
     {
         return $this->hasMany(OrderItem::class, 'invoice', 'invoice');
+    }
+
+    /**
+     * @return HasMany|_IH_OrderItem_QB|Order
+     */
+    public function services() : HasMany|_IH_OrderItem_QB|Order
+    {
+        return $this->items()->whereNot('type', Type::PRODUCT);
+    }
+
+    /**
+     * @return HasMany|_IH_OrderItem_QB|Order
+     */
+    public function products() : HasMany|_IH_OrderItem_QB|Order
+    {
+        return $this->items()->where('type', Type::PRODUCT);
     }
 }

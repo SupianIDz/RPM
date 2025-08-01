@@ -3,6 +3,7 @@
 namespace App\Order\Filament\Resources\OrderResource\Actions\Forms;
 
 use App\Order\Enums\Payment;
+use App\Order\Enums\Type;
 use App\Product\Models\Product;
 use App\Vehicle\Enums\Brand;
 use App\Vehicle\Models\Vehicle;
@@ -113,6 +114,12 @@ class Form
     {
         return [
             Repeater::make('products')
+                ->relationship('items')
+                ->mutateRelationshipDataBeforeCreateUsing(function (array $data) {
+                    return array_merge($data, [
+                        'type' => Type::PRODUCT,
+                    ]);
+                })
                 ->hiddenLabel()
                 ->collapsible()
                 ->defaultItems(0)
@@ -147,7 +154,7 @@ class Form
                                 })
                                 ->afterStateUpdated(function (Set $set, $state) {
                                     if ($state) {
-                                        $set('price', Product::find($state)->price->amount);
+                                        $set('amount', Product::find($state)->price->amount);
                                     }
                                 });
 
@@ -157,7 +164,7 @@ class Form
                                 ->columnSpan(3);
                         }),
 
-                        fi_form_field('price', static function (TextInput $input) {
+                        fi_form_field('amount', static function (TextInput $input) {
                             $input->prefix('Rp')->readOnly()->columnSpan(2);
                         }),
 
@@ -176,6 +183,16 @@ class Form
     {
         return [
             Repeater::make('services')
+                ->relationship('items')
+                ->mutateRelationshipDataBeforeCreateUsing(function (array $data) {
+                    return array_merge($data, [
+                        'name' => match ($data['type']) {
+                            'SERVICE' => 'Service',
+                            'TURNING' => 'Bubut',
+                            'OTHER'   => $data['name'],
+                        },
+                    ]);
+                })
                 ->hiddenLabel()
                 ->collapsible()
                 ->defaultItems(0)
