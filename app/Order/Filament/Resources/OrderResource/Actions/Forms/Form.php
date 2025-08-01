@@ -114,7 +114,7 @@ class Form
     {
         return [
             Repeater::make('products')
-                ->relationship('items')
+                ->relationship()
                 ->mutateRelationshipDataBeforeCreateUsing(function (array $data) {
                     return array_merge($data, [
                         'type' => Type::PRODUCT,
@@ -183,7 +183,7 @@ class Form
     {
         return [
             Repeater::make('services')
-                ->relationship('items')
+                ->relationship()
                 ->mutateRelationshipDataBeforeCreateUsing(function (array $data) {
                     return array_merge($data, [
                         'name' => match ($data['type']) {

@@ -4,12 +4,9 @@ namespace App\Order\Filament\Resources\OrderResource\Actions;
 
 use App\Customer;
 use App\Order\Models\Order;
-use App\Order\Models\OrderItem;
-use App\Product\Models\Product;
 use App\Support\Filament\Actions\CreateAction as Action;
 use App\Vehicle\Models\Vehicle;
 use Filament\Support\Enums\MaxWidth;
-use Illuminate\Support\Facades\DB;
 
 class CreateAction extends Action
 {
@@ -34,6 +31,24 @@ class CreateAction extends Action
                     'status'     => 'PAID',
                     'created_by' => auth()->id(),
                 ]);
+            })
+            ->after(function (Order $record, array $data) {
+                $customer = null;
+                if (filled($data['name'])) {
+                    $customer = new Customer\Services\CreateService()->handle(Customer\Data\CustomerData::from($data));
+                }
+
+                if ($customer && filled($data['vehicle_id'])) {
+                    $customer->vehicles()->updateOrCreate([
+                        'vehicle_id' => $data['vehicle_id'],
+                    ]);
+                }
+
+                if ($customer) {
+                    $record->update([
+                        'customer_id' => $customer->id,
+                    ]);
+                }
             });
     }
 }
