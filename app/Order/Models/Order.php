@@ -17,8 +17,11 @@ class Order extends Model
 {
     use HasUuids;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
-        'invoice', 'type', 'amount', 'status', 'payment', 'date',
+        'invoice', 'type', 'amount', 'status', 'payment', 'date', 'discount',
         'customer_id', 'vehicle_id', 'created_by', 'deleted_at',
     ];
 

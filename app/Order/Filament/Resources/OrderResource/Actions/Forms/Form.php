@@ -59,12 +59,12 @@ class Form
                                 }),
 
                                 fi_form_field('phone', static function (TextInput $input) {
-                                    $input->placeholder('No. HP/WA');
+                                    $input->placeholder('No. HP/WA')->reactive();
                                 }),
                             ]),
                         ])
                             ->columnSpanFull()
-                            ->relationship('customer'),
+                            ->relationship('customer', condition: fn(?array $state) => filled($state['name'])),
 
                         fi_form_field('vehicle_id', function (Select $input) {
                             $input->label('Plate Number');
