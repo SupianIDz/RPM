@@ -6,6 +6,8 @@ use App\Order\Filament\Resources\OrderResource;
 use App\Order\Filament\Resources\OrderResource\Actions\CreateAction;
 use App\Order\Filament\Resources\OrderResource\Actions\ModifyAction;
 use App\Support\Filament\Tables\Actions\DeleteAction;
+use App\Vehicle\Filament\Components\Filters\VehicleFilter;
+use App\Vehicle\Filament\Components\Filters\VehiclePlatFilter;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -65,7 +67,7 @@ class ListOrders extends ListRecords
                 }),
 
                 fi_ta_column('creator.name', function (TextColumn $column) {
-                   $column->toggledHiddenByDefault(true);
+                    $column->toggledHiddenByDefault(true);
                 }),
 
                 fi_ta_column('created_at', function (TextColumn $column) {
@@ -73,15 +75,23 @@ class ListOrders extends ListRecords
                 }),
             ]);
 
-        $table->actions([
-            fi_action(function (ModifyAction $action) {
-                //
-            }),
+        $table
+            ->filters([
+                fi_ta_filter(function (VehicleFilter $filter){
 
-            fi_action(function (DeleteAction $action){
+                }),
+            ]);
 
-            }),
-        ]);
+        $table
+            ->actions([
+                fi_action(function (ModifyAction $action) {
+                    //
+                }),
+
+                fi_action(function (DeleteAction $action) {
+                    //
+                }),
+            ]);
 
         return $this->modifyQueryUsing($table);
     }
