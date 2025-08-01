@@ -9,6 +9,7 @@ use App\Vehicle\Enums\Brand;
 use App\Vehicle\Models\Vehicle;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -51,13 +52,19 @@ class Form
                             $input->required();
                         }),
 
-                        fi_form_field('name', static function (TextInput $input) {
-                            $input->placeholder('Full Name');
-                        }),
+                        Group::make([
+                            Grid::make(2)->schema([
+                                fi_form_field('name', static function (TextInput $input) {
+                                    $input->placeholder('Full Name');
+                                }),
 
-                        fi_form_field('phone', static function (TextInput $input) {
-                            $input->placeholder('No. HP/WA');
-                        }),
+                                fi_form_field('phone', static function (TextInput $input) {
+                                    $input->placeholder('No. HP/WA');
+                                }),
+                            ]),
+                        ])
+                            ->columnSpanFull()
+                            ->relationship('customer'),
 
                         fi_form_field('vehicle_id', function (Select $input) {
                             $input->label('Plate Number');

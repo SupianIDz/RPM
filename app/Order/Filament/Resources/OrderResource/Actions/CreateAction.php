@@ -34,12 +34,7 @@ class CreateAction extends Action
                 ]);
             })
             ->after(function (Order $record, array $data) {
-                $customer = null;
-                if (filled($data['name'])) {
-                    $customer = new Customer\Services\CreateService()->handle(Customer\Data\CustomerData::from($data));
-                }
-
-                new OrderService($record)->customer($customer)->recalculate();
+                new OrderService($record)->sync();
             });
     }
 }

@@ -20,12 +20,7 @@ class ModifyAction extends \App\Support\Filament\Tables\Actions\ModifyAction
             ->modalWidth(MaxWidth::SixExtraLarge)
             ->form(new Forms\Form()->configure($this))
             ->after(function (Order $record, array $data) {
-                $customer = null;
-                if (filled($data['name'])) {
-                    $customer = new Customer\Services\CreateService()->handle(Customer\Data\CustomerData::from($data));
-                }
-
-                new OrderService($record)->customer($customer)->recalculate();
+                 new OrderService($record)->sync();
             });
     }
 }
