@@ -4,7 +4,7 @@ namespace App\Order\Filament\Resources\OrderResource\Actions;
 
 use App\Customer;
 use App\Order\Models\Order;
-use App\Order\Models\OrderItem;
+use App\Order\Services\OrderService;
 use App\Support\Filament\Actions\CreateAction as Action;
 use App\Vehicle\Models\Vehicle;
 use Filament\Support\Enums\MaxWidth;
@@ -39,20 +39,7 @@ class CreateAction extends Action
                     $customer = new Customer\Services\CreateService()->handle(Customer\Data\CustomerData::from($data));
                 }
 
-                if ($customer && filled($data['vehicle_id'])) {
-                    $customer->vehicles()->updateOrCreate([
-                        'vehicle_id' => $data['vehicle_id'],
-                    ]);
-                }
-
-                $total = $record->items->sum(function (OrderItem $item) {
-                    return $item->quantity * $item->amount;
-                });
-
-                $record->update([
-                    'amount'      => $total,
-                    'customer_id' => $customer?->id,
-                ]);
+                new OrderService($record)->customer($customer)->recalculate();
             });
     }
 }
