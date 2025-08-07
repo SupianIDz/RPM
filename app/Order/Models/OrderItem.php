@@ -6,6 +6,7 @@ use App\Order\Observers\OrderItemObserver;
 use App\Product\Models\Product;
 use App\Product\Models\ProductPrice;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +22,25 @@ class OrderItem extends Model
     protected $fillable = [
         'invoice', 'name', 'quantity', 'product_id', 'product_price_id', 'type', 'amount',
     ];
+
+    protected function total() : Attribute
+    {
+        return Attribute::get(function () {
+            return $this->amount * $this->quantity;
+        });
+    }
+
+    protected function image() : Attribute
+    {
+        return Attribute::get(function () {
+            $image = $this->product->image?->name;
+            if ($image) {
+                return storage('product:image')->url($image);
+            }
+
+            return asset('images/no-image.svg');
+        });
+    }
 
     /**
      * @return BelongsTo

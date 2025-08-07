@@ -4,6 +4,7 @@ namespace App\Order\Filament\Resources\OrderResource\Pages;
 
 use App\Order\Filament\Resources\OrderResource;
 use App\Order\Filament\Resources\OrderResource\Actions\CreateAction;
+use App\Order\Filament\Resources\OrderResource\Actions\DetailAction;
 use App\Order\Filament\Resources\OrderResource\Actions\ModifyAction;
 use App\Support\Filament\Tables\Actions\DeleteAction;
 use App\Vehicle\Filament\Components\Filters\VehicleFilter;
@@ -89,6 +90,10 @@ class ListOrders extends ListRecords
 
         $table
             ->actions([
+                fi_action(function (DetailAction $action) {
+                    //
+                }),
+
                 fi_action(function (ModifyAction $action) {
                     //
                 }),

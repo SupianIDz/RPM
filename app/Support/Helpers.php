@@ -2,10 +2,12 @@
 
 use App\Support\Filament\Components\ActionComponent;
 use App\Support\Filament\Components\FormComponent;
+use App\Support\Filament\Components\InfolistComponent;
 use App\Support\Filament\Components\TableComponent;
 use App\User\Models\User;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Field;
+use Filament\Infolists\Components\Entry;
 use Filament\Tables\Actions\Action as TableAction;
 use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\Column;
@@ -64,6 +66,18 @@ if (! function_exists('number')) {
     function number(int|string $number) : \App\Support\Number
     {
         return new \App\Support\Number($number);
+    }
+}
+
+if (! function_exists('fi_entry')) {
+    /**
+     * @param  string  $name
+     * @param  Closure $closure
+     * @return Entry
+     */
+    function fi_entry(string $name, Closure $closure) : Entry
+    {
+        return InfolistComponent::entry($name, $closure);
     }
 }
 
