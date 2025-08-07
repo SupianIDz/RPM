@@ -21,7 +21,7 @@ class DetailAction extends \App\Support\Filament\Tables\Actions\DetailAction
         $this
             ->modalWidth(MaxWidth::SixExtraLarge)
             ->infolist([
-                Section::make('Info')
+                Section::make('Order Information')
                     ->collapsible()
                     ->schema([
                         Grid::make(2)->schema([
@@ -34,12 +34,23 @@ class DetailAction extends \App\Support\Filament\Tables\Actions\DetailAction
                             }),
 
                             fi_entry('customer.name', function (TextEntry $entry) {
+                                $entry
+                                    ->hidden(function (Order $record) {
+                                        return blank($record->customer);
+                                    })
+                                    ->helperText(function (Order $record) {
+                                        return $record->customer->phone;
+                                    });
                             }),
 
                             fi_entry('vehicle.plate', static function (TextEntry $entry) {
-                                $entry->formatStateUsing(function (string $state, $record) {
-                                    return $state . ' - ' . $record->vehicle->brand . ' ' . $record->vehicle->model;
-                                });
+                                $entry
+                                    ->hidden(function (Order $record) {
+                                        return blank($record->vehicle);
+                                    })
+                                    ->formatStateUsing(function (string $state, $record) {
+                                        return $state . ' - ' . $record->vehicle->brand . ' ' . $record->vehicle->model;
+                                    });
                             }),
                         ]),
                     ]),

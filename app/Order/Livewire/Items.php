@@ -49,7 +49,11 @@ class Items extends Component implements HasTable, HasForms
                 fi_ta_column('name', static function (TextColumn $column) {
                     $column
                         ->description(function (OrderItem $record) {
-                            return new HtmlString('<span class="text-xs text-warning-600">' . $record->product->code . '</span>');
+                            if ($record->product) {
+                                return new HtmlString('<span class="text-xs text-warning-600">' . $record->product->code . '</span>');
+                            }
+
+                            return '';
                         });
 
                     $column->toggleable(false);
@@ -65,26 +69,51 @@ class Items extends Component implements HasTable, HasForms
                         ->toggleable(false)
                         ->verticallyAlignCenter()
                         ->formatStateUsing(function ($state, OrderItem $record) {
-                            return new HtmlString($state . ' <span class="text-xs">' . $record->product->unit->name . '</span>');
+                            if ($record->product) {
+                                return new HtmlString($state . ' <span class="text-xs">' . $record->product->unit->name . '</span>');
+                            }
+
+                            return $state;
                         });
                 }),
 
-                fi_ta_column('total', static function (TextColumn $column) {
+                fi_ta_column('total', function (TextColumn $column) {
                     $column
                         ->label('Sub Total')
                         ->toggleable(false)
                         ->rupiah();
 
-                    $column->summarize([
-                        Summarizer::make()
-                            ->label('TOTAL')
-                            ->using(function (Builder $query) {
-                                return $query->sum(DB::raw('amount * quantity'));
-                            })
-                            ->formatStateUsing(function ($state) {
-                                return str($state)->rupiah();
-                            }),
-                    ]);
+                    $column
+                        ->summarize([
+                            Summarizer::make()
+                                ->label('TOTAL')
+                                ->using(function (Builder $query) {
+                                    return $query->sum(DB::raw('amount * quantity'));
+                                })
+                                ->formatStateUsing(function ($state) {
+                                    return str($state)->rupiah();
+                                }),
+
+                            Summarizer::make('discount')
+                                ->hidden(fn() => $this->order->discount === 0)
+                                ->label('DISCOUNT')
+                                ->using(function (Builder $query) {
+                                    return $query->sum(DB::raw('amount * quantity'));
+                                })
+                                ->formatStateUsing(function ($state) {
+                                    return str($this->order->discount)->rupiah();
+                                }),
+
+                            Summarizer::make()
+                                ->label('GRAND TOTAL')
+                                ->hidden(fn() => $this->order->discount === 0)
+                                ->using(function (Builder $query) {
+                                    return $query->sum(DB::raw('amount * quantity'));
+                                })
+                                ->formatStateUsing(function ($state) {
+                                    return str($this->order->total)->rupiah();
+                                }),
+                        ]);
                 }),
             ]);
 

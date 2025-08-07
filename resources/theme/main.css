@@ -175,6 +175,10 @@
     }
 
     /* FILAMENT TABLE */
+    .fi-ta-text-summary {
+        @apply !text-sm first:!pt-4 !py-1 last:!pb-4;
+    }
+
     .fi-ta-header-cell,
     .fi-ta-cell,
     .fi-ta-content {
