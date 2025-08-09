@@ -2,7 +2,9 @@
 
 namespace App\Recap\Services;
 
+use App\Order\Enums\Payment;
 use App\Order\Models\Order;
+use App\Recap\Enums\Type;
 use App\Recap\Models\Recap;
 
 class RecapService
@@ -24,8 +26,8 @@ class RecapService
     {
         $recap = $this->recap();
 
-        $recap->increment('total_order', $count);
-        $recap->increment('total_value', $total);
+        $recap->increment($this->getOrderColumn(), $count);
+        $recap->increment($this->getValueColumn(), $total);
 
         return $this;
     }
@@ -39,13 +41,8 @@ class RecapService
     {
         $recap = $this->recap();
 
-        if ($recap->total_order > 0) {
-            $recap->decrement('total_order', $count);
-        }
-
-        if ($recap->total_value > 0) {
-            $recap->decrement('total_value', $total);
-        }
+        $recap->decrement($this->getOrderColumn(), $count);
+        $recap->decrement($this->getValueColumn(), $total);
 
         return $this;
     }
@@ -55,10 +52,51 @@ class RecapService
      */
     private function recap() : Recap
     {
+        $this->generateFullYears();
+
         return
             Recap::firstOrCreate([
-                'type'   => $this->order->payment,
                 'period' => $this->order->date->format('Y-m-1'),
             ]);
+    }
+
+    /**
+     * @return void
+     */
+    private function generateFullYears() : void
+    {
+        $query = Recap::whereYear('period', now()->year);
+
+        if (! $query->exists() || $query->count() < 12 * count(Type::cases())) {
+            foreach (range(1, 12) as $month) {
+                $query->firstOrCreate([
+                    'period' => now()->year . '-' . $month . '-1',
+                ]);
+            }
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderColumn() : string
+    {
+        return match ($this->order->payment) {
+            Payment::CASH        => 'total_order_c',
+            Payment::TRANSFER    => 'total_order_t',
+            Payment::MARKETPLACE => 'total_order_m',
+        };
+    }
+
+    /**
+     * @return string
+     */
+    public function getValueColumn() : string
+    {
+        return match ($this->order->payment) {
+            Payment::CASH        => 'total_value_c',
+            Payment::TRANSFER    => 'total_value_t',
+            Payment::MARKETPLACE => 'total_value_m',
+        };
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Order\Models;
 
 use App\Customer\Models\Customer;
+use App\Order\Enums\Payment;
 use App\Order\Observers\OrderObserver;
 use App\Product\Enums\Type;
 use App\User\Models\User;
@@ -44,7 +45,8 @@ class Order extends Model
     protected function casts() : array
     {
         return [
-            'date' => 'date',
+            'date'    => 'date',
+            'payment' => Payment::class,
         ];
     }
 

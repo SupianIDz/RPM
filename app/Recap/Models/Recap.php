@@ -4,6 +4,7 @@ namespace App\Recap\Models;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -19,6 +20,26 @@ class Recap extends Model
     protected $fillable = [
         'period', 'type', 'total_order', 'total_value',
     ];
+
+    /**
+     * @return Attribute
+     */
+    protected function totalOrder():Attribute
+    {
+        return Attribute::make(function () {
+            return $this->total_order_c + $this->total_order_t + $this->total_order_m;
+        });
+    }
+
+    /**
+     * @return Attribute
+     */
+    protected function totalValue() : Attribute
+    {
+        return Attribute::make(function () {
+            return $this->total_value_c + $this->total_value_t + $this->total_value_m;
+        });
+    }
 
     /**
      * @param  Builder $query
