@@ -16,6 +16,7 @@ class DetailAction extends ViewAction
 
         $this
             ->hiddenLabel()
+            ->tooltip('VIEW')
             ->icon('lucide-eye')
             ->color('primary')
             ->iconSize(IconSize::Medium);

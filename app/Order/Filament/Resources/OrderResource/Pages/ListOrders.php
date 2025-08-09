@@ -77,11 +77,11 @@ class ListOrders extends ListRecords
                     $column->rupiah()->searchable(false);
                 }),
 
-                fi_ta_column('payment', function (TextColumn $column) {
-                    //
+                fi_ta_column('payment', static function (TextColumn $column) {
+                    $column->badge();
                 }),
 
-                fi_ta_column('creator.name', function (TextColumn $column) {
+                fi_ta_column('creator.name', static function (TextColumn $column) {
                     $column->toggledHiddenByDefault(true);
                 }),
 
@@ -103,11 +103,11 @@ class ListOrders extends ListRecords
 
         $table
             ->actions([
-                fi_action(function (ReceiptAction $action) {
+                fi_action(function (DetailAction $action) {
                     //
                 }),
 
-                fi_action(function (DetailAction $action) {
+                fi_action(function (ReceiptAction $action) {
                     //
                 }),
 
