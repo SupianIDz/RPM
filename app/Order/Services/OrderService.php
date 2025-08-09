@@ -85,6 +85,8 @@ class OrderService
             return $item->quantity * $item->amount;
         });
 
+        $prevTotal = $this->order->total;
+
         // Update the order amount
         return $this->order->update([
             'amount' => $total,

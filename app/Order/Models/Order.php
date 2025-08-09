@@ -3,10 +3,12 @@
 namespace App\Order\Models;
 
 use App\Customer\Models\Customer;
+use App\Order\Observers\OrderObserver;
 use App\Product\Enums\Type;
 use App\User\Models\User;
 use App\Vehicle\Models\Vehicle;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -16,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use LaravelIdea\Helper\App\Order\Models\_IH_OrderItem_QB;
 
+#[ObservedBy([OrderObserver::class])]
 class Order extends Model
 {
     use HasUuids;
@@ -27,6 +30,21 @@ class Order extends Model
         'invoice', 'type', 'amount', 'status', 'payment', 'date', 'discount',
         'customer_id', 'vehicle_id', 'created_by', 'deleted_at',
     ];
+
+    /**
+     * @var string[]
+     */
+    protected $appends = ['total'];
+
+    /**
+     * @return string[]
+     */
+    protected function casts() : array
+    {
+        return [
+            'date' => 'date',
+        ];
+    }
 
     /**
      * @return Attribute
