@@ -13,10 +13,22 @@ use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
+use Override;
 
 class ListOrders extends ListRecords
 {
     protected static string $resource = OrderResource::class;
+
+    /**
+     * @return \class-string[]
+     */
+    #[Override]
+    protected function getHeaderWidgets() : array
+    {
+        return [
+            OrderResource\Widgets\OrderStatsOverview::class,
+        ];
+    }
 
     /**
      * @return array

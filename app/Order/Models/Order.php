@@ -6,11 +6,14 @@ use App\Customer\Models\Customer;
 use App\Product\Enums\Type;
 use App\User\Models\User;
 use App\Vehicle\Models\Vehicle;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use LaravelIdea\Helper\App\Order\Models\_IH_OrderItem_QB;
 
 class Order extends Model
@@ -33,6 +36,17 @@ class Order extends Model
         return Attribute::get(function () {
             return $this->amount - $this->discount;
         });
+    }
+
+    /**
+     * @param  Builder    $query
+     * @param  Carbon|int $month
+     * @return Builder
+     */
+    #[Scope]
+    protected function monthly(Builder $query, Carbon|int $month) : Builder
+    {
+        return $query->whereMonth('date', $month instanceof Carbon ? $month->month : $month);
     }
 
     /**
