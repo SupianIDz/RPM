@@ -22,8 +22,10 @@ class ReceiptAction extends Action
             ->iconSize(IconSize::Medium);
 
         $this
+            ->link()
             ->url(function (Order $record) {
                 return route('orders.receipt', $record->invoice);
-            });
+            })
+            ->openUrlInNewTab();
     }
 }

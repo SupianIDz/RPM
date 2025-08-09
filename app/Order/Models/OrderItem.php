@@ -23,6 +23,27 @@ class OrderItem extends Model
         'invoice', 'name', 'quantity', 'product_id', 'product_price_id', 'type', 'amount',
     ];
 
+    /**
+     * @return Attribute
+     */
+    protected function fullName() : Attribute
+    {
+        return Attribute::make(function () {
+            $name = [];
+
+            $name[] = $this->name;
+
+            if ($this->product) {
+                $name[] = $this->product->brand->name;
+            }
+
+            return implode(' - ', array_filter($name));
+        });
+    }
+
+    /**
+     * @return Attribute
+     */
     protected function total() : Attribute
     {
         return Attribute::get(function () {
@@ -30,6 +51,9 @@ class OrderItem extends Model
         });
     }
 
+    /**
+     * @return Attribute
+     */
     protected function image() : Attribute
     {
         return Attribute::get(function () {

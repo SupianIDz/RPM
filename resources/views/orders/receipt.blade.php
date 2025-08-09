@@ -214,7 +214,7 @@
                 @foreach($order->items as $item)
                     <tr>
                         <td class="center">{{ $loop->index + 1 }}</td>
-                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->full_name }}</td>
                         <td>{{ str($item->amount)->rupiah() }}</td>
                         <td class="nowrap center">{{ $item->quantity }}</td>
                         <td class="right">{{ str($item->total)->rupiah() }}</td>
