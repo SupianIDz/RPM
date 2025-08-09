@@ -6,6 +6,7 @@ use App\Order\Filament\Resources\OrderResource;
 use App\Order\Filament\Resources\OrderResource\Actions\CreateAction;
 use App\Order\Filament\Resources\OrderResource\Actions\DetailAction;
 use App\Order\Filament\Resources\OrderResource\Actions\ModifyAction;
+use App\Order\Filament\Resources\OrderResource\Actions\ReceiptAction;
 use App\Support\Filament\Tables\Actions\DeleteAction;
 use App\Vehicle\Filament\Components\Filters\VehicleFilter;
 use App\Vehicle\Filament\Components\Filters\VehiclePlatFilter;
@@ -102,6 +103,10 @@ class ListOrders extends ListRecords
 
         $table
             ->actions([
+                fi_action(function (ReceiptAction $action) {
+                    //
+                }),
+
                 fi_action(function (DetailAction $action) {
                     //
                 }),

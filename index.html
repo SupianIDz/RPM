@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Kuitansi</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                color: #333333;
+            }
+
+            .header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .logo {
+                width: 100px;
+                height: auto;
+                margin-right: 15px;
+            }
+
+            .company-info {
+                font-size: 14px;
+            }
+
+            h1 {
+                margin: 0;
+                font-size: 24px;
+            }
+
+            .info {
+                margin-bottom: 20px;
+                font-size: 14px;
+            }
+
+            .info div {
+                margin-bottom: 6px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+                font-size: 14px;
+            }
+
+            table thead {
+                background-color: #F2F2F2;
+            }
+
+            table th,
+            table td {
+                border: 1px solid #DDDDDD;
+                padding: 8px;
+                text-align: left;
+            }
+
+            table th {
+                font-weight: bold;
+            }
+
+            .right {
+                text-align: right;
+            }
+
+            .totals {
+                max-width: 300px;
+                margin-left: auto;
+                font-size: 14px;
+            }
+
+            .totals div {
+                display: flex;
+                justify-content: space-between;
+                padding: 6px 0;
+            }
+
+            .totals div.total {
+                font-weight: bold;
+                border-top: 2px solid #333333;
+                padding-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="header">
+            <img src="https://via.placeholder.com/100x50?text=Logo" alt="Logo Perusahaan" class="logo"/>
+            <div class="company-info">
+                <h1>Kuitansi Pembayaran</h1>
+                <div>PT Contoh Perusahaan</div>
+                <div>Jl. Contoh Alamat No.123, Jakarta</div>
+                <div>Telp: (021) 1234567</div>
+            </div>
+        </div>
+
+        <div class="info">
+            <div><strong>Tanggal:</strong> 9 Agustus 2025</div>
+            <div><strong>Nama Customer:</strong> Supian M</div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama Produk</th>
+                    <th>Jumlah</th>
+                    <th>Subtotal (Rp)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Produk A</td>
+                    <td>2</td>
+                    <td class="right">150.000</td>
+                </tr>
+                <tr>
+                    <td>Produk B</td>
+                    <td>1</td>
+                    <td class="right">75.000</td>
+                </tr>
+                <tr>
+                    <td>Produk C</td>
+                    <td>3</td>
+                    <td class="right">210.000</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="totals">
+            <div><span>Total:</span> <span class="right">435.000</span></div>
+            <div><span>Discount:</span> <span class="right">35.000</span></div>
+            <div class="total"><span>Grand Total:</span> <span class="right">400.000</span></div>
+        </div>
+
+    </body>
+</html>

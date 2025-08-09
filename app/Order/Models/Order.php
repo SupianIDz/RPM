@@ -34,7 +34,9 @@ class Order extends Model
     /**
      * @var string[]
      */
-    protected $appends = ['total'];
+    protected $appends = [
+        'total',
+    ];
 
     /**
      * @return string[]
@@ -44,6 +46,14 @@ class Order extends Model
         return [
             'date' => 'date',
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName() : string
+    {
+        return 'invoice';
     }
 
     /**

@@ -20,6 +20,22 @@ class Vehicle extends Model
     /**
      * @return Attribute
      */
+    protected function name() : Attribute
+    {
+        return Attribute::make(function () {
+            $arr = [];
+            $arr[] = $this->brand;
+            $arr[] = $this->model;
+
+            $arr = array_filter($arr);
+
+            return implode('  ', $arr);
+        });
+    }
+
+    /**
+     * @return Attribute
+     */
     protected function plate() : Attribute
     {
         return
