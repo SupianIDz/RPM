@@ -154,8 +154,13 @@ class Form
                                 ->label('Product')
                                 ->options(function (Get $get) {
                                     return Product::get()->flatMap(function (Product $product) use ($get) {
+                                        $name = $product->name;
+                                        if ($product->brand) {
+                                            $name = $product->brand->name . ' - ' . $name;
+                                        }
+
                                         return [
-                                            $product->id => $product->brand->name . ' - ' . $product->name,
+                                            $product->id => $name,
                                         ];
                                     });
                                 })
