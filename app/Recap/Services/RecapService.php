@@ -4,8 +4,8 @@ namespace App\Recap\Services;
 
 use App\Order\Enums\Payment;
 use App\Order\Models\Order;
-use App\Recap\Enums\Type;
 use App\Recap\Models\Recap;
+use Illuminate\Database\Eloquent\Model;
 
 class RecapService
 {
@@ -48,9 +48,9 @@ class RecapService
     }
 
     /**
-     * @return Recap
+     * @return Recap|Model
      */
-    private function recap() : Recap
+    private function recap() : Model|Recap
     {
         $this->generateFullYears();
 
@@ -67,7 +67,7 @@ class RecapService
     {
         $query = Recap::whereYear('period', now()->year);
 
-        if (! $query->exists() || $query->count() < 12 * count(Type::cases())) {
+        if (! $query->exists()) {
             foreach (range(1, 12) as $month) {
                 $query->firstOrCreate([
                     'period' => now()->year . '-' . $month . '-1',
