@@ -19,8 +19,13 @@ class ModifyAction extends \App\Support\Filament\Tables\Actions\ModifyAction
         $this
             ->modalWidth(MaxWidth::SixExtraLarge)
             ->form(new Forms\Form()->configure($this))
+            ->mutateRecordDataUsing(function (Order $record, array $data) {
+                return array_merge($data, [
+                    'plate' => $record->vehicle?->plate,
+                ]);
+            })
             ->after(function (Order $record, array $data) {
-                 new OrderService($record)->sync();
+                new OrderService($record)->sync();
             });
     }
 }

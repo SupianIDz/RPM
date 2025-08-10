@@ -6,7 +6,6 @@ use App\Order\Enums\Payment;
 use App\Order\Enums\Type;
 use App\Product\Models\Product;
 use App\Vehicle\Enums\Brand;
-use App\Vehicle\Models\Vehicle;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
@@ -37,10 +36,14 @@ class Form
                         fi_form_field('invoice', static function (TextInput $input) {
                             $input->label('Invoice Number')->default(str_invoice(4));
                             $input->required();
+
+                            $input->helperText('Invoice is generated automatically, but you can enter it manually if needed. Please be careful to avoid duplicates.');
                         }),
 
                         fi_form_field('date', function (DateTimePicker $input) {
                             $input->native(false)->default(now())->required();
+
+                            $input->helperText('You can enter a past date for the transaction if necessary.');
                         }),
 
                         fi_form_field('discount', function (TextInput $input) {
@@ -56,34 +59,26 @@ class Form
                             Grid::make(2)->schema([
                                 fi_form_field('name', static function (TextInput $input) {
                                     $input->placeholder('Full Name');
+
+                                    $input->helperText('Leave blank if not applicable.');
                                 }),
 
                                 fi_form_field('phone', static function (TextInput $input) {
                                     $input->placeholder('No. HP/WA')->reactive();
+                                    $input->helperText('Leave blank if not applicable.');
                                 }),
                             ]),
                         ])
                             ->columnSpanFull()
                             ->relationship('customer', condition: fn(?array $state) => filled($state['name'])),
 
-                        fi_form_field('vehicle_id', function (Select $input) {
-                            $input->label('Plate Number');
-                            $input->options(function () {
-                                return Vehicle::get()->flatMap(function (Vehicle $vehicle) {
-                                    return [
-                                        $vehicle->id => $vehicle->plate . ' - ' . $vehicle->brand . ' ' . $vehicle->model,
-                                    ];
-                                });
-                            });
+                        fi_form_field('plate', function (TextInput $input) {
+                            $input
+                                ->label('Plate Number')
+                                ->placeholder('DA1234AG');
 
                             $input
-                                ->createOptionForm($this->vehicleSchema())
-                                ->createOptionUsing(function (array $data) {
-                                    return Vehicle::updateOrCreate(['plate' => $data['plate']], $data);
-                                });
-
-                            $input
-                                ->helperText('Click the + button on the side if the plate is not listed')
+                                ->helperText('Leave blank if not applicable.')
                                 ->columnSpanFull();
                         }),
                     ]),

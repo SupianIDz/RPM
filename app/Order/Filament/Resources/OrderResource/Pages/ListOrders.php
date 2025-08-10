@@ -60,11 +60,11 @@ class ListOrders extends ListRecords
                     //
                 }),
 
-                fi_ta_column('vehicle.brand', static function (TextColumn $column) {
-                    $column->formatStateUsing(function (string $state, $record) {
-                        return $record->vehicle->brand . ' ' . $record->vehicle->model;
-                    });
-                }),
+                // fi_ta_column('vehicle.brand', static function (TextColumn $column) {
+                //     $column->formatStateUsing(function (string $state, $record) {
+                //         return $record->vehicle->brand . ' ' . $record->vehicle->model;
+                //     });
+                // }),
 
                 fi_ta_column('vehicle.plate', static function (TextColumn $column) {
                     $column->label('Plate Number')->badge();

@@ -40,11 +40,7 @@ class Vehicle extends Model
     {
         return
             Attribute::make(static function ($value) {
-                if (preg_match('/^([A-Z]{1,2})(\d{1,4})([A-Z]{0,3})$/', $value, $m)) {
-                    return $m[1] . ' ' . $m[2] . ' ' . $m[3];
-                }
-
-                return $value;
+                return preg_replace('/(?<=[A-Za-z])(?=\d)|(?<=\d)(?=[A-Za-z])/', ' ', $value);
             });
     }
 }

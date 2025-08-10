@@ -178,11 +178,11 @@
                     @endif
 
                     @if($order->vehicle)
-                        <tr>
+                        {{--<tr>
                             <td class="info-label">Vehicle</td>
                             <td class="info-separator">:</td>
                             <td>{{ $order->vehicle->name }}</td>
-                        </tr>
+                        </tr>--}}
 
                         <tr>
                             <td class="info-label">Plate Number</td>

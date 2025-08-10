@@ -24,12 +24,18 @@ class CreateAction extends Action
 
         $this
             ->mutateFormDataUsing(function (array $data) {
-                if ($data['vehicle_id'] instanceof Vehicle) {
-                    $data['vehicle_id'] = $data['vehicle_id']->id;
+                $vehicleID = null;
+                if (filled($data['plate'])) {
+                    $vehicleID =
+                        Vehicle::firstOrCreate([
+                            'plate' => str($data['plate'])->replaceMatches('/[^a-zA-Z0-9]/', '')->upper(),
+                        ])
+                            ->getKey();
                 }
 
                 return array_merge($data, [
                     'status'     => 'PAID',
+                    'vehicle_id' => $vehicleID,
                     'created_by' => auth()->id(),
                 ]);
             })
