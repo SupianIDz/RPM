@@ -11,12 +11,16 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Query\Builder as QBuilder;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 
 class ListRecapDailies extends ListRecords
 {
     protected static string $resource = RecapDailyResource::class;
+
+    #[Url(as: 'month')]
+    public ?string $month = null;
 
     #[Url(as: 'year')]
     public ?string $year = null;
@@ -26,6 +30,7 @@ class ListRecapDailies extends ListRecords
      */
     public function mount() : void
     {
+        $this->month = date('m');
         $this->year = date('Y');
     }
 
@@ -37,6 +42,13 @@ class ListRecapDailies extends ListRecords
     {
         $table
             ->headerActions([
+                fi_action(static function (SelectAction $action) {
+                    $action
+                        ->options(collect(range(1, 12))->mapWithKeys(fn($month) => [
+                            $month => strtoupper(Carbon::create()?->month($month)->format('M')),
+                        ]));
+                }, 'month'),
+
                 fi_action(static function (SelectAction $action) {
                     $action
                         ->options(collect(range(2025, date('Y')))->mapWithKeys(fn($year) => [
@@ -135,6 +147,10 @@ class ListRecapDailies extends ListRecords
     {
         return
             $table->modifyQueryUsing(function (Builder $query) {
+                $query->when($this->month, function (Builder $query) {
+                    $query->whereMonth('period', $this->month);
+                });
+
                 $query->when($this->year, function (Builder $query) {
                     $query->whereYear('period', $this->year);
                 });
