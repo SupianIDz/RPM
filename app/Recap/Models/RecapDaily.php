@@ -2,15 +2,17 @@
 
 namespace App\Recap\Models;
 
+use App\Recap\Observers\RecapDailyObserver;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use LaravelIdea\Helper\App\Recap\Models\_IH_Recap_QB;
 
-class Recap extends Model
+#[ObservedBy(RecapDailyObserver::class)]
+class RecapDaily extends Model
 {
     use HasUuids;
 
@@ -54,10 +56,10 @@ class Recap extends Model
     /**
      * @param  Builder $query
      * @param  Carbon  $date
-     * @return Builder|_IH_Recap_QB
+     * @return Builder
      */
     #[Scope]
-    protected function period(Builder $query, Carbon $date) : Builder|_IH_Recap_QB
+    protected function period(Builder $query, Carbon $date) : Builder
     {
         return
             $query

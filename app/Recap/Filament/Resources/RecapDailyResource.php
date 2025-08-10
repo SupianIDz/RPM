@@ -2,43 +2,44 @@
 
 namespace App\Recap\Filament\Resources;
 
-use App\Recap\Filament\Resources\RecapResource\Pages;
-use App\Recap\Models\Recap;
+use App\Recap\Filament\Clusters\Recap;
+use App\Recap\Filament\Resources\RecapDailyResource\Pages;
+use App\Recap\Models\RecapDaily;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 
-class RecapResource extends Resource
+class RecapDailyResource extends Resource
 {
     /**
      * @var string|null
      */
-    protected static ?string $model = Recap::class;
+    protected static ?string $model = RecapDaily::class;
 
     /**
      * @var string|null
      */
-    protected static ?string $cluster = \App\Recap\Filament\Clusters\Recap::class;
+    protected static ?string $cluster = Recap::class;
 
     /**
      * @var string|null
      */
-    protected static ?string $slug = 'monthly';
+    protected static ?string $slug = 'dailies';
 
     /**
      * @var string|null
      */
-    protected static ?string $navigationIcon = 'lucide-calendar-clock';
+    protected static ?string $navigationIcon = 'lucide-calendar-range';
 
     /**
      * @var string|null
      */
-    protected static ?string $navigationLabel = 'MONTHLY';
+    protected static ?string $navigationLabel = 'DAILY';
 
     /**
      * @var int|null
      */
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 0;
 
     /**
      * @var SubNavigationPosition
@@ -51,7 +52,7 @@ class RecapResource extends Resource
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListRecaps::route('/'),
+            'index' => Pages\ListRecapDailies::route('/'),
         ];
     }
 }
