@@ -14,10 +14,12 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'lucide-shopping-cart';
 
+    protected static ?int $navigationSort = 2;
+
     public static function getPages() : array
     {
         return [
-            'index'  => Pages\ListOrders::route('/'),
+            'index' => Pages\ListOrders::route('/'),
         ];
     }
 }

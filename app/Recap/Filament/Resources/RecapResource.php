@@ -14,6 +14,8 @@ class RecapResource extends Resource
 
     protected static ?string $navigationIcon = 'lucide-pie-chart';
 
+    protected static ?int $navigationSort = 3;
+
     public static function getPages() : array
     {
         return [

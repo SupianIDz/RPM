@@ -24,5 +24,5 @@ class Setting extends Cluster
     /**
      * @var int|null
      */
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 5;
 }
