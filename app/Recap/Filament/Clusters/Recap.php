@@ -20,4 +20,9 @@ class Recap extends Cluster
      * @var string|null
      */
     protected static ?string $navigationLabel = 'Recaps';
+
+    /**
+     * @var int|null
+     */
+    protected static ?int $navigationSort = 3;
 }

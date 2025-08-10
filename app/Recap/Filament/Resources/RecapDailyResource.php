@@ -4,6 +4,7 @@ namespace App\Recap\Filament\Resources;
 
 use App\Recap\Filament\Clusters\Recap;
 use App\Recap\Filament\Resources\RecapDailyResource\Pages;
+use App\Recap\Filament\Resources\RecapDailyResource\RelationManagers\FooRelationManager;
 use App\Recap\Models\RecapDaily;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Pages\PageRegistration;
@@ -26,12 +27,12 @@ class RecapDailyResource extends Resource
      */
     protected static ?string $slug = 'dailies';
 
+    protected static ?string $recordRouteKeyName = 'period';
 
     /**
      * @var string|null
      */
     protected static ?string $breadcrumb = 'Daily';
-
 
     /**
      * @var string|null
@@ -60,6 +61,7 @@ class RecapDailyResource extends Resource
     {
         return [
             'index' => Pages\ListRecapDailies::route('/'),
+            'show'  => Pages\DailySoldProduct::route('/{record:period}'),
         ];
     }
 }
