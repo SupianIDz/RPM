@@ -18,13 +18,13 @@ class Recap extends Model
      * @var string[]
      */
     protected $fillable = [
-        'period', 'type', 'total_order', 'total_value',
+        'period', 'total_order_c', 'total_value_c', 'total_order_t', 'total_value_t', 'total_order_m', 'total_value_m',
     ];
 
     /**
      * @return Attribute
      */
-    protected function totalOrder():Attribute
+    protected function totalOrder() : Attribute
     {
         return Attribute::make(function () {
             return $this->total_order_c + $this->total_order_t + $this->total_order_m;

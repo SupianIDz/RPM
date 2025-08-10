@@ -6,6 +6,7 @@
         <entry key="createDatabaseClassFactory.phpDoc" value="mixin" />
         <entry key="createEnum.backed" value=": string" />
         <entry key="createFilamentResource.addSoftDeleteStuff" value="" />
+        <entry key="createObserver.method_deleted" value="" />
         <entry key="createObserver.method_restored" value="" />
         <entry key="createServiceProviderRegister" value="" />
       </map>

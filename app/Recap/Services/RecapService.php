@@ -5,6 +5,7 @@ namespace App\Recap\Services;
 use App\Order\Enums\Payment;
 use App\Order\Models\Order;
 use App\Recap\Models\Recap;
+use App\Recap\Models\RecapDaily;
 use Illuminate\Database\Eloquent\Model;
 
 class RecapService
@@ -24,7 +25,7 @@ class RecapService
      */
     public function create(float $total, int $count = 1) : RecapService
     {
-        $recap = $this->recap();
+        $recap = $this->recapDaily();
 
         $recap->increment($this->getOrderColumn(), $count);
         $recap->increment($this->getValueColumn(), $total);
@@ -39,7 +40,7 @@ class RecapService
      */
     public function delete(float $total, int $count = 1) : RecapService
     {
-        $recap = $this->recap();
+        $recap = $this->recapDaily();
 
         $recap->decrement($this->getOrderColumn(), $count);
         $recap->decrement($this->getValueColumn(), $total);
@@ -50,13 +51,14 @@ class RecapService
     /**
      * @return Recap|Model
      */
-    private function recap() : Model|Recap
+    private function recapDaily() : Model|Recap
     {
         $this->generateFullYears();
+        $this->generateFullMonth();
 
         return
-            Recap::firstOrCreate([
-                'period' => $this->order->date->format('Y-m-1'),
+            RecapDaily::firstOrCreate([
+                'period' => $this->order->date->format('Y-m-d'),
             ]);
     }
 
@@ -73,6 +75,23 @@ class RecapService
                     'period' => now()->year . '-' . $month . '-1',
                 ]);
             }
+        }
+    }
+
+    /**
+     * @return void
+     */
+    private function generateFullMonth() : void
+    {
+        $str = now()->startOfMonth();
+        $end = now()->endOfMonth();
+
+        $dates = [];
+
+        for ($date = $str->copy(); $date->lte($end); $date->addDay()) {
+            RecapDaily::firstOrCreate([
+                'period' => $date->format('Y-m-d'),
+            ]);
         }
     }
 
