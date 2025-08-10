@@ -2,7 +2,7 @@
 
 namespace App\Recap\Filament\Resources\RecapResource\Pages;
 
-use App\Recap\Filament\Resources\RecapResource;
+use App\Recap\Filament\Resources\RecapMonthlyResource;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Actions\SelectAction;
 use Filament\Tables\Columns\Summarizers\Sum;
@@ -14,9 +14,9 @@ use Illuminate\Contracts\Database\Query\Builder as QBuilder;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 
-class ListRecaps extends ListRecords
+class ListRecapMonthlies extends ListRecords
 {
-    protected static string $resource = RecapResource::class;
+    protected static string $resource = RecapMonthlyResource::class;
 
     #[Url(as: 'year')]
     public ?string $year = null;

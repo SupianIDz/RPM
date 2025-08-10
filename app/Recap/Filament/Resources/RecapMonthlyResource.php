@@ -8,7 +8,7 @@ use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 
-class RecapResource extends Resource
+class RecapMonthlyResource extends Resource
 {
     /**
      * @var string|null
@@ -51,7 +51,7 @@ class RecapResource extends Resource
     public static function getPages() : array
     {
         return [
-            'index' => Pages\ListRecaps::route('/'),
+            'index' => Pages\ListRecapMonthlies::route('/'),
         ];
     }
 }
