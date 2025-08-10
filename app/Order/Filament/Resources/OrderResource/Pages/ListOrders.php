@@ -2,6 +2,7 @@
 
 namespace App\Order\Filament\Resources\OrderResource\Pages;
 
+use App\Order\Filament\Components\Filters\PaymentFilter;
 use App\Order\Filament\Resources\OrderResource;
 use App\Order\Filament\Resources\OrderResource\Actions\CreateAction;
 use App\Order\Filament\Resources\OrderResource\Actions\DetailAction;
@@ -80,13 +81,16 @@ class ListOrders extends ListRecords
                 fi_ta_column('payment', static function (TextColumn $column) {
                     $column->badge();
                 }),
+                fi_ta_column('date', function (TextColumn $column) {
+                   $column->label('Trx Date')->date();
+                }),
 
                 fi_ta_column('creator.name', static function (TextColumn $column) {
                     $column->toggledHiddenByDefault(true);
                 }),
 
                 fi_ta_column('created_at', function (TextColumn $column) {
-                    //
+                    $column->toggledHiddenByDefault(true);
                 }),
             ]);
 
@@ -95,6 +99,10 @@ class ListOrders extends ListRecords
                 fi_ta_filter(function (DateRangeFilter $filter) {
                     //
                 }, 'date'),
+
+                fi_ta_filter(function (PaymentFilter $filter) {
+                    //
+                }),
 
                 fi_ta_filter(function (VehicleFilter $filter) {
                     //
