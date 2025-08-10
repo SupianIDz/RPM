@@ -28,6 +28,11 @@ class RecapMonthlyResource extends Resource
     /**
      * @var string|null
      */
+    protected static ?string $breadcrumb = 'Monthly';
+
+    /**
+     * @var string|null
+     */
     protected static ?string $navigationIcon = 'lucide-calendar-clock';
 
     /**

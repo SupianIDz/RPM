@@ -26,6 +26,13 @@ class RecapDailyResource extends Resource
      */
     protected static ?string $slug = 'dailies';
 
+
+    /**
+     * @var string|null
+     */
+    protected static ?string $breadcrumb = 'Daily';
+
+
     /**
      * @var string|null
      */
