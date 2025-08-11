@@ -2,6 +2,7 @@
 
 namespace App\Order\Models;
 
+use App\Order\Enums\Type;
 use App\Order\Observers\OrderItemObserver;
 use App\Product\Models\Product;
 use App\Product\Models\ProductPrice;
@@ -22,6 +23,13 @@ class OrderItem extends Model
     protected $fillable = [
         'invoice', 'name', 'quantity', 'product_id', 'product_price_id', 'type', 'amount',
     ];
+
+    protected function casts() : array
+    {
+        return [
+            'type' => Type::class,
+        ];
+    }
 
     /**
      * @return Attribute
@@ -54,6 +62,46 @@ class OrderItem extends Model
     /**
      * @return Attribute
      */
+    protected function serviceTotal() : Attribute
+    {
+        return Attribute::get(function () {
+            return $this->type->is(Type::SERVICE) ? $this->total : 0;
+        });
+    }
+
+    /**
+     * @return Attribute
+     */
+    protected function productTotal() : Attribute
+    {
+        return Attribute::get(function () {
+            return $this->type->is(Type::PRODUCT) ? $this->total : 0;
+        });
+    }
+
+     /**
+     * @return Attribute
+     */
+    protected function turningTotal() : Attribute
+    {
+        return Attribute::get(function () {
+            return $this->type->is(Type::TURNING) ? $this->total : 0;
+        });
+    }
+
+     /**
+     * @return Attribute
+     */
+    protected function benzeneTotal() : Attribute
+    {
+        return Attribute::get(function () {
+            return $this->type->is(Type::BENZENE) ? $this->total : 0;
+        });
+    }
+
+    /**
+     * @return Attribute
+     */
     protected function image() : Attribute
     {
         return Attribute::get(function () {
@@ -74,11 +122,17 @@ class OrderItem extends Model
         return $this->belongsTo(ProductPrice::class, 'product_price_id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function product() : BelongsTo
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function order() : BelongsTo
     {
         return $this->belongsTo(Order::class, 'invoice', 'invoice');

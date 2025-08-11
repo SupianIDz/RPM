@@ -2,11 +2,14 @@
 
 namespace App\Order\Enums;
 
+use App\Support\Concerns\EnumExtended;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 
 enum Type : string implements HasLabel, HasIcon
 {
+    use EnumExtended;
+
     case PRODUCT = 'PRODUCT';
 
     case SERVICE = 'SERVICE';
