@@ -16,7 +16,7 @@
                 max-width: 900px;
                 margin: 0 auto;
                 padding: 8px;
-                color: #333;
+                color: #000;
                 font-size: 13px;
             }
 
@@ -91,11 +91,11 @@
             }
 
             thead {
-                background-color: #f2f2f2;
+                background-color: #e1dddd;
             }
 
             th, td {
-                border: 1px solid #ddd;
+                border: 1px solid #464444;
                 padding: 5px 6px;
                 text-align: left;
                 vertical-align: middle;
