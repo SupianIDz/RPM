@@ -21,7 +21,7 @@ use Malzariey\FilamentDaterangepickerFilter\Enums\DropDirection;
 use Malzariey\FilamentDaterangepickerFilter\Enums\OpenDirection;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 
-class DailySoldProducts extends Page implements HasTable
+class Sales extends Page implements HasTable
 {
     use InteractsWithTable, InteractsWithForms;
 
@@ -35,6 +35,8 @@ class DailySoldProducts extends Page implements HasTable
     protected static ?string $navigationIcon = 'lucide-candlestick-chart';
 
     protected static ?string $navigationLabel = 'SALES';
+
+    protected static ?int $navigationSort = 3;
 
     /**
      * @param  Table $table
