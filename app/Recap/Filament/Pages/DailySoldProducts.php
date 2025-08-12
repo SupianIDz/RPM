@@ -1,30 +1,40 @@
 <?php
 
-namespace App\Recap\Filament\Resources\RecapDailyResource\Pages;
+namespace App\Recap\Filament\Pages;
 
 use App\Order\Models\OrderItem;
-use App\Recap\Filament\Resources\RecapDailyResource;
-use Filament\Resources\Pages\ViewRecord;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Pages\Page;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\Summarizers\Summarizer;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Url;
+use Malzariey\FilamentDaterangepickerFilter\Enums\DropDirection;
+use Malzariey\FilamentDaterangepickerFilter\Enums\OpenDirection;
+use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 
-/**
- * @method getRecord() : RecapDaily
- */
-class DailySoldProduct extends ViewRecord implements HasTable
+class DailySoldProducts extends Page implements HasTable
 {
-    use InteractsWithTable;
+    use InteractsWithTable, InteractsWithForms;
 
-    protected static string $resource = RecapDailyResource::class;
+    #[Url]
+    public ?array $tableFilters = null;
 
-    protected static string $view = 'vendor.filament.foo';
+    protected static string $view = 'sold';
+
+    protected static ?string $slug = 'sales';
+
+    protected static ?string $navigationIcon = 'lucide-candlestick-chart';
+
+    protected static ?string $navigationLabel = 'SALES';
 
     /**
      * @param  Table $table
@@ -37,7 +47,7 @@ class DailySoldProduct extends ViewRecord implements HasTable
             ->searchable(false)
             ->columns([
                 fi_ta_column('invoice', function (TextColumn $column) {
-
+                    //
                 }),
 
                 fi_ta_column('name', function (TextColumn $column) {
@@ -109,7 +119,27 @@ class DailySoldProduct extends ViewRecord implements HasTable
                 }),
             ]);
 
-        $table->paginated(false);
+        $table
+            ->paginated(false)
+            ->searchable(false);
+
+        $table
+            ->filters([
+                fi_ta_filter(static function (DateRangeFilter $filter) {
+                    $filter
+                        ->defaultToday()
+                        ->hiddenLabel()
+                        ->drops(DropDirection::AUTO)
+                        ->opens(OpenDirection::RIGHT)
+                        ->modifyQueryUsing(function (EloquentBuilder $query, ?Carbon $startDate, ?Carbon $endDate, $dateString) {
+                            $query->when(filled($dateString), function (EloquentBuilder $query) use ($startDate, $endDate) {
+                                $query->whereHas('order', function (EloquentBuilder $query) use ($endDate, $startDate) {
+                                    $query->whereBetween('date', [$startDate, $endDate]);
+                                });
+                            });
+                        });
+                }, 'date'),
+            ], FiltersLayout::AboveContent);
 
         return $table;
     }
@@ -120,8 +150,6 @@ class DailySoldProduct extends ViewRecord implements HasTable
     private function query() : EloquentBuilder
     {
         return
-            OrderItem::query()->whereHas('order', function ($query) {
-                $query->day($this->getRecord()->period);
-            });
+            OrderItem::query();
     }
 }

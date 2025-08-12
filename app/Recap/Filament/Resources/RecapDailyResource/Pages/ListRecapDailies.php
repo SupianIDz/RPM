@@ -138,16 +138,6 @@ class ListRecapDailies extends ListRecords
             ->searchable(false)
             ->paginated(false);
 
-        $table
-            ->actions([
-                fi_action(static function (DetailAction $action) {
-                    $action
-                        ->url(function (RecapDaily $record) {
-                            return route('filament.app.recaps.resources.dailies.show', $record->period->format('Y-m-d'));
-                        });
-                }),
-            ]);
-
         return $this->modifyQueryUsing($table);
     }
 

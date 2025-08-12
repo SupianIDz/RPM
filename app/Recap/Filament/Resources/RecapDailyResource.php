@@ -61,7 +61,6 @@ class RecapDailyResource extends Resource
     {
         return [
             'index' => Pages\ListRecapDailies::route('/'),
-            'show'  => Pages\DailySoldProduct::route('/{record:period}'),
         ];
     }
 }
