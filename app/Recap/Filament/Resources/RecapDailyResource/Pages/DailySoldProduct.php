@@ -34,8 +34,10 @@ class DailySoldProduct extends ViewRecord implements HasTable
     {
         $table
             ->query($this->query())
+            ->searchable(false)
             ->columns([
                 fi_ta_column('invoice', function (TextColumn $column) {
+
                 }),
 
                 fi_ta_column('name', function (TextColumn $column) {
