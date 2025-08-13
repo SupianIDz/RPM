@@ -5,6 +5,8 @@ namespace App\Order\Enums;
 use App\Support\Concerns\EnumExtended;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
+use Illuminate\Contracts\Database\Query\Expression;
+use Illuminate\Support\Facades\DB;
 
 enum Type : string implements HasLabel, HasIcon
 {
@@ -17,6 +19,19 @@ enum Type : string implements HasLabel, HasIcon
     case TURNING = 'TURNING';
 
     case BENZENE = 'BENZENE';
+
+    /**
+     * @return Expression
+     */
+    public function query() : Expression
+    {
+        return match ($this) {
+            self::PRODUCT => DB::raw("CASE WHEN type = 'PRODUCT' THEN amount ELSE 0 END"),
+            self::SERVICE => DB::raw("CASE WHEN type = 'SERVICE' THEN amount ELSE 0 END"),
+            self::TURNING => DB::raw("CASE WHEN type = 'TURNING' THEN amount ELSE 0 END"),
+            self::BENZENE => DB::raw("CASE WHEN type = 'BENZENE' THEN amount ELSE 0 END"),
+        };
+    }
 
     /**
      * @return string|null

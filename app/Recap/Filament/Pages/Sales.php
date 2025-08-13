@@ -4,6 +4,7 @@ namespace App\Recap\Filament\Pages;
 
 use App\Order\Models\OrderItem;
 use App\Recap\Filament\Clusters\Recap;
+use App\Recap\Filament\Widgets\SalesStatsOverview;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Pages\Page;
 use Filament\Pages\SubNavigationPosition;
@@ -28,7 +29,7 @@ class Sales extends Page implements HasTable
     use InteractsWithTable, InteractsWithForms;
 
     #[Url]
-    public ?array $tableFilters = null;
+    public string|null $date = null;
 
     protected static ?string $cluster = Recap::class;
 
@@ -46,6 +47,43 @@ class Sales extends Page implements HasTable
      * @var SubNavigationPosition
      */
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
+
+    /**
+     * @return void
+     */
+    public function mount() : void
+    {
+        if (! $this->date) {
+            $this->date = date('d-m-y');
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function updatedTableFilters() : void
+    {
+        $this->date = $this->tableFilters['date']['date'];
+
+        [$str, $end] = explode('-', $this->date);
+
+        $this
+            ->dispatch('update',
+                Carbon::createFromFormat('d/m/Y', trim($str))?->format('Y-m-d'),
+                Carbon::createFromFormat('d/m/Y', trim($end))?->format('Y-m-d'),
+            )
+            ->to(SalesStatsOverview::class);
+    }
+
+    /**
+     * @return \class-string[]
+     */
+    protected function getHeaderWidgets() : array
+    {
+        return [
+            SalesStatsOverview::class,
+        ];
+    }
 
     /**
      * @param  Table $table
@@ -124,7 +162,7 @@ class Sales extends Page implements HasTable
                                 return str($state)->rupiah();
                             })
                             ->using(function (Builder $query) {
-                                return $query->sum(DB::raw("CASE WHEN type = 'BENZEN' THEN amount ELSE 0 END"));
+                                return $query->sum(DB::raw("CASE WHEN type = 'BENZENE' THEN amount ELSE 0 END"));
                             }),
                     ]);
                 }),
