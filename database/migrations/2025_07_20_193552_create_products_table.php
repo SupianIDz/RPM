@@ -16,7 +16,6 @@ return new class extends Migration
             $table->char('code', 9)->unique();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('type')->default(\App\Product\Enums\Type::PRODUCT);
             $table->string('slug')->unique();
             $table->unsignedInteger('stock')->default(0);
             $table->foreignUuid('unit_id')->constrained('units')->restrictOnDelete()->cascadeOnUpdate();

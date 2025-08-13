@@ -67,10 +67,6 @@ class ListProducts extends ListRecords
                     });
                 }),
 
-                fi_ta_column('price.amount', static function (TextColumn $column) {
-                    $column->rupiah();
-                }),
-
                 fi_ta_column('brand.name', static function (TextColumn $column) {
                     //
                 }),
@@ -79,8 +75,14 @@ class ListProducts extends ListRecords
                     //
                 }),
 
-                 fi_ta_column('type', static function (TextColumn $column) {
-                    $column->badge();
+                fi_ta_column('price.amount', static function (TextColumn $column) {
+                    $column->rupiah();
+                }),
+
+                fi_ta_column('stock', static function (TextColumn $column) {
+                    $column->formatStateUsing(function ($state) {
+                        return number($state)->format();
+                    });
                 }),
 
                 fi_ta_column('creator.name', static function (TextColumn $column) {

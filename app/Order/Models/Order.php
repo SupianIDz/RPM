@@ -4,8 +4,8 @@ namespace App\Order\Models;
 
 use App\Customer\Models\Customer;
 use App\Order\Enums\Payment;
+use App\Order\Enums\Type;
 use App\Order\Observers\OrderObserver;
-use App\Product\Enums\Type;
 use App\User\Models\User;
 use App\Vehicle\Models\Vehicle;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -127,7 +127,7 @@ class Order extends Model
      */
     public function services() : HasMany|_IH_OrderItem_QB|Order
     {
-        return $this->items()->whereNot('type', Type::PRODUCT);
+        return $this->items()->where('type', Type::SERVICE);
     }
 
     /**
