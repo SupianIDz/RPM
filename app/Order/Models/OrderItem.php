@@ -21,7 +21,7 @@ class OrderItem extends Model
      * @var string[]
      */
     protected $fillable = [
-        'invoice', 'name', 'quantity', 'product_id', 'product_price_id', 'type', 'amount',
+        'invoice', 'name', 'quantity', 'product_id', 'product_price_id', 'type', 'amount', 'cogs'
     ];
 
     protected function casts() : array

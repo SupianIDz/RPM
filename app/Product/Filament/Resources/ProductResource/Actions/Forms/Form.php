@@ -27,15 +27,25 @@ class Form
         return [
             Grid::make(2)->schema([
                 fi_form_field('name', static function (TextInput $input) {
-                    $input->required()->placeholder('Product Name');
+                    $input->required()->placeholder('Product Name')->columnSpanFull();
                 }),
 
-                Group::make()->relationship('price')->schema([
-                    fi_form_field('amount', static function (TextInput $input) {
-                        $input->required()->numeric()->default(0);
-                        $input->prefix('Rp');
-                    }),
-                ]),
+                Group::make()
+                    ->columnSpanFull()
+                    ->relationship('price')->schema([
+                        Grid::make(2)->schema([
+                            fi_form_field('cogs', static function (TextInput $input) {
+                                $input->required()->numeric()->default(0);
+                                $input->prefix('Rp');
+                            }),
+
+                            fi_form_field('amount', static function (TextInput $input) {
+                                $input->required()->numeric()->default(0);
+                                $input->prefix('Rp');
+                            }),
+                        ],
+                        ),
+                    ]),
 
                 fi_form_field('description', static function (Textarea $input) {
                     $input->columnSpanFull()->placeholder('Product Description');

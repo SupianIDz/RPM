@@ -15,5 +15,7 @@ class OrderItemObserver
         if (blank($item->name) && filled($item->product_id)) {
             $item->name = $item->product->name;
         }
+
+        $item->cogs = $item->product->price->cogs;
     }
 }

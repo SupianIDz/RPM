@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('invoice', 17);
             $table->string('type');
             $table->string('name')->comment('Snapshot');
+            $table->decimal('cogs', 10, 2)->default(0)->comment('Cost of Goods Sold');
             $table->decimal('amount', 10, 2)->default(0);
             $table->integer('quantity')->default(0);
             $table->foreignUuid('product_id')->nullable()->constrained();

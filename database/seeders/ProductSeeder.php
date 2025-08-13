@@ -39,8 +39,10 @@ class ProductSeeder extends Seeder
                 'name' => $product,
             ]);
 
+            $price = random_int(1, 10) * 100000;
             $product->price()->create([
-                'amount' => random_int(1, 10) * 100000,
+                'cogs'   => round($price - ($price / 3)),
+                'amount' => $price,
             ]);
         }
     }

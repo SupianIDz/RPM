@@ -18,7 +18,7 @@ class ProductPrice extends Model
      * @var string[]
      */
     protected $fillable = [
-        'code', 'amount', 'created_by',
+        'code', 'cogs', 'amount', 'created_by',
     ];
 
     /**
@@ -27,6 +27,7 @@ class ProductPrice extends Model
     protected function casts() : array
     {
         return [
+            'cogs'   => 'decimal:0',
             'amount' => 'decimal:0',
         ];
     }
