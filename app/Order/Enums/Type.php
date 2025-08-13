@@ -52,7 +52,7 @@ enum Type : string implements HasLabel, HasIcon
     public function getLabel() : ?string
     {
         return match ($this) {
-            self::PRODUCT => 'PRODUCT',
+            self::PRODUCT => 'SPARE PART',
             self::SERVICE => 'SERVICE',
             self::TURNING => 'BUBUT',
             self::BENZENE => 'BENSOL',

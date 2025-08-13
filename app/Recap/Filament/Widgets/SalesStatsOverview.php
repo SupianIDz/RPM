@@ -3,18 +3,39 @@
 namespace App\Recap\Filament\Widgets;
 
 use App\Order\Enums\Type;
+use App\Order\Models\Order;
 use App\Order\Models\OrderItem;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 
 class SalesStatsOverview extends BaseWidget
 {
+    /**
+     * @var array
+     */
     protected array $date = [];
 
+    /**
+     * @var string
+     */
+    protected static string $view = 'vendor.filament.overview';
+
+    /**
+     * @var string|null
+     */
     protected static ?string $pollingInterval = null;
+
+    /**
+     * @return int
+     */
+    protected function getColumns() : int
+    {
+        return 5;
+    }
 
     /**
      * @param  string $str
@@ -30,6 +51,9 @@ class SalesStatsOverview extends BaseWidget
         ];
     }
 
+    /**
+     * @return void
+     */
     public function mount() : void
     {
         if (empty($this->date)) {
@@ -44,7 +68,17 @@ class SalesStatsOverview extends BaseWidget
      */
     protected function getStats() : array
     {
-        $stats = [];
+        $stats = [
+            fi_wi_stat(function (Stat $stat) {
+                $stat
+                    ->label('TOTAL SALES')
+                    ->icon('lucide-dollar-sign')
+                    ->description($this->description())
+                    ->value(function () {
+                        return number(Order::whereBetween('date', $this->date)->sum(DB::raw('amount - discount')))->currency();
+                    });
+            }),
+        ];
 
         foreach (Type::cases() as $type) {
             $stats[] = fi_wi_stat(function (Stat $stat) use ($type) {
