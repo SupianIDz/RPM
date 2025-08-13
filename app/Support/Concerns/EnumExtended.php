@@ -12,4 +12,13 @@ trait EnumExtended
     {
         return $this === $enum;
     }
+
+    /**
+     * @param  \BackedEnum $enum
+     * @return bool
+     */
+    public function isNot(\BackedEnum $enum) : bool
+    {
+        return ! $this->is($enum);
+    }
 }

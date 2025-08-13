@@ -3,8 +3,10 @@
 namespace App\Recap\Filament\Pages;
 
 use App\Order\Models\OrderItem;
+use App\Recap\Filament\Clusters\Recap;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Pages\Page;
+use Filament\Pages\SubNavigationPosition;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\Summarizers\Summarizer;
 use Filament\Tables\Columns\TextColumn;
@@ -28,6 +30,8 @@ class Sales extends Page implements HasTable
     #[Url]
     public ?array $tableFilters = null;
 
+    protected static ?string $cluster = Recap::class;
+
     protected static string $view = 'sold';
 
     protected static ?string $slug = 'sales';
@@ -36,7 +40,12 @@ class Sales extends Page implements HasTable
 
     protected static ?string $navigationLabel = 'SALES';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 0;
+
+    /**
+     * @var SubNavigationPosition
+     */
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     /**
      * @param  Table $table

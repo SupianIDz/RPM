@@ -2,6 +2,7 @@
 
 namespace App\Order\Observers;
 
+use App\Order\Enums\Type;
 use App\Order\Models\OrderItem;
 
 class OrderItemObserver
@@ -16,6 +17,8 @@ class OrderItemObserver
             $item->name = $item->product->name;
         }
 
-        $item->cogs = $item->product->price->cogs;
+        if ($item->type->is(Type::PRODUCT)) {
+            $item->cogs = $item->product->price->cogs;
+        }
     }
 }
