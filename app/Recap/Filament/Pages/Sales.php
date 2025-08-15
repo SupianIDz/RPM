@@ -3,8 +3,11 @@
 namespace App\Recap\Filament\Pages;
 
 use App\Order\Models\OrderItem;
+use App\Recap\Filament\Actions\ExportAction;
 use App\Recap\Filament\Clusters\Recap;
 use App\Recap\Filament\Widgets\SalesStatsOverview;
+use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Pages\Page;
 use Filament\Pages\SubNavigationPosition;
@@ -82,6 +85,18 @@ class Sales extends Page implements HasTable
     {
         return [
             SalesStatsOverview::class,
+        ];
+    }
+
+    /**
+     * @return array|Action[]|ActionGroup[]
+     */
+    protected function getHeaderActions() : array
+    {
+        return [
+            fi_action(function (ExportAction $action) {
+                //
+            }),
         ];
     }
 
