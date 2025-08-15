@@ -17,7 +17,7 @@ class ActionComponent extends Component
     public static function action(string|null $name, Closure $closure) : Action|TableAction|BulkAction
     {
         if (is_null($name)) {
-            $name = str(static::getTypedParameterClass($closure))->remove('\\')->snake();
+            $name = md5( str(static::getTypedParameterClass($closure))->remove('\\')->snake());
         }
 
 

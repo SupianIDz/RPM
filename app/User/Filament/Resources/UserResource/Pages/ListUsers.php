@@ -3,7 +3,8 @@
 namespace App\User\Filament\Resources\UserResource\Pages;
 
 use App\User\Filament\Resources\UserResource;
-use Filament\Actions\CreateAction;
+use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -14,10 +15,15 @@ class ListUsers extends ListRecords
 {
     protected static string $resource = UserResource::class;
 
+    /**
+     * @return array|Action[]|ActionGroup[]
+     */
     protected function getHeaderActions() : array
     {
         return [
-            CreateAction::make(),
+           fi_action(function (UserResource\Actions\CreateAction $action){
+               //
+           })
         ];
     }
 

@@ -20,6 +20,13 @@ class User extends \Illuminate\Foundation\Auth\User implements FilamentUser, Has
     /**
      * @var string[]
      */
+    protected $fillable = [
+        'name', 'email', 'email_verified_at', 'password', 'remember_token',
+    ];
+
+    /**
+     * @var string[]
+     */
     protected $hidden = [
         'password', 'remember_token',
     ];
