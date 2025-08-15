@@ -4,19 +4,23 @@ namespace App\User\Filament\Resources\UserResource\Actions;
 
 use App\User\Models\User;
 use Illuminate\Support\Facades\DB;
+use function Symfony\Component\Translation\t;
 
-class CreateAction extends \App\Support\Filament\Actions\CreateAction
+class ModifyAction extends \App\Support\Filament\Tables\Actions\ModifyAction
 {
+    /**
+     * @return void
+     */
     protected function setUp() : void
     {
         parent::setUp();
 
-        $this->form(new Forms\Form()->configure());
+        $this->form(new Forms\Form()->configure(edit: true));
 
         $this
-            ->mutateFormDataUsing(function (array $data) {
+            ->mutateRecordDataUsing(function (array $data, User $record) {
                 return array_merge($data, [
-                    'email_verified_at' => now(),
+                    'role' => $record->roles->first()?->name,
                 ]);
             })
             ->action(function (array $data) {
@@ -26,7 +30,7 @@ class CreateAction extends \App\Support\Filament\Actions\CreateAction
                      */
                     $user = User::updateOrCreate(['email' => $data['email']], $data);
 
-                    return $user &&  $user->syncRoles($data['role']);
+                    return $user && $user->syncRoles($data['role']);
                 });
 
                 $res ? $this->success() : $this->failure();

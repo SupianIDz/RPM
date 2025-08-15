@@ -49,7 +49,6 @@ class DatabaseSeeder extends Seeder
         collect([
             Role::CASHIER->value   => 3,
             Role::INVENTORY->value => 3,
-            Role::OWNER->value     => 1,
             Role::MECHANIC->value  => 1,
         ])
             ->each(function ($count, $role) {

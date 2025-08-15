@@ -2,7 +2,9 @@
 
 namespace App\User\Filament\Resources\UserResource\Pages;
 
+use App\Support\Filament\Tables\Actions\DeleteAction;
 use App\User\Filament\Resources\UserResource;
+use App\User\Filament\Resources\UserResource\Actions\ModifyAction;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Resources\Pages\ListRecords;
@@ -49,6 +51,18 @@ class ListUsers extends ListRecords
 
                 fi_ta_column('roles.name', static function (TextColumn $column) {
                     $column->label('Role')->badge();
+                }),
+            ]);
+
+
+        $table
+            ->actions([
+                fi_action(function (ModifyAction $action){
+                   //
+                }),
+
+                 fi_action(function (DeleteAction $action){
+                   //
                 }),
             ]);
 

@@ -2,20 +2,24 @@
 
 namespace App\User\Models;
 
+use App\User\Observers\UserObserver;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 
+#[ObservedBy([UserObserver::class])]
 #[UseFactory(UserFactory::class)]
 class User extends \Illuminate\Foundation\Auth\User implements FilamentUser, HasAvatar
 {
-    use HasUuids, HasFactory, HasRoles;
+    use HasUuids, HasFactory, HasRoles, SoftDeletes;
 
     /**
      * @var string[]
