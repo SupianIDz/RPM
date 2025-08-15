@@ -2,7 +2,7 @@
 
 namespace App\Recap\Filament\Resources;
 
-use App\Recap\Filament\Resources\RecapResource\Pages;
+use App\Recap\Filament\Resources\RecapMonthlyResource\Pages;
 use App\Recap\Models\Recap;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Pages\PageRegistration;

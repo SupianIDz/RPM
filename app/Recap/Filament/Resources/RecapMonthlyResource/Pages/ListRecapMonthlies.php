@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Recap\Filament\Resources\RecapResource\Pages;
+namespace App\Recap\Filament\Resources\RecapMonthlyResource\Pages;
 
 use App\Recap\Filament\Resources\RecapMonthlyResource;
 use Filament\Resources\Pages\ListRecords;
