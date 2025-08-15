@@ -94,8 +94,8 @@ class Sales extends Page implements HasTable
     protected function getHeaderActions() : array
     {
         return [
-            fi_action(function (ExportAction $action) {
-                //
+            fi_action(static function (ExportAction $action) {
+                $action->route('exports.sales');
             }),
         ];
     }

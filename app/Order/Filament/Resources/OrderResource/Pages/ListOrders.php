@@ -8,6 +8,7 @@ use App\Order\Filament\Resources\OrderResource\Actions\CreateAction;
 use App\Order\Filament\Resources\OrderResource\Actions\DetailAction;
 use App\Order\Filament\Resources\OrderResource\Actions\ModifyAction;
 use App\Order\Filament\Resources\OrderResource\Actions\ReceiptAction;
+use App\Recap\Filament\Actions\ExportAction;
 use App\Support\Filament\Tables\Actions\DeleteAction;
 use App\Vehicle\Filament\Components\Filters\VehicleFilter;
 use App\Vehicle\Filament\Components\Filters\VehiclePlatFilter;
@@ -40,6 +41,10 @@ class ListOrders extends ListRecords
         return [
             fi_action(function (CreateAction $action) {
                 //
+            }),
+
+             fi_action(static function (ExportAction $action) {
+                $action->route('exports.order');
             }),
         ];
     }
