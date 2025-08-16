@@ -46,6 +46,27 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole(Role::ADMIN);
 
+        User::factory()->create([
+            'name'     => 'Cashire',
+            'email'    => 'cashire@example.com',
+            'password' => bcrypt('secret'),
+        ])
+            ->assignRole(Role::CASHIER);
+
+        User::factory()->create([
+            'name'     => 'Mechanic',
+            'email'    => 'mechanic@example.com',
+            'password' => bcrypt('secret'),
+        ])
+            ->assignRole(Role::MECHANIC);
+
+        User::factory()->create([
+            'name'     => 'Inventory',
+            'email'    => 'inventory@example.com',
+            'password' => bcrypt('secret'),
+        ])
+            ->assignRole(Role::INVENTORY);
+
         collect([
             Role::CASHIER->value   => 3,
             Role::INVENTORY->value => 3,
