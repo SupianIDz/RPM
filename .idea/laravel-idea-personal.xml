@@ -9,6 +9,7 @@
         <entry key="createObserver.method_created" value="" />
         <entry key="createObserver.method_restored" value="" />
         <entry key="createObserver.method_updated" value="" />
+        <entry key="createPolicy.register" value="" />
         <entry key="createServiceProviderRegister" value="" />
       </map>
     </option>

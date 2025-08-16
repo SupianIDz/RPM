@@ -3,6 +3,7 @@
 namespace App\User\Models;
 
 use App\User\Observers\UserObserver;
+use App\User\Support\RoleEntity;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
@@ -34,6 +35,16 @@ class User extends \Illuminate\Foundation\Auth\User implements FilamentUser, Has
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @return Attribute
+     */
+    protected function permission() : Attribute
+    {
+        return Attribute::get(function () {
+            return new RoleEntity($this);
+        });
+    }
 
     /**
      * @return Attribute
