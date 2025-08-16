@@ -3,7 +3,10 @@
 namespace App\Brand\Filament\Resources\BrandResource\Pages;
 
 use App\Brand\Filament\Resources\BrandResource;
-use Filament\Actions\CreateAction;
+use App\Brand\Filament\Resources\BrandResource\Actions\CreateAction;
+use App\Brand\Filament\Resources\BrandResource\Actions\ModifyAction;
+use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -14,10 +17,15 @@ class ListBrands extends ListRecords
 {
     protected static string $resource = BrandResource::class;
 
+    /**
+     * @return array
+     */
     protected function getHeaderActions() : array
     {
         return [
-            CreateAction::make(),
+            fi_action(function (CreateAction $action) {
+                //
+            }),
         ];
     }
 
@@ -49,6 +57,12 @@ class ListBrands extends ListRecords
                     //
                 }),
             ]);
+
+        $table->actions([
+           fi_action(function (ModifyAction $action){
+               //
+           })
+        ]);
 
         return $this->modifyQueryUsing($table);
     }
