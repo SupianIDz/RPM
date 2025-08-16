@@ -20,6 +20,9 @@ class DeleteAction extends \Filament\Tables\Actions\DeleteAction
             ->tooltip('DELETE')
             ->icon('lucide-trash-2')
             ->iconSize(IconSize::Medium)
+            ->color(function ($record) {
+                return $this->isDisabled() ? 'gray' : 'danger';
+            })
             ->requiresConfirmation();
     }
 }
