@@ -5,13 +5,13 @@ namespace App\Brand\Filament\Resources\BrandResource\Pages;
 use App\Brand\Filament\Resources\BrandResource;
 use App\Brand\Filament\Resources\BrandResource\Actions\CreateAction;
 use App\Brand\Filament\Resources\BrandResource\Actions\ModifyAction;
-use Filament\Actions\Action;
-use Filament\Actions\ActionGroup;
+use App\Support\Filament\Tables\Actions\DeleteAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\HtmlString;
 
 class ListBrands extends ListRecords
 {
@@ -59,9 +59,15 @@ class ListBrands extends ListRecords
             ]);
 
         $table->actions([
-           fi_action(function (ModifyAction $action){
-               //
-           })
+            fi_action(function (ModifyAction $action) {
+                //
+            }),
+
+            fi_action(function (DeleteAction $action) {
+                $action->modalDescription(new HtmlString(
+                    'Are you sure you want to delete this brand? <br/> All associated products will be unlinked from it.',
+                ));
+            }),
         ]);
 
         return $this->modifyQueryUsing($table);
