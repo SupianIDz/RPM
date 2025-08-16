@@ -45,6 +45,12 @@ class ListBrands extends ListRecords
                     $column->label('Website');
                 }),
 
+                fi_ta_column('products_count', function (TextColumn $column) {
+                    $column->label('Related Products')->formatStateUsing(fn($state) => new HtmlString(
+                        $state . ' <span class="text-xs">products</span>',
+                    ));
+                }),
+
                 fi_ta_column('creator.name', static function (TextColumn $column) {
                     $column->default('System');
                 }),
@@ -81,7 +87,7 @@ class ListBrands extends ListRecords
     {
         return
             $table->modifyQueryUsing(function (Builder $query) {
-                //
+                $query->withCount('products');
             });
     }
 }
