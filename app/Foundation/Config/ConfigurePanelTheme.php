@@ -2,10 +2,13 @@
 
 namespace App\Foundation\Config;
 
+use App\User\Services\ImpersonationService;
 use Closure;
 use Filament\Panel;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\MaxWidth;
+use Illuminate\Support\Facades\Blade;
+use Filament\View\PanelsRenderHook as Position;
 
 class ConfigurePanelTheme
 {
@@ -15,6 +18,7 @@ class ConfigurePanelTheme
     protected array $theme = [
         'primary' => Color::Red,
         'gray'    => Color::Slate,
+        'rose'    => Color::Rose,
     ];
 
     protected array $icons = [
@@ -81,6 +85,13 @@ class ConfigurePanelTheme
             ->brandLogo(fn() => view('components.logo'))
             ->brandName('RPM Motor')
             ->maxContentWidth(MaxWidth::ScreenTwoExtraLarge);
+
+        $panel
+            ->renderHook(Position::BODY_END, function () {
+                if (new ImpersonationService()->check()) {
+                    return Blade::render('@livewire(\App\User\Livewire\ImpersonateBanner::class)');
+                }
+            });
 
         return $next($panel);
     }

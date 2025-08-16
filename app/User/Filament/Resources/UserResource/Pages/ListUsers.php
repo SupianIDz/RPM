@@ -6,6 +6,7 @@ use App\Support\Filament\Tables\Actions\DeleteAction;
 use App\User\Enums\Role;
 use App\User\Filament\Resources\UserResource;
 use App\User\Filament\Resources\UserResource\Actions\ModifyAction;
+use App\User\Filament\Resources\UserResource\Actions\SignInAction;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Resources\Pages\ListRecords;
@@ -57,6 +58,11 @@ class ListUsers extends ListRecords
 
         $table
             ->actions([
+
+                fi_action(function (SignInAction $action) {
+                    //
+                }),
+
                 fi_action(function (ModifyAction $action) {
                     //
                 }),
