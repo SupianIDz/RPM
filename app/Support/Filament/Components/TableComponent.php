@@ -4,8 +4,6 @@ namespace App\Support\Filament\Components;
 
 use Archilex\ToggleIconColumn\Columns\ToggleIconColumn;
 use Closure;
-use Filament\Support\Enums\ActionSize;
-use Filament\Support\Enums\IconSize;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;

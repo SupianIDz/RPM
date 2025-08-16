@@ -67,7 +67,7 @@ class Brand extends Model
     /**
      * @return HasMany|Brand
      */
-    public function products() : \Illuminate\Database\Eloquent\Relations\HasMany|Brand
+    public function products() : HasMany|Brand
     {
         return $this->hasMany(Product::class, 'brand_id');
     }

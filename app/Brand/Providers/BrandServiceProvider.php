@@ -13,7 +13,7 @@ class BrandServiceProvider extends ServiceProvider
     public function register() : void
     {
         $this->commands([
-            GenerateLogoCommand::class
+            GenerateLogoCommand::class,
         ]);
     }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Product\Filament\Resources\ProductResource\Actions;
 
-use App\Product\Models\Product;
-
 class CreateAction extends \App\Support\Filament\Actions\CreateAction
 {
     /**

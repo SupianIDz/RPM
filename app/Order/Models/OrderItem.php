@@ -21,7 +21,7 @@ class OrderItem extends Model
      * @var string[]
      */
     protected $fillable = [
-        'invoice', 'name', 'quantity', 'product_id', 'product_price_id', 'type', 'amount', 'cogs'
+        'invoice', 'name', 'quantity', 'product_id', 'product_price_id', 'type', 'amount', 'cogs',
     ];
 
     protected function casts() : array
@@ -79,7 +79,7 @@ class OrderItem extends Model
         });
     }
 
-     /**
+    /**
      * @return Attribute
      */
     protected function turningTotal() : Attribute
@@ -89,7 +89,7 @@ class OrderItem extends Model
         });
     }
 
-     /**
+    /**
      * @return Attribute
      */
     protected function benzeneTotal() : Attribute

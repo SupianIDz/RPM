@@ -24,7 +24,7 @@ class FormComponent extends Component
 
                 $closure($input);
 
-                if($input->isRequired()) {
+                if ($input->isRequired()) {
                     $input->hint(new HtmlString('<span class="text-amber-600 text-xs italic">required</span>'));
                 }
             });

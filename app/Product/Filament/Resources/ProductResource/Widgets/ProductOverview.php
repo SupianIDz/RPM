@@ -7,7 +7,6 @@ use App\Support\Filament\Widgets\Concerns\HasFakeChart;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\HtmlString;
 use LaravelIdea\Helper\App\Product\Models\_IH_Product_QB;
 use Random\RandomException;
 
@@ -64,7 +63,7 @@ class ProductOverview extends BaseWidget
     /**
      * @return Builder|_IH_Product_QB
      */
-    private function query() : \Illuminate\Database\Eloquent\Builder|\LaravelIdea\Helper\App\Product\Models\_IH_Product_QB
+    private function query() : Builder|_IH_Product_QB
     {
         return Product::query();
     }

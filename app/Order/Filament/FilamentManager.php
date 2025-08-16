@@ -2,9 +2,9 @@
 
 namespace App\Order\Filament;
 
-use Illuminate\Support\Manager;
+use App\Support\Filament\Manager;
 
-class FilamentManager extends \App\Support\Filament\Manager
+class FilamentManager extends Manager
 {
     //
 }

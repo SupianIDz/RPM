@@ -23,7 +23,7 @@ class ListOrders extends ListRecords
     protected static string $resource = OrderResource::class;
 
     /**
-     * @return \class-string[]
+     * @return class-string[]
      */
     #[Override]
     protected function getHeaderWidgets() : array
@@ -43,7 +43,7 @@ class ListOrders extends ListRecords
                 //
             }),
 
-             fi_action(static function (ExportAction $action) {
+            fi_action(static function (ExportAction $action) {
                 $action->route('exports.order');
             }),
         ];
@@ -87,7 +87,7 @@ class ListOrders extends ListRecords
                     $column->badge();
                 }),
                 fi_ta_column('date', function (TextColumn $column) {
-                   $column->label('Trx Date')->date();
+                    $column->label('Trx Date')->date();
                 }),
 
                 fi_ta_column('creator.name', static function (TextColumn $column) {

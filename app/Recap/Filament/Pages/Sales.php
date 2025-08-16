@@ -79,7 +79,7 @@ class Sales extends Page implements HasTable
     }
 
     /**
-     * @return \class-string[]
+     * @return class-string[]
      */
     protected function getHeaderWidgets() : array
     {

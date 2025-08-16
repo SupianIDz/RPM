@@ -2,7 +2,9 @@
 
 namespace App\User\Filament;
 
-class FilamentManager extends \App\Support\Filament\Manager
+use App\Support\Filament\Manager;
+
+class FilamentManager extends Manager
 {
     //
 }

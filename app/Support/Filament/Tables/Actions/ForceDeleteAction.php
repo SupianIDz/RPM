@@ -7,7 +7,7 @@ use Override;
 
 class ForceDeleteAction extends \Filament\Tables\Actions\ForceDeleteAction
 {
-     /**
+    /**
      * @return void
      */
     #[Override]

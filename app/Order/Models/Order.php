@@ -74,7 +74,7 @@ class Order extends Model
      * @return Builder|_IH_OrderItem_QB
      */
     #[Scope]
-    protected function day(Builder $query, Carbon $day) : Builder|\LaravelIdea\Helper\App\Order\Models\_IH_OrderItem_QB
+    protected function day(Builder $query, Carbon $day) : Builder|_IH_OrderItem_QB
     {
         return $query->whereDate('date', $day->format('Y-m-d'));
     }

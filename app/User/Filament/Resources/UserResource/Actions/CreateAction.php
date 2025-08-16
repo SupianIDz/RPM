@@ -26,7 +26,7 @@ class CreateAction extends \App\Support\Filament\Actions\CreateAction
                      */
                     $user = User::updateOrCreate(['email' => $data['email']], $data);
 
-                    return $user &&  $user->syncRoles($data['role']);
+                    return $user && $user->syncRoles($data['role']);
                 });
 
                 $res ? $this->success() : $this->failure();

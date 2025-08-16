@@ -3,6 +3,7 @@
 namespace App\User\Filament\Resources\UserResource\Pages;
 
 use App\Support\Filament\Tables\Actions\DeleteAction;
+use App\User\Enums\Role;
 use App\User\Filament\Resources\UserResource;
 use App\User\Filament\Resources\UserResource\Actions\ModifyAction;
 use Filament\Actions\Action;
@@ -23,9 +24,9 @@ class ListUsers extends ListRecords
     protected function getHeaderActions() : array
     {
         return [
-           fi_action(function (UserResource\Actions\CreateAction $action){
-               //
-           })
+            fi_action(function (UserResource\Actions\CreateAction $action) {
+                //
+            }),
         ];
     }
 
@@ -54,15 +55,14 @@ class ListUsers extends ListRecords
                 }),
             ]);
 
-
         $table
             ->actions([
-                fi_action(function (ModifyAction $action){
-                   //
+                fi_action(function (ModifyAction $action) {
+                    //
                 }),
 
-                 fi_action(function (DeleteAction $action){
-                   //
+                fi_action(function (DeleteAction $action) {
+                    //
                 }),
             ]);
 
@@ -80,7 +80,7 @@ class ListUsers extends ListRecords
                 $query->with([
                     'roles' => function (Builder $query) {
                         $query->withCasts([
-                            'name' => \App\User\Enums\Role::class,
+                            'name' => Role::class,
                         ]);
                     },
                 ]);

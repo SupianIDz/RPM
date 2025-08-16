@@ -2,11 +2,12 @@
 
 namespace App\Unit\Filament\Components\Forms;
 
+use App\Unit\Models\Unit;
 use Filament\Forms\Components\Select;
 
 class UnitSelect extends Select
 {
-     protected function setUp() : void
+    protected function setUp() : void
     {
         parent::setUp();
 
@@ -15,7 +16,7 @@ class UnitSelect extends Select
             ->label('Unit')
             ->placeholder('Select a unit')
             ->options(function () {
-                return \App\Unit\Models\Unit::pluck('name', 'id');
+                return Unit::pluck('name', 'id');
             });
 
         $this->searchable()->required();

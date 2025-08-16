@@ -2,7 +2,9 @@
 
 namespace App\Support\Filament\Tables\Actions\Bulks;
 
-class RestoreAction extends \Filament\Tables\Actions\RestoreBulkAction
+use Filament\Tables\Actions\RestoreBulkAction;
+
+class RestoreAction extends RestoreBulkAction
 {
     //
 }

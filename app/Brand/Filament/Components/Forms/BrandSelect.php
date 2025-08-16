@@ -2,6 +2,7 @@
 
 namespace App\Brand\Filament\Components\Forms;
 
+use App\Brand\Models\Brand;
 use Filament\Forms\Components\Select;
 
 class BrandSelect extends Select
@@ -15,7 +16,7 @@ class BrandSelect extends Select
             ->label('Brand')
             ->placeholder('Select a brand')
             ->options(function () {
-                return \App\Brand\Models\Brand::active()->pluck('name', 'id');
+                return Brand::active()->pluck('name', 'id');
             });
 
         $this->searchable();

@@ -4,7 +4,6 @@ namespace App\User\Filament\Resources\UserResource\Actions;
 
 use App\User\Models\User;
 use Illuminate\Support\Facades\DB;
-use function Symfony\Component\Translation\t;
 
 class ModifyAction extends \App\Support\Filament\Tables\Actions\ModifyAction
 {

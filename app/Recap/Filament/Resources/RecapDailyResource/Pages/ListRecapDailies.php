@@ -3,8 +3,6 @@
 namespace App\Recap\Filament\Resources\RecapDailyResource\Pages;
 
 use App\Recap\Filament\Resources\RecapDailyResource;
-use App\Recap\Models\RecapDaily;
-use App\Support\Filament\Tables\Actions\DetailAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Actions\SelectAction;
 use Filament\Tables\Columns\Summarizers\Sum;
