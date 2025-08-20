@@ -17,7 +17,7 @@ class OrderItemObserver
             $item->name = $item->product->name;
         }
 
-        if ($item->type->is(Type::PRODUCT)) {
+        if ($item->type->is(Type::PRODUCT) && $item->product) {
             $item->cogs = $item->product->price->cogs;
         }
     }
