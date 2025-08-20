@@ -196,6 +196,7 @@ class Form
                         'name' => match ($data['type']) {
                             'SERVICE' => 'Service',
                             'TURNING' => 'Bubut',
+                            'PRODUCT' => 'Sparepart',
                             'OTHER'   => $data['name'],
                         },
                     ]);
@@ -212,6 +213,7 @@ class Form
                                 ->options([
                                     'SERVICE' => 'SERVICE',
                                     'TURNING' => 'TURNING',
+                                    'PRODUCT' => 'SPAREPART',
                                     'OTHER'   => 'OTHER',
                                 ])
                                 ->default('SERVICE');
@@ -228,7 +230,7 @@ class Form
 
                             $input
                                 ->hidden(function (Get $get) {
-                                    return $get('type') !== 'OTHER';
+                                    return $get('type') !== 'OTHER' && $get('type') !== 'PRODUCT';
                                 })
                                 ->columnSpan(2);
                         }),
@@ -238,7 +240,7 @@ class Form
 
                             $input->required()->numeric();
                             $input->columnSpan(function (Get $get) {
-                                return $get('type') === 'OTHER' ? 2 : 4;
+                                return $get('type') === 'OTHER' || $get('type') === 'PRODUCT' ? 2 : 4;
                             });
 
                             $input
