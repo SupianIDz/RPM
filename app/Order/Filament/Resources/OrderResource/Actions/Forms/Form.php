@@ -196,7 +196,7 @@ class Form
                         'name' => match ($data['type']) {
                             'SERVICE' => 'Service',
                             'TURNING' => 'Bubut',
-                            'PRODUCT' => 'Sparepart',
+                            'PRODUCT' => $data['name'],
                             'OTHER'   => $data['name'],
                         },
                     ]);
