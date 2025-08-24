@@ -60,6 +60,11 @@ class DetailAction extends \App\Support\Filament\Tables\Actions\DetailAction
                         return compact('record');
                     });
                 }),
+            ])
+            ->extraModalFooterActions([
+                fi_action(function (ReceiptAction $action) {
+                    $action->hiddenLabel(false)->label('Print Receipt')->button();
+                }),
             ]);
     }
 }
