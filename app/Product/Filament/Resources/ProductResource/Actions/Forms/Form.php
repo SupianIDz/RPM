@@ -35,16 +35,19 @@ class Form
                     ->relationship('price')->schema([
                         Grid::make(2)->schema([
                             fi_form_field('cogs', static function (TextInput $input) {
-                                $input->required()->numeric()->default(0);
+                                $input->required()->numeric()->default(0)->minValue(0);
                                 $input->prefix('Rp');
+
+                                $input->helperText('Cost of Goods Sold / Modal');
                             }),
 
                             fi_form_field('amount', static function (TextInput $input) {
-                                $input->required()->numeric()->default(0);
+                                $input->label('Selling Price')->required()->numeric()->default(0)->minValue(0);
                                 $input->prefix('Rp');
+
+                                $input->helperText('Selling Price / Harga Jual');
                             }),
-                        ],
-                        ),
+                        ]),
                     ]),
 
                 fi_form_field('description', static function (Textarea $input) {
@@ -52,7 +55,13 @@ class Form
                 }),
 
                 fi_form_field('stock', static function (TextInput $input) {
-                    $input->required()->numeric()->default(0);
+                    $input->required()->numeric()->default(0)->minValue(0);
+
+                    $input->disabled(function () {
+                        return ! user()->permission->admin();
+                    });
+
+                    $input->helperText('Only owner or super admin can modify stock.');
                 }),
 
                 fi_form_field('unit_id', function (UnitSelect $input) {
