@@ -82,7 +82,7 @@ class ConfigurePanelTheme
                 'resources/theme/main.css',
             ])
             ->favicon(asset('images/rpm.png'))
-            ->brandLogo(fn() => view('components.logo'))
+            ->brandLogo(asset('images/rpm.png'))
             ->brandName('RPM Motor')
             ->maxContentWidth(MaxWidth::ScreenTwoExtraLarge);
 

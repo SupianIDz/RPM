@@ -114,7 +114,7 @@
 
     /* FILAMENT LOGO */
     .fi-logo {
-        /* @apply !h-12; */
+        @apply !h-12;
     }
 
     /* FILAMENT SIMPLE HEADER */
