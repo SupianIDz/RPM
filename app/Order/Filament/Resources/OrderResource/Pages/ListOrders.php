@@ -13,6 +13,7 @@ use App\Support\Filament\Tables\Actions\DeleteAction;
 use App\Vehicle\Filament\Components\Filters\VehicleFilter;
 use App\Vehicle\Filament\Components\Filters\VehiclePlatFilter;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
@@ -58,7 +59,7 @@ class ListOrders extends ListRecords
         $table
             ->columns([
                 fi_ta_column('invoice', function (TextColumn $column) {
-                    //
+                    $column->weight(FontWeight::Bold);
                 }),
 
                 fi_ta_column('customer.name', function (TextColumn $column) {
