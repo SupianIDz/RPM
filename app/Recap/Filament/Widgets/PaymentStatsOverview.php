@@ -2,17 +2,16 @@
 
 namespace App\Recap\Filament\Widgets;
 
-use App\Order\Enums\Type;
+use App\Order\Enums\Payment;
 use App\Order\Models\Order;
-use App\Order\Models\OrderItem;
-use Filament\Widgets\StatsOverviewWidget as BaseWidget;
+use Arr;
+use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 
-class SalesStatsOverview extends BaseWidget
+class PaymentStatsOverview extends StatsOverviewWidget
 {
     /**
      * @var array
@@ -28,7 +27,6 @@ class SalesStatsOverview extends BaseWidget
      * @var string|null
      */
     protected static ?string $pollingInterval = null;
-
 
     /**
      * @param  string $str
@@ -57,22 +55,40 @@ class SalesStatsOverview extends BaseWidget
     }
 
     /**
-     * @return array|Stat[]
+     * @return Stat[]
      */
     protected function getStats() : array
     {
         $stats = [
-
+            fi_wi_stat(function (Stat $stat) {
+                $stat
+                    ->label('TOTAL SALES')
+                    ->icon('lucide-dollar-sign')
+                    ->description($this->description())
+                    ->value(function () {
+                        return number(Order::whereBetween('date', $this->date)->sum(DB::raw('amount - discount')))->currency();
+                    });
+            }),
         ];
 
-        foreach (Type::cases() as $type) {
-            $stats[] = fi_wi_stat(function (Stat $stat) use ($type) {
+        foreach (Payment::cases() as $payment) {
+            if ($payment === Payment::MARKETPLACE) {
+                continue;
+            }
+
+            $stats[] = fi_wi_stat(function (Stat $stat) use ($payment) {
+                $label = $payment->getLabel();
+
+                if ($payment === Payment::TRANSFER) {
+                    $label = $label . ' / MARKETPLACE';
+                }
+
                 $stat
-                    ->label($type->getLabel())
-                    ->icon($type->getIcon())
+                    ->label('PAYMENT ' . $label)
+                    ->icon($payment->getIcon())
                     ->description($this->description())
-                    ->value(function () use ($type) {
-                        return number($this->query($type->query()))->currency();
+                    ->value(function () use ($payment) {
+                        return number($this->query($payment))->currency();
                     });
             });
         }
@@ -95,15 +111,15 @@ class SalesStatsOverview extends BaseWidget
     }
 
     /**
-     * @param  Expression|null $expression
+     * @param  Payment $payment
      * @return string|float|int
      */
-    protected function query(Expression|null $expression = null) : string|float|int
+    protected function query(Payment $payment) : string|float|int
     {
-        return
-            OrderItem::whereHas('order', function ($query) {
-                $query->whereBetween('date', $this->date);
-            })
-                ->sum($expression);
+        if ($payment === Payment::MARKETPLACE || $payment === Payment::TRANSFER) {
+            $payment = [Payment::TRANSFER, Payment::MARKETPLACE];
+        }
+
+        return Order::whereBetween('date', $this->date)->whereIn('payment', Arr::wrap($payment))->sum('amount');
     }
 }

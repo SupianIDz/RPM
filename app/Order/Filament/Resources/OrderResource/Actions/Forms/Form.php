@@ -194,10 +194,9 @@ class Form
                 ->mutateRelationshipDataBeforeCreateUsing(function (array $data) {
                     return array_merge($data, [
                         'name' => match ($data['type']) {
-                            'SERVICE' => 'Service',
-                            'TURNING' => 'Bubut',
-                            'PRODUCT' => $data['name'],
-                            'OTHER'   => $data['name'],
+                            'SERVICE'          => 'Service',
+                            'TURNING'          => 'Bubut',
+                            'PRODUCT', 'OTHER' => $data['name'],
                         },
                     ]);
                 })

@@ -5,6 +5,7 @@ namespace App\Recap\Filament\Pages;
 use App\Order\Models\OrderItem;
 use App\Recap\Filament\Actions\ExportAction;
 use App\Recap\Filament\Clusters\Recap;
+use App\Recap\Filament\Widgets\PaymentStatsOverview;
 use App\Recap\Filament\Widgets\SalesStatsOverview;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
@@ -85,6 +86,7 @@ class Sales extends Page implements HasTable
     {
         return [
             SalesStatsOverview::class,
+            PaymentStatsOverview::class,
         ];
     }
 
