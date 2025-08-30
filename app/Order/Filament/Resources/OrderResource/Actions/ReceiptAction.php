@@ -24,7 +24,7 @@ class ReceiptAction extends Action
         $this
             ->link()
             ->url(function (Order $record) {
-                return route('orders.receipt', $record->invoice);
+                return route('orders.thermal', $record->invoice);
             })
             ->openUrlInNewTab();
     }

@@ -41,7 +41,7 @@ class OrderItem extends Model
 
             $name[] = $this->name;
 
-            if ($this->product) {
+            if ($this->product && $this->product->brand) {
                 $name[] = $this->product->brand->name;
             }
 
