@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('product_prices', static function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->char('code', 9);
+            $table->string('code');
             $table->decimal('cogs', 10, 2)->default(0)->comment('Cost of Goods Sold');
             $table->decimal('amount', 10, 2)->default(0);
             $table->foreignUuid('created_by')->nullable()->constrained('users')->restrictOnDelete()->cascadeOnUpdate();

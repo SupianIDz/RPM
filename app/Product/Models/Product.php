@@ -4,7 +4,6 @@ namespace App\Product\Models;
 
 use App\Brand\Models\Brand;
 use App\Category\Models\Category;
-use App\Product\Enums\Type;
 use App\Product\Observers\ProductObserver;
 use App\Unit\Models\Unit;
 use App\User\Models\User;
@@ -33,7 +32,7 @@ class Product extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name', 'slug', 'description', 'price', 'stock', 'category_id', 'brand_id', 'unit_id', 'created_by',
+        'code', 'name', 'slug', 'description', 'price', 'stock', 'category_id', 'brand_id', 'unit_id', 'created_by',
     ];
 
     /**
