@@ -196,6 +196,7 @@ class Form
                         'name' => match ($data['type']) {
                             'SERVICE'          => 'Service',
                             'TURNING'          => 'Bubut',
+                            'BENZENE'          => 'Bensol',
                             'PRODUCT', 'OTHER' => $data['name'],
                         },
                     ]);
@@ -211,9 +212,10 @@ class Form
                                 ->label('Type')
                                 ->options([
                                     'SERVICE' => 'SERVICE',
-                                    'TURNING' => 'TURNING',
+                                    'TURNING' => 'BUBUT',
                                     'PRODUCT' => 'SPAREPART',
-                                    'OTHER'   => 'OTHER',
+                                    'BENZENE' => 'BENSOL',
+                                    'OTHER'   => 'LAINNYA',
                                 ])
                                 ->default('SERVICE');
 
