@@ -117,7 +117,11 @@ class Sales extends Page implements HasTable
                 }),
 
                 fi_ta_column('name', function (TextColumn $column) {
-                    //
+                    $column->label('NAMA');
+                }),
+
+                fi_ta_column('cogs', function (TextColumn $column) {
+                    $column->rupiah()->label('MODAL');
                 }),
 
                 fi_ta_column('quantity', static function (TextColumn $column) {
@@ -180,6 +184,26 @@ class Sales extends Page implements HasTable
                             })
                             ->using(function (Builder $query) {
                                 return $query->sum(DB::raw("CASE WHEN type = 'BENZENE' THEN amount ELSE 0 END"));
+                            }),
+                    ]);
+                }),
+
+                fi_ta_column('total', static function (TextColumn $column) {
+                    $column->rupiah()->label('TOTAL')->sortable(false);
+                }),
+
+                fi_ta_column('profit', static function (TextColumn $column) {
+                    $column->rupiah()->label('Keuntungan')->sortable(false);
+
+                    $column->summarize([
+                        Summarizer::make()
+                            ->formatStateUsing(function ($state) {
+                                return str($state)->rupiah();
+                            })
+                            ->using(function (Builder $query) {
+                                return $query->sum(DB::raw(
+                                    'COALESCE(quantity, 0) * (COALESCE(amount, 0) - COALESCE(cogs, 0))',
+                                ));
                             }),
                     ]);
                 }),

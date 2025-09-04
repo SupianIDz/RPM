@@ -62,6 +62,16 @@ class OrderItem extends Model
     /**
      * @return Attribute
      */
+    protected function profit():Attribute
+    {
+        return  Attribute::get(function () {
+            return $this->total - ($this->cogs * $this->quantity);
+        });
+    }
+
+    /**
+     * @return Attribute
+     */
     protected function serviceTotal() : Attribute
     {
         return Attribute::get(function () {
