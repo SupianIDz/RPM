@@ -77,6 +77,14 @@ class Sales extends Page implements HasTable
                 Carbon::createFromFormat('d/m/Y', trim($end))?->format('Y-m-d'),
             )
             ->to(SalesStatsOverview::class);
+
+
+        $this
+            ->dispatch('update',
+                Carbon::createFromFormat('d/m/Y', trim($str))?->format('Y-m-d'),
+                Carbon::createFromFormat('d/m/Y', trim($end))?->format('Y-m-d'),
+            )
+            ->to(PaymentStatsOverview::class);
     }
 
     /**
@@ -85,8 +93,8 @@ class Sales extends Page implements HasTable
     protected function getHeaderWidgets() : array
     {
         return [
-            SalesStatsOverview::class,
             PaymentStatsOverview::class,
+            SalesStatsOverview::class,
         ];
     }
 

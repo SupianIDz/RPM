@@ -62,11 +62,28 @@ class PaymentStatsOverview extends StatsOverviewWidget
         $stats = [
             fi_wi_stat(function (Stat $stat) {
                 $stat
-                    ->label('TOTAL SALES')
+                    ->label('TOTAL PENJUALAN')
                     ->icon('lucide-dollar-sign')
                     ->description($this->description())
                     ->value(function () {
                         return number(Order::whereBetween('date', $this->date)->sum(DB::raw('amount - discount')))->currency();
+                    });
+            }),
+
+            fi_wi_stat(function (Stat $stat) {
+                $stat
+                    ->label('TOTAL KEUNTUNGAN')
+                    ->icon('lucide-dollar-sign')
+                    ->description($this->description())
+                    ->value(function () {
+                        $profit = DB::table('order_items')
+                            ->join('orders', 'orders.invoice', '=', 'order_items.invoice')
+                            ->whereBetween('orders.date', $this->date)
+                            ->sum(DB::raw(
+                                'COALESCE(order_items.quantity,0) * (COALESCE(order_items.amount,0) - COALESCE(order_items.cogs,0))',
+                            ));
+
+                        return number($profit)->currency();
                     });
             }),
         ];
@@ -84,7 +101,7 @@ class PaymentStatsOverview extends StatsOverviewWidget
                 }
 
                 $stat
-                    ->label('PAYMENT ' . $label)
+                    ->label('VIA ' . $label)
                     ->icon($payment->getIcon())
                     ->description($this->description())
                     ->value(function () use ($payment) {
@@ -104,10 +121,10 @@ class PaymentStatsOverview extends StatsOverviewWidget
         [$str, $end] = $this->date;
 
         if ($str->format('Y-m-d') === $end->format('Y-m-d')) {
-            return 'Overview for ' . $str->format('d M Y');
+            return 'Ringkasan untuk ' . $str->format('d M Y');
         }
 
-        return 'Overview from ' . $str->format('d M Y') . ' to ' . $end->format('d M Y');
+        return 'Ringkasan untuk ' . $str->format('d M Y') . ' s/d ' . $end->format('d M Y');
     }
 
     /**

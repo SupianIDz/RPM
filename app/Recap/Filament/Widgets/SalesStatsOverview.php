@@ -88,10 +88,10 @@ class SalesStatsOverview extends BaseWidget
         [$str, $end] = $this->date;
 
         if ($str->format('Y-m-d') === $end->format('Y-m-d')) {
-            return 'Overview for ' . $str->format('d M Y');
+            return 'Ringkasan untuk ' . $str->format('d M Y');
         }
 
-        return 'Overview from ' . $str->format('d M Y') . ' to ' . $end->format('d M Y');
+        return 'Ringkasan untuk ' . $str->format('d M Y') . ' s/d ' . $end->format('d M Y');
     }
 
     /**
