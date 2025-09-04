@@ -26,46 +26,57 @@ class Form
     {
         return [
             Wizard::make([
-                Wizard\Step::make('Products & Sparepart')->schema($this->productSchema()),
+                Wizard\Step::make('Sparepart')->schema($this->productSchema()),
 
-                Wizard\Step::make('Service Fee & Others')->schema($this->serviceSchema()),
+                Wizard\Step::make('Biaya Service dan Lainnya')->schema($this->serviceSchema()),
 
-                Wizard\Step::make('Order Information')->schema([
+                Wizard\Step::make('Informasi Transaksi')->schema([
                     Grid::make(2)->schema([
 
                         fi_form_field('invoice', static function (TextInput $input) {
-                            $input->label('Invoice Number')->default(str_invoice(4));
+                            $input->label('Nomor Transaksi')->default(str_invoice(4));
                             $input->required();
 
-                            $input->helperText('Invoice is generated automatically, but you can enter it manually if needed. Please be careful to avoid duplicates.');
+                            $input
+                                ->helperText('Nomor transaksi akan dibuat otomatis, tetapi Anda dapat menambahkan manual jika diperlukan. Harap hati-hati untuk menghindari duplikasi.');
                         }),
 
                         fi_form_field('date', function (DateTimePicker $input) {
-                            $input->native(false)->default(now())->required();
+                            $input
+                                ->label('Tanggal Transaksi')
+                                ->native(false)->default(now())->required();
 
                             $input->helperText('You can enter a past date for the transaction if necessary.');
                         }),
 
                         fi_form_field('discount', function (TextInput $input) {
-                            $input->numeric()->default(0);
+                            $input
+                                ->label('Diskon')
+                                ->prefix('Rp')
+                                ->helperText('Masukkan diskon jika ada.')
+                                ->numeric()->default(0);
                         }),
 
                         fi_form_field('payment', static function (Select $input) {
-                            $input->options(Payment::class)->default(Payment::CASH);
+                            $input
+                                ->label('Metode Pembayaran')
+                                ->options(Payment::class)->default(Payment::CASH);
                             $input->required();
                         }),
 
                         Group::make([
                             Grid::make(2)->schema([
                                 fi_form_field('name', static function (TextInput $input) {
-                                    $input->placeholder('Full Name');
+                                    $input
+                                        ->label('Nama Konsumen')
+                                        ->placeholder('Full Name');
 
-                                    $input->helperText('Leave blank if not applicable.');
+                                    $input->helperText('Abaikan bila tidak ada.');
                                 }),
 
                                 fi_form_field('phone', static function (TextInput $input) {
-                                    $input->placeholder('No. HP/WA')->reactive();
-                                    $input->helperText('Leave blank if not applicable.');
+                                    $input->placeholder('No. HP/WA Konsumen')->reactive();
+                                    $input->helperText('Abaikan bila tidak ada.');
                                 }),
                             ]),
                         ])
@@ -74,11 +85,11 @@ class Form
 
                         fi_form_field('plate', function (TextInput $input) {
                             $input
-                                ->label('Plate Number')
+                                ->label('Nomor Polisi')
                                 ->placeholder('DA1234AG');
 
                             $input
-                                ->helperText('Leave blank if not applicable.')
+                                ->helperText('Abaikan bila tidak ada.')
                                 ->columnSpanFull();
                         }),
                     ]),
@@ -146,7 +157,7 @@ class Form
                         // PRODUCT
                         fi_form_field('product_id', static function (Select $input) {
                             $input
-                                ->label('Product')
+                                ->label('Produk / Sparepart')
                                 ->options(function (Get $get) {
                                     return Product::get()->flatMap(function (Product $product) use ($get) {
                                         $name = $product->name;
@@ -161,7 +172,9 @@ class Form
                                 })
                                 ->afterStateUpdated(function (Set $set, $state) {
                                     if ($state) {
-                                        $set('amount', Product::find($state)->price->amount);
+                                        $product = Product::find($state);
+                                        $set('cogs', $product->price->cogs);
+                                        $set('amount', $product->price->amount);
                                     }
                                 });
 
@@ -171,12 +184,22 @@ class Form
                                 ->columnSpan(3);
                         }),
 
+                        fi_form_field('cogs', static function (TextInput $input) {
+                            $input
+                                ->label('Modal')
+                                ->prefix('Rp')->readOnly();
+                        }),
+
                         fi_form_field('amount', static function (TextInput $input) {
-                            $input->prefix('Rp')->readOnly()->columnSpan(2);
+                            $input
+                                ->label('Harga')
+                                ->prefix('Rp')->readOnly();
                         }),
 
                         fi_form_field('quantity', static function (TextInput $input) {
-                            $input->required()->numeric()->default(1);
+                            $input
+                                ->label('Jumlah')
+                                ->required()->numeric()->default(1);
                         }),
                     ]),
                 ]),
@@ -204,18 +227,18 @@ class Form
                 ->hiddenLabel()
                 ->collapsible()
                 ->defaultItems(0)
-                ->addActionLabel('Add Service')
+                ->addActionLabel('Tambah Item')
                 ->schema([
                     Grid::make(6)->schema([
                         fi_form_field('type', static function (Select $input) {
                             $input
-                                ->label('Type')
+                                ->label('Jenis')
                                 ->options([
-                                    'SERVICE' => 'SERVICE',
                                     'TURNING' => 'BUBUT',
-                                    'PRODUCT' => 'SPAREPART',
                                     'BENZENE' => 'BENSOL',
-                                    'OTHER'   => 'LAINNYA',
+                                    'SERVICE' => 'SERVICE',
+                                    'PRODUCT' => 'SPAREPART',
+                                    // 'OTHER'   => 'LAINNYA',
                                 ])
                                 ->default('SERVICE');
 
@@ -223,11 +246,13 @@ class Form
                                 ->reactive()
                                 ->required();
 
-                            $input->columnSpan(1);
+                            $input;
                         }),
 
                         fi_form_field('name', static function (TextInput $input) {
-                            $input->required();
+                            $input
+                                ->label('Nama')
+                                ->required();
 
                             $input
                                 ->hidden(function (Get $get) {
@@ -236,12 +261,40 @@ class Form
                                 ->columnSpan(2);
                         }),
 
+                        fi_form_field('cogs', static function (TextInput $input) {
+                            $input->label('Modal')->prefix('Rp');
+
+                            $input
+                                ->required()->numeric()
+                                ->hidden(function (Get $get) {
+                                    $type = $get('type');
+                                    if ($type === 'BENZENE' || $type === 'PRODUCT' || $type === 'OTHER') {
+                                        return false;
+                                    }
+
+                                    return true;
+                                });
+
+                            $input->columnSpan(function (Get $get) {
+                                if ($get('type') === 'BENZENE') {
+                                    return 2;
+                                }
+                            });
+
+                            $input
+                                ->reactive();
+                        }),
+
                         fi_form_field('amount', static function (TextInput $input) {
-                            $input->label('Price')->prefix('Rp');
+                            $input->label('Harga')->prefix('Rp');
 
                             $input->required()->numeric();
                             $input->columnSpan(function (Get $get) {
-                                return $get('type') === 'OTHER' || $get('type') === 'PRODUCT' ? 2 : 4;
+                                if ($get('type') === 'BENZENE') {
+                                    return 2;
+                                }
+
+                                return $get('type') === 'OTHER' || $get('type') === 'PRODUCT' ? 1 : 4;
                             });
 
                             $input
@@ -249,12 +302,12 @@ class Form
                         }),
 
                         fi_form_field('quantity', static function (TextInput $input) {
-                            $input->numeric()->default(1);
+                            $input
+                                ->label('Jumlah')
+                                ->numeric()->default(1);
                             $input
                                 ->reactive()
                                 ->required();
-
-                            $input->columnSpan(1);
                         }),
                     ]),
                 ]),
