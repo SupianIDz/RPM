@@ -46,11 +46,11 @@ class ListRecapMonthlies extends ListRecords
             ])
             ->columns([
                 fi_ta_column('period', static function (TextColumn $table) {
-                    $table->date('M');
+                    $table->date('M Y')->label('Bulan');
                 }),
 
                 fi_ta_column('total_order', static function (TextColumn $table) {
-                    $table->label('Transaction');
+                    $table->label('Jml. Transaksi');
 
                     $table
                         ->summarize([
@@ -104,7 +104,7 @@ class ListRecapMonthlies extends ListRecords
                 }),
 
                 fi_ta_column('total_value', function (TextColumn $table) {
-                    $table->label('Total Revenue')->rupiah();
+                    $table->label('Total Pendapatan')->rupiah();
 
                     $table
                         ->summarize([

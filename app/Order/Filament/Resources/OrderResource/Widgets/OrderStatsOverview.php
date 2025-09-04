@@ -16,8 +16,8 @@ class OrderStatsOverview extends BaseWidget
         return [
             fi_wi_stat(static function (Stat $stat) {
                 $stat
-                    ->label('Orders This Month')
-                    ->description('Number of orders placed this month')
+                    ->label('Transaksi Bulan Ini')
+                    ->description('Dihitung dari semua transaksi bulan ini')
                     ->icon('heroicon-o-shopping-bag')
                     ->value(function () {
                         return Order::monthly(now())->count();
@@ -26,8 +26,8 @@ class OrderStatsOverview extends BaseWidget
 
             fi_wi_stat(static function (Stat $stat) {
                 $stat
-                    ->label('Revenue This Month')
-                    ->description('Total order amount this month')
+                    ->label('Pendapatan Kotor Bulan Ini')
+                    ->description('Dihitung dari semua transaksi bulan ini')
                     ->icon('heroicon-o-banknotes')
                     ->value(function () {
                         return number(Order::monthly(now())->sum('amount'))->abbr();
@@ -36,8 +36,8 @@ class OrderStatsOverview extends BaseWidget
 
             fi_wi_stat(static function (Stat $stat) {
                 $stat
-                    ->label('Total Orders')
-                    ->description('Number of orders since the beginning')
+                    ->label('Total Transaksi')
+                    ->description('Dihitung dari semua transaksi')
                     ->icon('heroicon-o-shopping-bag')
                     ->value(function () {
                         return Order::count();
@@ -46,8 +46,8 @@ class OrderStatsOverview extends BaseWidget
 
             fi_wi_stat(static function (Stat $stat) {
                 $stat
-                    ->label('Total Revenue')
-                    ->description('Total order amount since the beginning')
+                    ->label('Total Pendapatan Kotor')
+                    ->description('Dihitung dari semua transaksi')
                     ->icon('heroicon-o-banknotes')
                     ->value(function () {
                         return number(Order::sum('amount'))->abbr();

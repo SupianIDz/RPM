@@ -27,7 +27,7 @@ class Form
         return [
             Grid::make(2)->schema([
                 fi_form_field('name', static function (TextInput $input) {
-                    $input->required()->placeholder('Product Name')->columnSpanFull();
+                    $input->required()->label('Nama')->placeholder('V Belt Aerox 155')->columnSpanFull();
                 }),
 
                 Group::make()
@@ -35,23 +35,20 @@ class Form
                     ->relationship('price')->schema([
                         Grid::make(2)->schema([
                             fi_form_field('cogs', static function (TextInput $input) {
+                                $input->label('Harga Beli / Modal');
                                 $input->required()->numeric()->default(0)->minValue(0);
                                 $input->prefix('Rp');
-
-                                $input->helperText('Cost of Goods Sold / Modal');
                             }),
 
                             fi_form_field('amount', static function (TextInput $input) {
-                                $input->label('Selling Price')->required()->numeric()->default(0)->minValue(0);
+                                $input->label('Harga Jual')->required()->numeric()->default(0)->minValue(0);
                                 $input->prefix('Rp');
-
-                                $input->helperText('Selling Price / Harga Jual');
                             }),
                         ]),
                     ]),
 
                 fi_form_field('description', static function (Textarea $input) {
-                    $input->columnSpanFull()->placeholder('Product Description');
+                    $input->columnSpanFull()->placeholder('Deskripsi');
                 }),
 
                 fi_form_field('stock', static function (TextInput $input) {
@@ -61,25 +58,25 @@ class Form
                         return ! user()->permission->admin();
                     });
 
-                    $input->helperText('Only owner or super admin can modify stock.');
+                    $input->helperText('Hanya role admin yang dapat mengubah stok.');
                 }),
 
                 fi_form_field('unit_id', function (UnitSelect $input) {
-                    //
+                    $input->label('Satuan')->required();
                 }),
 
                 fi_form_field('brand_id', function (BrandSelect $input) {
-                    //
+                    $input->label('Merek');
                 }),
 
                 fi_form_field('category_id', function (CategorySelect $input) {
-                    //
+                    $input->label('Kategori');
                 }),
 
                 Group::make()->relationship('image', condition: fn(?array $state) : bool => filled($state['name']))->columnSpanFull()->schema([
                     fi_form_field('name', static function (FileUpload $input) {
                         $input
-                            ->label('Image')
+                            ->label('Gambar')
                             ->image()
                             ->imageEditor();
 

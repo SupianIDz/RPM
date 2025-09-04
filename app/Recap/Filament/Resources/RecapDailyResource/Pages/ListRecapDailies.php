@@ -58,11 +58,11 @@ class ListRecapDailies extends ListRecords
             ])
             ->columns([
                 fi_ta_column('period', static function (TextColumn $table) {
-                    $table->date('d M Y');
+                    $table->date('d M Y')->label('Tanggal');
                 }),
 
                 fi_ta_column('total_order', static function (TextColumn $table) {
-                    $table->label('Transaction');
+                    $table->label('Jml. Transaksi');
 
                     $table
                         ->summarize([
@@ -116,7 +116,7 @@ class ListRecapDailies extends ListRecords
                 }),
 
                 fi_ta_column('total_value', function (TextColumn $table) {
-                    $table->label('Total Revenue')->rupiah();
+                    $table->label('Total Pendapatan')->rupiah();
 
                     $table
                         ->summarize([

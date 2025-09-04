@@ -30,6 +30,11 @@ class OrderResource extends Resource
     protected static ?int $navigationSort = 2;
 
     /**
+     * @var string|null
+     */
+    protected static ?string $navigationLabel = 'TRANSAKSI';
+
+    /**
      * @return array|PageRegistration[]
      */
     public static function getPages() : array

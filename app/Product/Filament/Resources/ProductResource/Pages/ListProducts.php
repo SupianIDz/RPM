@@ -44,7 +44,7 @@ class ListProducts extends ListRecords
     {
         return [
             fi_action(function (CreateAction $action) {
-                //
+                $action->label('Tambah Sparepart');
             }),
         ];
     }
@@ -62,35 +62,47 @@ class ListProducts extends ListRecords
                 }),
 
                 fi_ta_column('name', static function (TextColumn $column) {
-                    $column->description(function (Product $record) {
-                        return new HtmlString('<span class="text-xs text-warning-600">' . $record->code . '</span>');
-                    });
+                    $column
+                        ->label('Nama')
+                        ->description(function (Product $record) {
+                            return new HtmlString('<span class="text-xs text-warning-600">' . $record->code . '</span>');
+                        });
                 }),
 
                 fi_ta_column('brand.name', static function (TextColumn $column) {
-                    //
+                    $column->label('Merek');
                 }),
 
                 fi_ta_column('category.name', static function (TextColumn $column) {
-                    //
-                }),
-
-                fi_ta_column('price.amount', static function (TextColumn $column) {
-                    $column->rupiah();
+                    $column->label('Kategori');
                 }),
 
                 fi_ta_column('stock', static function (TextColumn $column) {
-                    $column->formatStateUsing(function ($state) {
-                        return number($state)->format();
-                    });
+                    $column
+                        ->label('Stok')
+                        ->formatStateUsing(function ($state) {
+                            return number($state)->format();
+                        });
+                }),
+
+                fi_ta_column('price.cogs', static function (TextColumn $column) {
+                    $column->rupiah()->label('Modal');
+                }),
+
+                fi_ta_column('price.amount', static function (TextColumn $column) {
+                    $column->rupiah()->label('Harga');
                 }),
 
                 fi_ta_column('creator.name', static function (TextColumn $column) {
-                    $column->default('System');
+                    $column->default('System')->label('Dibuat Oleh')->toggledHiddenByDefault(true);;
                 }),
 
                 fi_ta_column('created_at', static function (TextColumn $column) {
-                    $column->date();
+                    $column->date()->label('Dibuat Pada')->toggledHiddenByDefault(true);;
+                }),
+
+                fi_ta_column('updated_at', static function (TextColumn $column) {
+                    $column->date()->label('Diubah Pada')->toggledHiddenByDefault(true);
                 }),
 
             ]);

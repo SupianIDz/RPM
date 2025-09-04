@@ -41,7 +41,7 @@ class ListOrders extends ListRecords
     {
         return [
             fi_action(function (CreateAction $action) {
-                //
+                $action->label('Tambah Transaksi');
             }),
 
             fi_action(static function (ExportAction $action) {
@@ -63,7 +63,7 @@ class ListOrders extends ListRecords
                 }),
 
                 fi_ta_column('customer.name', function (TextColumn $column) {
-                    //
+                    $column->label('Nama Konsumen');
                 }),
 
                 // fi_ta_column('vehicle.brand', static function (TextColumn $column) {
@@ -73,7 +73,7 @@ class ListOrders extends ListRecords
                 // }),
 
                 fi_ta_column('vehicle.plate', static function (TextColumn $column) {
-                    $column->label('Plate Number')->badge();
+                    $column->label('Nomor Polisi')->badge();
                 }),
 
                 fi_ta_column('total', static function (TextColumn $column) {
@@ -81,22 +81,22 @@ class ListOrders extends ListRecords
                 }),
 
                 fi_ta_column('discount', static function (TextColumn $column) {
-                    $column->rupiah()->searchable(false);
+                    $column->rupiah()->searchable(false)->label('Diskon');;
                 }),
 
                 fi_ta_column('payment', static function (TextColumn $column) {
-                    $column->badge();
+                    $column->badge()->label('Pembayaran');
                 }),
                 fi_ta_column('date', function (TextColumn $column) {
-                    $column->label('Trx Date')->date();
+                    $column->label('Tgl. Transaksi')->date();
                 }),
 
                 fi_ta_column('creator.name', static function (TextColumn $column) {
-                    $column->toggledHiddenByDefault(true);
+                    $column->toggledHiddenByDefault(true)->label('Kasir');
                 }),
 
                 fi_ta_column('created_at', function (TextColumn $column) {
-                    $column->toggledHiddenByDefault(true);
+                    $column->toggledHiddenByDefault(true)->label('Dibuat Pada');
                 }),
             ]);
 

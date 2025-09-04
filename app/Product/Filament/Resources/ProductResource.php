@@ -14,6 +14,8 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'lucide-package';
 
+    protected static ?string $navigationLabel = 'Sparepart';
+
     protected static ?int $navigationSort = 3;
 
     public static function getPages() : array

@@ -22,7 +22,7 @@ class ProductOverview extends BaseWidget
     {
         return [
             fi_wi_stat(function (Stat $stat) {
-                $stat->label('Total Products')->value(function () {
+                $stat->label('Total Sparepart')->value(function () {
                     return $this->query()->count();
                 });
 
@@ -30,7 +30,7 @@ class ProductOverview extends BaseWidget
             }),
 
             fi_wi_stat(function (Stat $stat) {
-                $stat->label('Active Products')->value(function () {
+                $stat->label('Sparepart Tersedia')->value(function () {
                     return $this->query()->active()->count();
                 });
 
@@ -38,7 +38,7 @@ class ProductOverview extends BaseWidget
             }),
 
             fi_wi_stat(function (Stat $stat) {
-                $stat->label('Inactive Products')->value(function () {
+                $stat->label('Sparepart Tidak Tersedia')->value(function () {
                     return $this->query()->active(false)->count();
                 });
 

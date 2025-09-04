@@ -19,7 +19,7 @@ class Setting extends Cluster
     /**
      * @var string|null
      */
-    protected static ?string $navigationLabel = 'Settings';
+    protected static ?string $navigationLabel = 'Pengaturan';
 
     /**
      * @var int|null
