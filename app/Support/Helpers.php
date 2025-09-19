@@ -127,7 +127,7 @@ if (! function_exists('fi_form_field')) {
      * @param  Closure $callback
      * @return Field
      */
-    function fi_form_field(string $name, Closure $callback) : Field
+    function fi_form_field(string $name, Closure $callback) : mixed
     {
         return FormComponent::input($name, $callback);
     }

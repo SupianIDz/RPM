@@ -14,7 +14,7 @@ class FormComponent extends Component
      * @param  Closure $closure
      * @return Field
      */
-    public static function input(string $name, Closure $closure) : Field
+    public static function input(string $name, Closure $closure) : mixed
     {
         return
             tap(self::make($name, $closure), static function ($input) use ($closure) {
@@ -24,7 +24,7 @@ class FormComponent extends Component
 
                 $closure($input);
 
-                if ($input->isRequired()) {
+                if ($input instanceof Field && $input->isRequired()) {
                     $input->hint(new HtmlString('<span class="text-amber-600 text-xs italic">required</span>'));
                 }
             });
