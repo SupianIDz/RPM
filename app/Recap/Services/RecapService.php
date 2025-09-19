@@ -28,8 +28,8 @@ class RecapService
         $recap = $this->recapDaily();
 
         foreach ($this->order->payments as $payment) {
-            $recap->increment($this->getOrderColumn($payment), $count);
-            $recap->increment($this->getValueColumn($payment), $total);
+            $recap->increment($this->getOrderColumn($payment->type), $count);
+            $recap->increment($this->getValueColumn($payment->type), $total);
         }
 
         return $this;

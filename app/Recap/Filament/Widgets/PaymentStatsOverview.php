@@ -137,6 +137,7 @@ class PaymentStatsOverview extends StatsOverviewWidget
             $payment = [Payment::TRANSFER, Payment::MARKETPLACE];
         }
 
-        return Order::whereBetween('date', $this->date)->whereIn('payment', Arr::wrap($payment))->sum('amount');
+        // return Order::whereBetween('date', $this->date)->whereIn('payment', Arr::wrap($payment))->sum('amount');
+        return Order::whereBetween('date', $this->date)->whereHas('payments', fn ($query) => $query->whereIn('type', Arr::wrap($payment)))->sum('amount');
     }
 }

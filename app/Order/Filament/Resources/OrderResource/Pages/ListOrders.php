@@ -84,7 +84,7 @@ class ListOrders extends ListRecords
                     $column->rupiah()->searchable(false)->label('Diskon');;
                 }),
 
-                fi_ta_column('payment', static function (TextColumn $column) {
+                fi_ta_column('payments.type', static function (TextColumn $column) {
                     $column->badge()->label('Pembayaran');
                 }),
                 fi_ta_column('date', function (TextColumn $column) {
