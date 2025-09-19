@@ -9,7 +9,9 @@ use App\Vehicle\Enums\Brand;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
@@ -25,10 +27,45 @@ class Form
     public function configure(mixed $action) : array
     {
         return [
-            Wizard::make([
-                // Wizard\Step::make('Sparepart')->schema($this->productSchema()),
+            Section::make('Preview')
+                ->heading(null)
+                ->schema([
 
-                // Wizard\Step::make('Biaya Service dan Lainnya')->schema($this->serviceSchema()),
+                    Grid::make(2)->schema([
+
+                    fi_form_field('invoice', static function (Placeholder $placeholder) {
+                        $placeholder
+                            ->label('NOMOR TRANSAKSI')
+                            ->content(function (Get $get) {
+                                return $get('invoice');
+                            });
+                    }),
+                    fi_form_field('total', function (Placeholder $placeholder) {
+                        $placeholder
+                            ->label('TOTAL')
+                            ->content(function (Get $get) {
+                                $totalProducts = collect($get('products'))
+                                    ->reject(fn($item) => blank($item['product_id']))
+                                    ->sum(function ($item) {
+                                        return $item['amount'] * $item['quantity'];
+                                    });
+
+                                $totalServices = collect($get('services'))
+                                    ->reject(fn($item) => blank($item['amount']))
+                                    ->sum(function ($item) {
+                                        return $item['amount'] * $item['quantity'];
+                                    });
+
+                                return str($totalProducts + $totalServices)->rupiah();
+                            });
+                    }),
+                    ]),
+                ]),
+
+            Wizard::make([
+                Wizard\Step::make('Sparepart')->schema($this->productSchema()),
+
+                Wizard\Step::make('Biaya Service dan Lainnya')->schema($this->serviceSchema()),
 
                 Wizard\Step::make('Informasi Transaksi')->schema([
                     Grid::make(2)->schema([

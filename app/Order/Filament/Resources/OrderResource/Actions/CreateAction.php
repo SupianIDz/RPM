@@ -8,6 +8,7 @@ use App\Order\Models\Order;
 use App\Order\Services\OrderService;
 use App\Support\Filament\Actions\CreateAction as Action;
 use App\Vehicle\Models\Vehicle;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Support\Enums\MaxWidth;
 
 class CreateAction extends Action
@@ -38,7 +39,7 @@ class CreateAction extends Action
                     'status'     => 'PAID',
                     'vehicle_id' => $vehicleID,
                     'created_by' => auth()->id(),
-                    'payment' => Payment::CASH, // this for backwards compatibility, actual payment is set in the order_payments table
+                    'payment'    => Payment::CASH, // this for backwards compatibility, actual payment is set in the order_payments table
                 ]);
             })
             ->after(function (Order $record, array $data) {
