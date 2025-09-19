@@ -3,6 +3,7 @@
 namespace App\Order\Filament\Resources\OrderResource\Actions;
 
 use App\Customer;
+use App\Order\Enums\Payment;
 use App\Order\Models\Order;
 use App\Order\Services\OrderService;
 use App\Support\Filament\Actions\CreateAction as Action;
@@ -37,6 +38,7 @@ class CreateAction extends Action
                     'status'     => 'PAID',
                     'vehicle_id' => $vehicleID,
                     'created_by' => auth()->id(),
+                    'payment' => Payment::CASH, // this for backwards compatibility, actual payment is set in the order_payments table
                 ]);
             })
             ->after(function (Order $record, array $data) {

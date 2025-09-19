@@ -26,9 +26,9 @@ class Form
     {
         return [
             Wizard::make([
-                Wizard\Step::make('Sparepart')->schema($this->productSchema()),
+                // Wizard\Step::make('Sparepart')->schema($this->productSchema()),
 
-                Wizard\Step::make('Biaya Service dan Lainnya')->schema($this->serviceSchema()),
+                // Wizard\Step::make('Biaya Service dan Lainnya')->schema($this->serviceSchema()),
 
                 Wizard\Step::make('Informasi Transaksi')->schema([
                     Grid::make(2)->schema([
@@ -51,18 +51,48 @@ class Form
 
                         fi_form_field('discount', function (TextInput $input) {
                             $input
+                                ->columnSpanFull()
                                 ->label('Diskon')
                                 ->prefix('Rp')
                                 ->helperText('Masukkan diskon jika ada.')
                                 ->numeric()->default(0);
                         }),
 
-                        fi_form_field('payment', static function (Select $input) {
-                            $input
-                                ->label('Metode Pembayaran')
-                                ->options(Payment::class)->default(Payment::CASH);
-                            $input->required();
-                        }),
+                        Repeater::make('payments')
+                            ->columnSpan(2)
+                            ->relationship('payments')
+                            ->label('Pembayaran')
+                            ->defaultItems(1)
+                            ->addActionLabel('Tambah Pembayaran')
+                            ->maxItems(2)
+                            ->grid(2)
+                            ->schema([
+                                Grid::make(2)->schema([
+                                    fi_form_field('type', static function (Select $input) {
+                                        $input
+                                            ->label('Metode Pembayaran')
+                                            ->options(Payment::class)->default(Payment::CASH);
+                                        $input->required();
+                                    }),
+
+                                    fi_form_field('amount', static function (TextInput $input) {
+                                        $input
+                                            ->label('Nominal')
+                                            ->numeric()
+                                            ->minValue(0)
+                                            ->default(0)
+                                            ->prefix('Rp');
+                                        $input->required();
+                                    }),
+                                ]),
+                            ]),
+
+                        // fi_form_field('payment', static function (Select $input) {
+                        //     $input
+                        //         ->label('Metode Pembayaran')
+                        //         ->options(Payment::class)->default(Payment::CASH);
+                        //     $input->required();
+                        // }),
 
                         Group::make([
                             Grid::make(2)->schema([

@@ -137,4 +137,12 @@ class Order extends Model
     {
         return $this->items()->where('type', Type::PRODUCT);
     }
+
+    /**
+     * @return HasMany|OrderPayment
+     */
+    public function payments() : HasMany|OrderPayment
+    {
+        return $this->hasMany(OrderPayment::class, 'invoice', 'invoice');
+    }
 }
