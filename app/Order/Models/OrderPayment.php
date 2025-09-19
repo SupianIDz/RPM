@@ -2,6 +2,7 @@
 
 namespace App\Order\Models;
 
+use App\Order\Enums\Payment;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +21,7 @@ class OrderPayment extends Model
     {
         return [
             'amount' => 'float',
+            'type'   => Payment::class,
         ];
     }
 }

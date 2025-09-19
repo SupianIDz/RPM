@@ -27,8 +27,10 @@ class RecapService
     {
         $recap = $this->recapDaily();
 
-        $recap->increment($this->getOrderColumn(), $count);
-        $recap->increment($this->getValueColumn(), $total);
+        foreach ($this->order->payments as $payment) {
+            $recap->increment($this->getOrderColumn($payment), $count);
+            $recap->increment($this->getValueColumn($payment), $total);
+        }
 
         return $this;
     }
@@ -42,8 +44,10 @@ class RecapService
     {
         $recap = $this->recapDaily();
 
-        $recap->decrement($this->getOrderColumn(), $count);
-        $recap->decrement($this->getValueColumn(), $total);
+        foreach ($this->order->payments as $payment) {
+            $recap->decrement($this->getOrderColumn($payment->type), $count);
+            $recap->decrement($this->getValueColumn($payment->type), $total);
+        }
 
         return $this;
     }
@@ -96,11 +100,12 @@ class RecapService
     }
 
     /**
+     * @param  Payment $payment
      * @return string
      */
-    public function getOrderColumn() : string
+    public function getOrderColumn(Payment $payment) : string
     {
-        return match ($this->order->payment) {
+        return match ($payment) {
             Payment::CASH        => 'total_order_c',
             Payment::TRANSFER    => 'total_order_t',
             Payment::MARKETPLACE => 'total_order_m',
@@ -108,11 +113,12 @@ class RecapService
     }
 
     /**
+     * @param  Payment $payment
      * @return string
      */
-    public function getValueColumn() : string
+    public function getValueColumn(Payment $payment) : string
     {
-        return match ($this->order->payment) {
+        return match ($payment) {
             Payment::CASH        => 'total_value_c',
             Payment::TRANSFER    => 'total_value_t',
             Payment::MARKETPLACE => 'total_value_m',
