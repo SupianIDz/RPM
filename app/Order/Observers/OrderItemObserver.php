@@ -21,4 +21,26 @@ class OrderItemObserver
             $item->cogs = $item->product->price->cogs;
         }
     }
+
+    /**
+     * @param  OrderItem $item
+     * @return void
+     */
+    public function updating(OrderItem $item) : void
+    {
+        if ($item->product) {
+            $item->product->decrement('stock', $item->quantity);
+        }
+    }
+
+    /**
+     * @param  OrderItem $item
+     * @return void
+     */
+    public function deleted(OrderItem $item) : void
+    {
+        if ($item->product) {
+            $item->product->increment('stock', $item->quantity);
+        }
+    }
 }
