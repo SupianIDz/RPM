@@ -4,6 +4,7 @@ namespace App\Recap\Filament\Widgets;
 
 use App\Order\Enums\Payment;
 use App\Order\Models\Order;
+use App\Order\Models\OrderPayment;
 use Arr;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -137,7 +138,9 @@ class PaymentStatsOverview extends StatsOverviewWidget
             $payment = [Payment::TRANSFER, Payment::MARKETPLACE];
         }
 
-        // return Order::whereBetween('date', $this->date)->whereIn('payment', Arr::wrap($payment))->sum('amount');
-        return Order::whereBetween('date', $this->date)->whereHas('payments', fn ($query) => $query->whereIn('type', Arr::wrap($payment)))->sum('amount');
+        return OrderPayment::whereIn('type', Arr::wrap($payment))->whereHas('order', function ($query) {
+            $query->whereBetween('date', $this->date);
+        })
+            ->sum('amount');
     }
 }
