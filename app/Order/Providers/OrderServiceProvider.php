@@ -12,5 +12,11 @@ class OrderServiceProvider extends ServiceProvider
     public function register() : void
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes.php');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \App\Order\Console\Commands\FixOrderPaymentCommand::class,
+            ]);;
+        }
     }
 }
